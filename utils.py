@@ -19,7 +19,7 @@ queue_ids = {
 mode_images = {
     "unrated":"mode_standard",
     "competitive":"mode_standard",
-    "spikerush":"mode_spike_rush",
+    "spike rush":"mode_spike_rush",
     "deathmatch":"mode_deathmatch",
     "ggteam":"mode_escalation",
     "custom":"mode_standard",

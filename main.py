@@ -127,7 +127,6 @@ def update_rpc(state):
             RPC.update(
                 state=party_state,
                 details="THE RANGE",
-                start = time if not time == False else None,
                 large_image=f"splash_{game_map.lower()}",
                 large_text=game_map,
                 small_image=utils.mode_images[queue_id.lower()],
@@ -142,6 +141,7 @@ def update_rpc(state):
             details="Lobby" + (f" - {queue_id}" if queue_id else ""),
             large_image="game_icon",
             large_text="VALORANT",
+            small_image="away_icon",
         )
 
 
@@ -152,7 +152,7 @@ async def listen():
             try:
                 response = json.loads(await websocket.recv())
                 if response[2]['data']['presences'][0]['puuid'] == api.get_puuid(api.get_lockfile()):
-                        update_rpc(response[2]['data']['presences'][0]['private'])
+                    update_rpc(response[2]['data']['presences'][0]['private'])
             except:
                 pass
             if not is_process_running():
