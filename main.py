@@ -7,6 +7,10 @@ import websockets
 from pypresence import Presence
 import time
 import urllib3
+import os
+import subprocess
+import psutil
+from psutil import AccessDenied
 urllib3.disable_warnings()
 
 ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
@@ -15,11 +19,23 @@ ssl_context.verify_mode = ssl.CERT_NONE
 
 client_id = "811469787657928704"
 RPC = Presence(client_id)
-RPC.connect()
 
 last_state = ""
 last_queue_time = ""
 stop_time = True
+
+def is_process_running(required_processes=["VALORANT.exe", "RiotClientServices.exe"]):
+    processes = []
+    for proc in psutil.process_iter():
+        try:
+            processes.append(proc.name())
+        except (PermissionError, AccessDenied):
+            pass # can't display name or id here
+    for process in required_processes:
+        if process in processes:
+            return True
+    return False
+
 
 def update_rpc(state):
     data = json.loads(base64.b64decode(state))
@@ -128,9 +144,6 @@ def update_rpc(state):
             large_text="VALORANT",
         )
 
-    
-
-
 
 async def listen():
     async with websockets.connect(f'wss://riot:{lockfile["password"]}@localhost:{lockfile["port"]}', ssl=ssl_context) as websocket:
@@ -142,12 +155,41 @@ async def listen():
                         update_rpc(response[2]['data']['presences'][0]['private'])
             except:
                 pass
+            if not is_process_running():
+                print("valorant closed, exiting")
+                quit()
 
 
 if __name__=="__main__":
     
+    if not is_process_running():
+        print("valorant not opening, attempting to open...")
+        subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
+        while not is_process_running():
+            print("waiting for valorant...")
+            time.sleep(1)
+
+    RPC.connect()
+
+    RPC.update(
+        state="Loading",
+        large_image="game_icon",
+        large_text="VALORANT"
+    )
+
     lockfile = api.get_lockfile()
+    if lockfile is None:
+        while lockfile is None:
+            print("waiting for lockfile, retrying...")
+            lockfile = api.get_lockfile()
+            time.sleep(1)
+    print("lockfile loaded!")
     presence = api.get_presence(lockfile)
+    if presence is None:
+        while presence is None:
+            print("waiting for presence, retrying...")
+            presence = api.get_presence(lockfile)
+            time.sleep(1)
     update_rpc(presence)
     
     loop = asyncio.get_event_loop()
