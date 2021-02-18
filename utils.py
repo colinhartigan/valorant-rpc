@@ -6,7 +6,8 @@ maps = {
     "Bonsai":"Split",
     "Ascent":"Ascent",
     "Triad":"Haven",
-    "Range":"Range"
+    "Range":"Range",
+    "":"game_icon"
 }
 queue_ids = {
     "unrated":"Unrated",

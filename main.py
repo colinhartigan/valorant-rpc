@@ -73,7 +73,6 @@ def update_rpc(state):
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=party_size,
-                buttons=[{"label":"test","url":"https://example.com"}]
             )
 
         #custom setup
