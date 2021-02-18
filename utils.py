@@ -21,7 +21,7 @@ mode_images = {
     "competitive":"mode_standard",
     "spike rush":"mode_spike_rush",
     "deathmatch":"mode_deathmatch",
-    "ggteam":"mode_escalation",
+    "escalation":"mode_escalation",
     "custom":"mode_standard",
 }
 
