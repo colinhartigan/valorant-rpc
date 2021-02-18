@@ -2,7 +2,6 @@ import os
 import requests
 import base64
 
-
 lockfilePath = os.path.join(os.getenv('LOCALAPPDATA'), R'Riot Games\Riot Client\Config\lockfile')
 
 def get_lockfile():
