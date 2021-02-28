@@ -28,7 +28,7 @@ def is_process_running(required_processes=["VALORANT.exe", "RiotClientServices.e
         try:
             processes.append(proc.name())
         except (PermissionError, AccessDenied):
-            pass # can't display name or id here
+            pass 
     for process in required_processes:
         if process in processes:
             return True

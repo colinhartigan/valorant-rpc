@@ -1,1 +1,2 @@
-pyinstaller --onefile main.py 
+pyinstaller --onefile --icon=favicon.ico main.py 
+pause
