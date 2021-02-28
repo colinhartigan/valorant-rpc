@@ -21,10 +21,10 @@ urllib3.disable_warnings()
 global systray
 
 systray = None
-window_shown = True
+window_shown = False
 client_id = "811469787657928704"
 RPC = Presence(client_id)
-
+launch_timeout = 20
 last_presence = {}
 
 #weird workaround for getting image to work with pyinstaller
@@ -39,7 +39,7 @@ def resource_path(relative_path):
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
-user32.ShowWindow(hWnd, 0)
+user32.ShowWindow(hWnd, 2)
 
 # console visibility toggle functionality
 def tray_window_toggle(icon, item):
@@ -49,7 +49,7 @@ def tray_window_toggle(icon, item):
         if window_shown:
             user32.ShowWindow(hWnd, 1)
         else:
-            user32.ShowWindow(hWnd, 0)
+            user32.ShowWindow(hWnd, 2)
     except:
         pass
 
@@ -69,12 +69,13 @@ print("done initializing the systray object")
 
 def close_program():
     global systray, RPC
+    user32.ShowWindow(hWnd, 1)
     RPC.close()
     systray.stop()
-    raise SystemExit(0) # stop everything and close the process
+    sys.exit(0)
 
 
-def is_process_running(required_processes=["VALORANT.exe", "RiotClientServices.exe"]):
+def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
     processes = []
     for proc in psutil.process_iter():
         try:
@@ -198,24 +199,34 @@ def update_rpc(state):
 def listen():
     global last_presence
     while True:
-        if not is_process_running():
-            print("valorant closed, exiting")
-            close_program()
-        presence = api.get_presence(lockfile)
-        if presence == last_presence:
+        try:
+            if not is_process_running():
+                print("valorant closed, exiting")
+                close_program()
+            presence = api.get_presence(lockfile)
+            if presence == last_presence:
+                last_presence = presence
+                continue
+            update_rpc(presence)
             last_presence = presence
-            continue
-        update_rpc(presence)
-        last_presence = presence
-        time.sleep(1)
+            time.sleep(1)
+        except:
+            if not is_process_running():
+                print("valorant closed, exiting")
+                close_program()
 
 if __name__=="__main__":
     
+    launch_timer = 0
+
     if not is_process_running():
         print("valorant not opened, attempting to run...")
         subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
         while not is_process_running():
             print("waiting for valorant...")
+            launch_timer += 1
+            if launch_timer >= launch_timeout:
+                close_program()
             time.sleep(1)
 
     systray_thread = threading.Thread(target=run_systray)
