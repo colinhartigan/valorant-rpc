@@ -7,20 +7,72 @@ import websockets
 from pypresence import Presence
 import time
 import urllib3
+import threading
+import pystray
+from pystray import Icon as icon, Menu as menu, MenuItem as item
+from PIL import Image, ImageDraw
 import os
 import subprocess
 import psutil
+import ctypes
+import sys
 from psutil import AccessDenied
 urllib3.disable_warnings()
+global systray
 
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-ssl_context.check_hostname = False
-ssl_context.verify_mode = ssl.CERT_NONE
-
+systray = None
+window_shown = True
 client_id = "811469787657928704"
 RPC = Presence(client_id)
 
 last_presence = {}
+
+#weird workaround for getting image to work with pyinstaller
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+
+# thanks for this pete :)
+# hide the console window if debug is off
+kernel32 = ctypes.WinDLL('kernel32')
+user32 = ctypes.WinDLL('user32')
+hWnd = kernel32.GetConsoleWindow()
+user32.ShowWindow(hWnd, 0)
+
+# console visibility toggle functionality
+def tray_window_toggle(icon, item):
+    try:
+        global window_shown
+        window_shown = not item.checked
+        if window_shown:
+            user32.ShowWindow(hWnd, 1)
+        else:
+            user32.ShowWindow(hWnd, 0)
+    except:
+        pass
+
+print("initializing systray object")
+def run_systray():
+    global systray, window_shown
+    systray_image = Image.open(resource_path("favicon.ico"))
+    systray_menu = menu(
+        item('Show Debug Window', tray_window_toggle, checked=lambda item: window_shown),
+        item('Quit', close_program),
+    )
+    systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
+    systray.run()
+print("done initializing the systray object")
+#end sys tray stuff
+
+
+def close_program():
+    global systray, RPC
+    RPC.close()
+    systray.stop()
+    raise SystemExit(0) # stop everything and close the process
+
 
 def is_process_running(required_processes=["VALORANT.exe", "RiotClientServices.exe"]):
     processes = []
@@ -148,7 +200,7 @@ def listen():
     while True:
         if not is_process_running():
             print("valorant closed, exiting")
-            quit()
+            close_program()
         presence = api.get_presence(lockfile)
         if presence == last_presence:
             last_presence = presence
@@ -166,12 +218,15 @@ if __name__=="__main__":
             print("waiting for valorant...")
             time.sleep(1)
 
+    systray_thread = threading.Thread(target=run_systray)
+    systray_thread.start()
+
     RPC.connect()
 
     RPC.update(
         state="Loading",
         large_image="game_icon",
-        large_text="VALORANT"
+        large_text="valorant-rpc by cm_an#2434"
     )
 
     lockfile = api.get_lockfile()
