@@ -39,7 +39,6 @@ def resource_path(relative_path):
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
-user32.ShowWindow(hWnd, 2)
 
 # console visibility toggle functionality
 def tray_window_toggle(icon, item):
@@ -49,7 +48,7 @@ def tray_window_toggle(icon, item):
         if window_shown:
             user32.ShowWindow(hWnd, 1)
         else:
-            user32.ShowWindow(hWnd, 2)
+            user32.ShowWindow(hWnd, 0)
     except:
         pass
 
@@ -246,7 +245,8 @@ if __name__=="__main__":
             print("waiting for lockfile...")
             lockfile = api.get_lockfile()
             time.sleep(1)
-    print("lockfile loaded!")
+    print("lockfile loaded! hiding window...")
+    user32.ShowWindow(hWnd, 0)
     presence = api.get_presence(lockfile)
     if presence is None:
         while presence is None:
