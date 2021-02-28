@@ -229,9 +229,6 @@ if __name__=="__main__":
                 close_program()
             time.sleep(1)
 
-    systray_thread = threading.Thread(target=run_systray)
-    systray_thread.start()
-
     RPC.connect()
 
     RPC.update(
@@ -249,6 +246,8 @@ if __name__=="__main__":
             time.sleep(1)
     print("lockfile loaded! hiding window in 3 seconds...")
     time.sleep(3)
+    systray_thread = threading.Thread(target=run_systray)
+    systray_thread.start()
     user32.ShowWindow(hWnd, 0)
 
     #check for presence
