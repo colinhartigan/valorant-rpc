@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['D:\\colin\\programming\\valorant\\valorant-rich-presence'],
+             pathex=['D:\\colin\\programming\\VALORANT\\valorant-rich-presence'],
              binaries=[],
              datas=[],
              hiddenimports=[],

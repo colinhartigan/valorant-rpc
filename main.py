@@ -43,13 +43,13 @@ def update_rpc(state):
     party_state = "Solo" 
     if data["partySize"] > 1:
         party_state = "In a Party"
-    party_state = party_state+(" (open)" if not data["partyAccessibility"] == "CLOSED" else "")
+    party_state = "In an Open Party" if not data["partyAccessibility"] == "CLOSED" else party_state
 
     queue_id = utils.queue_ids[data["queueId"]]
     if data["partyState"] == "CUSTOM_GAME_SETUP":
         queue_id = "Custom"
 
-    party_size = [data["partySize"],data["maxPartySize"]] if not data["partySize"] == 1 else None
+    party_size = [data["partySize"],data["maxPartySize"]] if not data["partySize"] == 1 else [data["partySize"],data["maxPartySize"]] if (data["partySize"] == 1 and data["partyAccessibility"] != "CLOSED") else None
 
 
     #queue timing stuff
@@ -142,21 +142,6 @@ def update_rpc(state):
             small_image="away_icon",
         )
 
-'''
-async def listen():
-    async with websockets.connect(f'wss://riot:{lockfile["password"]}@localhost:{lockfile["port"]}', ssl=ssl_context) as websocket:
-        await websocket.send('[5, "OnJsonApiEvent_chat_v4_presences"]')   
-        while True:
-            try:
-                response = json.loads(await websocket.recv())
-                if response[2]['data']['presences'][0]['puuid'] == api.get_puuid(api.get_lockfile()):
-                    update_rpc(response[2]['data']['presences'][0]['private'])
-            except:
-                pass
-            if not is_process_running():
-                print("valorant closed, exiting")
-                quit()
-'''
 
 def listen():
     global last_presence
