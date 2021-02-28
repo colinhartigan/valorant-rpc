@@ -34,7 +34,7 @@ def resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 
 
-# thanks for this pete :)
+# thanks for some of this pete :)
 # hide the console window if debug is off
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
@@ -57,8 +57,8 @@ def run_systray():
     global systray, window_shown
     systray_image = Image.open(resource_path("favicon.ico"))
     systray_menu = menu(
-        item('Show Debug Window', tray_window_toggle, checked=lambda item: window_shown),
-        item('Quit', close_program),
+        item('show debug', tray_window_toggle, checked=lambda item: window_shown),
+        item('quit', close_program),
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     systray.run()
@@ -71,7 +71,7 @@ def close_program():
     user32.ShowWindow(hWnd, 1)
     RPC.close()
     systray.stop()
-    sys.exit(0)
+    sys.exit()
 
 
 def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
@@ -218,6 +218,7 @@ if __name__=="__main__":
     
     launch_timer = 0
 
+    #check if val is open
     if not is_process_running():
         print("valorant not opened, attempting to run...")
         subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
@@ -239,14 +240,18 @@ if __name__=="__main__":
         large_text="valorant-rpc by cm_an#2434"
     )
 
+    #check for lockfile
     lockfile = api.get_lockfile()
     if lockfile is None:
         while lockfile is None:
             print("waiting for lockfile...")
             lockfile = api.get_lockfile()
             time.sleep(1)
-    print("lockfile loaded! hiding window...")
+    print("lockfile loaded! hiding window in 3 seconds...")
+    time.sleep(3)
     user32.ShowWindow(hWnd, 0)
+
+    #check for presence
     presence = api.get_presence(lockfile)
     if presence is None:
         while presence is None:
@@ -255,5 +260,7 @@ if __name__=="__main__":
             time.sleep(1)
     update_rpc(presence)
     print(f"LOCKFILE: {lockfile}")
+
+    #start the loop
     loop = asyncio.get_event_loop()
     loop.run_until_complete(listen())
