@@ -34,11 +34,17 @@ def resource_path(relative_path):
     return os.path.join(os.path.abspath("."), relative_path)
 
 
+
+# ----------------------------------------------------------------------------------------------
+# console/taskbar control stuff!
 # thanks for some of this pete :)
-# hide the console window if debug is off
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
+
+# prevent interaction of the console window which pauses execution
+kernel32 = ctypes.windll.kernel32
+kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), 128)
 
 # console visibility toggle functionality
 def tray_window_toggle(icon, item):
@@ -55,6 +61,7 @@ def tray_window_toggle(icon, item):
 print("initializing systray object")
 def run_systray():
     global systray, window_shown
+
     systray_image = Image.open(resource_path("favicon.ico"))
     systray_menu = menu(
         item('show debug', tray_window_toggle, checked=lambda item: window_shown),
@@ -62,8 +69,10 @@ def run_systray():
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     systray.run()
-print("done initializing the systray object")
+print("systray ready!")
 #end sys tray stuff
+# ----------------------------------------------------------------------------------------------
+
 
 
 def close_program():
@@ -214,6 +223,10 @@ def listen():
                 print("valorant closed, exiting")
                 close_program()
 
+
+
+# ----------------------------------------------------------------------------------------------
+
 if __name__=="__main__":
     
     launch_timer = 0
@@ -229,12 +242,12 @@ if __name__=="__main__":
                 close_program()
             time.sleep(1)
 
+    #game launching, set loading presence
     RPC.connect()
-
     RPC.update(
         state="Loading",
         large_image="game_icon",
-        large_text="valorant-rpc by cm_an#2434"
+        large_text="valorant-rpc by @cm_an#2434"
     )
 
     #check for lockfile
@@ -272,3 +285,5 @@ if __name__=="__main__":
     #start the loop
     loop = asyncio.get_event_loop()
     loop.run_until_complete(listen())
+
+# ----------------------------------------------------------------------------------------------
