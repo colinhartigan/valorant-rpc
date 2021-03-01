@@ -238,11 +238,15 @@ if __name__=="__main__":
     )
 
     #check for lockfile
+    launch_timer = 0
     lockfile = api.get_lockfile()
     if lockfile is None:
         while lockfile is None:
             print("waiting for lockfile...")
             lockfile = api.get_lockfile()
+            launch_timer += 1
+            if launch_timer >= launch_timeout:
+                close_program()
             time.sleep(1)
     print("lockfile loaded! hiding window in 3 seconds...")
     time.sleep(3)
@@ -251,11 +255,16 @@ if __name__=="__main__":
     user32.ShowWindow(hWnd, 0)
 
     #check for presence
+    launch_timer = 0
     presence = api.get_presence(lockfile)
     if presence is None:
         while presence is None:
             print("waiting for presence...")
             presence = api.get_presence(lockfile)
+            launch_timer += 1
+            if launch_timer >= launch_timeout:
+                print("presence took too long, terminating program!")
+                close_program()
             time.sleep(1)
     update_rpc(presence)
     print(f"LOCKFILE: {lockfile}")
