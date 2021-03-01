@@ -37,7 +37,7 @@ def resource_path(relative_path):
 
 # ----------------------------------------------------------------------------------------------
 # console/taskbar control stuff!
-# thanks for some of this pete :)
+# thanks for some of this pete (github/restrafes) :)
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
