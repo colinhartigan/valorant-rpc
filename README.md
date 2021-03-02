@@ -6,7 +6,7 @@ Discord rich presence extension for VALORANT
 ![](https://media.discordapp.net/attachments/357677064507228171/815690322591613008/unknown.png)
 ![](https://media.discordapp.net/attachments/357677064507228171/815690580386381834/unknown.png)
 
-## Installation
+# Installation
 > Following these instructions will result in the program automatically launching with VALORANT
 
 *NOTE: Upon downloading, your browser might mark the file as dangerous, but this can be ignored (all the code is open-source)*
