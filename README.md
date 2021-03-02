@@ -2,6 +2,8 @@
 
 Discord rich presence extension for VALORANT
 
+[*Jump to updating*](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-2-finding-the-riotclientservicesexe-path)
+
 ![](https://media.discordapp.net/attachments/357677064507228171/815690033842880552/unknown.png)
 ![](https://media.discordapp.net/attachments/357677064507228171/815690322591613008/unknown.png)
 ![](https://media.discordapp.net/attachments/357677064507228171/815690580386381834/unknown.png)
@@ -43,7 +45,7 @@ Creating this system variable will allow the extension to launch VALORANT
 
 ![image](https://user-images.githubusercontent.com/42125428/109581530-6f0c6d80-7aca-11eb-95de-05ce21f5e1a8.png)
 
-4. Using the path copied in part 2, step 2, create a new system variable called **RCS_PATH** and click *OK*
+4. Using the path copied in [part 2, step 2](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-2-finding-the-riotclientservicesexe-path), create a new system variable called **RCS_PATH** and click *OK*
 
 ![image](https://user-images.githubusercontent.com/42125428/109582065-7718dd00-7acb-11eb-9476-121bb0de9c4c.png)
 
@@ -57,7 +59,7 @@ Creating this system variable will allow the extension to launch VALORANT
 
 ![image](https://user-images.githubusercontent.com/42125428/109582766-bdbb0700-7acc-11eb-914e-40a46e139494.png)
 
-3. In the **Target** box, paste the path to valorant-rpc.exe from part 1, step 3, then select **Apply**
+3. In the **Target** box, paste the path to valorant-rpc.exe from [part 1, step 3](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-1-creating-a-folder-for-the-executable), then select **Apply**
 
 ![image](https://user-images.githubusercontent.com/42125428/109582870-eba04b80-7acc-11eb-8748-7de9376a8e81.png)
 
@@ -65,7 +67,7 @@ Creating this system variable will allow the extension to launch VALORANT
 
 
 # Updating
-1. Navigate to the folder created in part 1, step 3 of installation
+1. Navigate to the folder created in [part 1, step 3](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-1-creating-a-folder-for-the-executable) of installation
 2. Delete the old valorant-rpc.exe and replace it with the new executable
 
-NOTE: Antivirus might flag the new executable as malware; follow the same steps outlined in part 1, step 2 of installation
+NOTE: Antivirus might flag the new executable as malware; follow the same steps outlined in [part 1, step 2](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-1-creating-a-folder-for-the-executable) of installation
