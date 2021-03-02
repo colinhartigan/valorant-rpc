@@ -59,7 +59,7 @@ Creating this system variable will allow the extension to launch VALORANT
 
 ![image](https://user-images.githubusercontent.com/42125428/109582766-bdbb0700-7acc-11eb-914e-40a46e139494.png)
 
-3. In the **Target** box, paste the path to valorant-rpc.exe from [part 1, step 3](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-1-creating-a-folder-for-the-executable), then select **Apply**
+3. In the **Target** box, paste the path to *valorant-rpc.exe* from [part 1, step 3](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-1-creating-a-folder-for-the-executable), then select **Apply**
 
 ![image](https://user-images.githubusercontent.com/42125428/109582870-eba04b80-7acc-11eb-8748-7de9376a8e81.png)
 
