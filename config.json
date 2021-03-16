@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 {
     "rpc-oauth": {
         "access_token": "NjJ4NBXr5Of8iwlq01qOPKU1VmtcfY",
@@ -10,4 +11,18 @@
         "username": "leColinizer",
         "password": "@Cboy7531"
     }
+=======
+{
+    "rpc-oauth": {
+        "access_token": "ZNJTwZNiWhRKQJaCmoT5nALoVQjZT6",
+        "expires_in": 604800,
+        "refresh_token": "mmbnNRuejPuZFest67knHK2LPZSupL",
+        "scope": "rpc",
+        "token_type": "Bearer"
+    },
+    "riot-account": {
+        "username": "leColinizer",
+        "password": "@Cboy7531"
+    }
+>>>>>>> Stashed changes
 }
