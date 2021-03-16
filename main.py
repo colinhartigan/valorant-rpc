@@ -1,9 +1,12 @@
-import riot_api,utils
-import asyncio 
+import api,utils
+import asyncio
 import json
 import base64
-import pypresence
+import ssl
+import websockets
+from pypresence import Presence
 import time
+import urllib3
 import threading
 import pystray
 from pystray import Icon as icon, Menu as menu, MenuItem as item
@@ -13,31 +16,24 @@ import subprocess
 import psutil
 import ctypes
 import sys
-import webserver
-import oauth
-import client_api
-import match_session
-from dotenv import load_dotenv
 from psutil import AccessDenied
-
-
+urllib3.disable_warnings()
 global systray
-load_dotenv()
-loop = asyncio.get_event_loop()
+
 systray = None
 window_shown = False
-client_id = str(os.environ.get('CLIENT_ID'))
-#RPC = Presence(client_id)
-client = pypresence.Client(client_id)
-launch_timeout = 120
+client_id = "811469787657928704"
+RPC = Presence(client_id)
+launch_timeout = 20
 last_presence = {}
-session = None
 
 #weird workaround for getting image to work with pyinstaller
 def resource_path(relative_path):
-    if hasattr(sys, '_MEIPASS'): 
+    if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
+
+
 
 # ----------------------------------------------------------------------------------------------
 # console/taskbar control stuff!
@@ -74,24 +70,35 @@ def run_systray():
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     systray.run()
 print("systray ready!")
-
-def close_program():
-    global systray,client
-    user32.ShowWindow(hWnd, 1)
-    client.close()
-    systray.stop()
-    sys.exit()
 #end sys tray stuff
 # ----------------------------------------------------------------------------------------------
 
 
 
+def close_program():
+    global systray, RPC
+    user32.ShowWindow(hWnd, 1)
+    RPC.close()
+    systray.stop()
+    sys.exit()
+
+
+def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
+    processes = []
+    for proc in psutil.process_iter():
+        try:
+            processes.append(proc.name())
+        except (PermissionError, AccessDenied):
+            pass 
+    for process in required_processes:
+        if process in processes:
+            return True
+    return False
+
+
 def update_rpc(state):
-
-    global session
-
     data = json.loads(base64.b64decode(state))
-    #print(data)
+    print(data)
 
     #party state
     party_state = "Solo" 
@@ -103,7 +110,8 @@ def update_rpc(state):
     if data["partyState"] == "CUSTOM_GAME_SETUP":
         queue_id = "Custom"
 
-    party_size = [data["partySize"],data["maxPartySize"]]
+    party_size = [data["partySize"],data["maxPartySize"]] if not data["partySize"] == 1 else [data["partySize"],data["maxPartySize"]] if (data["partySize"] == 1 and data["partyAccessibility"] != "CLOSED") else None
+
 
     #queue timing stuff
     time = utils.parse_time(data["queueEntryTime"])
@@ -116,7 +124,7 @@ def update_rpc(state):
     if not data["isIdle"]:
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
-            client.set_activity(
+            RPC.update(
                 state=party_state,
                 details=("In Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {queue_id}" if queue_id else ""),
                 start=time if not time == False else None,
@@ -126,13 +134,12 @@ def update_rpc(state):
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=party_size,
-                join=f"partyId/{data['partyId']}"
             )
 
         #custom setup
         elif data["sessionLoopState"] == "MENUS" and data["partyState"] == "CUSTOM_GAME_SETUP":
             game_map = utils.maps[data["matchMap"].split("/")[-1]]
-            client.set_activity(
+            RPC.update(
                 state=party_state,
                 details="Lobby" + (f" - {queue_id}" if queue_id else ""),
                 start=time if not time == False else None,
@@ -144,14 +151,51 @@ def update_rpc(state):
                 party_size=party_size,
             )
 
+        #agent select
         elif data["sessionLoopState"] == "PREGAME":
-            if session is None:
-                session = match_session.Session(client)
-                session.init_pregame(data)
+            game_map = utils.maps[data["matchMap"].split("/")[-1]]
+            RPC.update(
+                state=party_state,
+                details="Agent Select" + (f" - {queue_id}" if queue_id else ""),
+                start = time if not time == False else None,
+                large_image=f"splash_{game_map.lower()}",
+                large_text=game_map,
+                small_image=utils.mode_images[queue_id.lower()],
+                party_id=data["partyId"],
+                party_size=party_size,
+            )
+
+        #ingame
+        elif data["sessionLoopState"] == "INGAME" and not data["provisioningFlow"] == "ShootingRange":
+            game_map = utils.maps[data["matchMap"].split("/")[-1]]
+            score = [data["partyOwnerMatchScoreAllyTeam"],data["partyOwnerMatchScoreEnemyTeam"]]
+            RPC.update(
+                state=party_state,
+                details=f"{queue_id.upper()}: {score[0]} - {score[1]}",
+                start = time if not time == False else None,
+                large_image=f"splash_{game_map.lower()}",
+                large_text=game_map,
+                small_image=utils.mode_images[queue_id.lower()],
+                party_id=data["partyId"],
+                party_size=party_size,
+            )
+
+        #ingame//range
+        elif data["sessionLoopState"] == "INGAME" and data["provisioningFlow"] == "ShootingRange":
+            game_map = utils.maps[data["matchMap"].split("/")[-1]]
+            RPC.update(
+                state=party_state,
+                details="THE RANGE",
+                large_image=f"splash_{game_map.lower()}",
+                large_text=game_map,
+                small_image=utils.mode_images[queue_id.lower()],
+                party_id=data["partyId"],
+                party_size=party_size,
+            )
 
 
     elif data["isIdle"]:
-        client.set_activity(
+        RPC.update(
             state="Away",
             details="Lobby" + (f" - {queue_id}" if queue_id else ""),
             large_image="game_icon",
@@ -160,29 +204,14 @@ def update_rpc(state):
         )
 
 
-def join_listener(data):
-    print(data)
-    config = utils.get_config()
-    username = config['riot-account']['username']
-    password = config['riot-account']['password']
-    uuid,headers = client_api.get_auth(username,password)
-    party_id = data['data']['secret'].split('/')[1]
-    print(party_id)
-    client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
-    #i hope this works!
-
-
 def listen():
-    global last_presence,client
-    # setup listeners/events
-    a = client.register_event('ACTIVITY_JOIN',join_listener)
-
+    global last_presence
     while True:
         try:
-            if not utils.is_process_running():
+            if not is_process_running():
                 print("valorant closed, exiting")
                 close_program()
-            presence = riot_api.get_presence(lockfile)
+            presence = api.get_presence(lockfile)
             if presence == last_presence:
                 last_presence = presence
                 continue
@@ -190,28 +219,23 @@ def listen():
             last_presence = presence
             time.sleep(1)
         except:
-            if not utils.is_process_running():
+            if not is_process_running():
                 print("valorant closed, exiting")
                 close_program()
 
 
 
 # ----------------------------------------------------------------------------------------------
-# startup
-if __name__=="__main__":   
 
-    # setup client
-    webserver.run()
-    client.start()
-    oauth.authorize(client)
+if __name__=="__main__":
     
     launch_timer = 0
 
     #check if val is open
-    if not utils.is_process_running():
+    if not is_process_running():
         print("valorant not opened, attempting to run...")
         subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
-        while not utils.is_process_running():
+        while not is_process_running():
             print("waiting for valorant...")
             launch_timer += 1
             if launch_timer >= launch_timeout:
@@ -219,7 +243,8 @@ if __name__=="__main__":
             time.sleep(1)
 
     #game launching, set loading presence
-    client.set_activity(
+    RPC.connect()
+    RPC.update(
         state="Loading",
         large_image="game_icon",
         large_text="valorant-rpc by @cm_an#2434"
@@ -227,11 +252,11 @@ if __name__=="__main__":
 
     #check for lockfile
     launch_timer = 0
-    lockfile = riot_api.get_lockfile()
+    lockfile = api.get_lockfile()
     if lockfile is None:
         while lockfile is None:
             print("waiting for lockfile...")
-            lockfile = riot_api.get_lockfile()
+            lockfile = api.get_lockfile()
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 close_program()
@@ -244,11 +269,11 @@ if __name__=="__main__":
 
     #check for presence
     launch_timer = 0
-    presence = riot_api.get_presence(lockfile)
+    presence = api.get_presence(lockfile)
     if presence is None:
         while presence is None:
             print("waiting for presence...")
-            presence = riot_api.get_presence(lockfile)
+            presence = api.get_presence(lockfile)
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 print("presence took too long, terminating program!")
@@ -258,5 +283,7 @@ if __name__=="__main__":
     print(f"LOCKFILE: {lockfile}")
 
     #start the loop
-    listen()
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(listen())
+
 # ----------------------------------------------------------------------------------------------

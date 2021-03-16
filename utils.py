@@ -1,13 +1,4 @@
 import iso8601
-import json
-import ctypes
-import psutil
-from psutil import AccessDenied
-import sys
-
-kernel32 = ctypes.WinDLL('kernel32')
-user32 = ctypes.WinDLL('user32')
-hWnd = kernel32.GetConsoleWindow()
 
 maps = {
     "Port":"Icebox",
@@ -35,10 +26,6 @@ mode_images = {
     "custom":"mode_standard",
 }
 
-def get_config():
-    with open('config.json') as f:
-        return json.loads(f.read())
-
 def parse_time(time):
     if time == "0001.01.01-00.00.00":
         return False
@@ -48,18 +35,6 @@ def parse_time(time):
     split = "T".join(i for i in split)
     split = iso8601.parse_date(split).timestamp()
     return split
-
-def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
-    processes = []
-    for proc in psutil.process_iter():
-        try:
-            processes.append(proc.name())
-        except (PermissionError, AccessDenied):
-            pass 
-    for process in required_processes:
-        if process in processes:
-            return True
-    return False
 
 
 validate_party_size = lambda data : data["isPartyOwner"] == True and data["partySize"] > 1
