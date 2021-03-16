@@ -70,5 +70,4 @@ def post_glz(endpoint,headers,data=None):
 def post_pd(endpoint,headers,data=None):
     with requests.post(f'https://pd.na.a.pvp.net{endpoint}', headers=headers, data=data) as r:
         data = json.loads(r.text)
->>>>>>> Stashed changes
     return data

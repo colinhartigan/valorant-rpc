@@ -11,14 +11,18 @@ class Session:
         self.client = client
         self.uuid = None 
         self.match_id = None
+        self.state = ""
 
-    def init_pregame(self,presence_data):
-        self.uuid,headers = client_api.get_auth(self.username,self.password)
+    async def init_pregame(self,presence_data):
+        self.uuid,headers = await client_api.get_auth(self.username,self.password)
         pregame_player = client_api.get_glz(f'/pregame/v1/players/{self.uuid}',headers)
         self.match_id = pregame_player['MatchID']
+        self.state = "PREGAME"
 
-    def loop(self):
-        pass
+    async def loop(self):
+        uuid,headers = await client_api.get_auth(self.username,self.password)
+        pregame_data = client_api.get_glz(f'/pregame/v1/matches/{self.match_id}',headers)
+        print(pregame_data)
 
 
 

@@ -36,8 +36,20 @@ mode_images = {
 }
 
 def get_config():
-    with open('config.json') as f:
-        return json.loads(f.read())
+    try:
+        with open('config.json') as f:
+            return json.loads(f.read())
+    except FileNotFoundError as e:
+        with open('config.json','w') as f:
+            payload = {
+                "rpc-oauth": {},
+                "riot-account": {
+                    "username": "",
+                    "password": ""
+                }
+            }
+            json.dump(payload,f,indent=4)
+            return get_config()
 
 def parse_time(time):
     if time == "0001.01.01-00.00.00":

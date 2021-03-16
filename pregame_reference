@@ -1,0 +1,75 @@
+{
+  'ID': '4f82a5e0-d388-4859-9af0-b9e7b578a376',
+  'Version': 1615906476530,
+  'Teams': [
+    {
+      'TeamID': 'Blue',
+      'Players': [
+        {
+          'Subject': 'eaa0d224-61bc-593a-a083-d6e18161e4c5',
+          'CharacterID': '',
+          'CharacterSelectionState': '',
+          'PregamePlayerState': 'joined',
+          'CompetitiveTier': 0,
+          'PlayerIdentity': {
+            'Subject': 'eaa0d224-61bc-593a-a083-d6e18161e4c5',
+            'PlayerCardID': 'ca69b4d8-4b0e-02f8-5bea-c3b629b9b128',
+            'PlayerTitleID': '63057041-4f65-5579-e5a6-d88ae7007ebb',
+            'Incognito': False
+          },
+          'SeasonalBadgeInfo': {
+            'SeasonID': '',
+            'NumberOfWins': 0,
+            'TopWins': None,
+            'WinsByTier': None,
+            'Rank': 0,
+            'LeaderboardRank': 0
+          }
+        }
+      ]
+    }
+  ],
+  'AllyTeam': {
+    'TeamID': 'Blue',
+    'Players': [
+      {
+        'Subject': 'eaa0d224-61bc-593a-a083-d6e18161e4c5',
+        'CharacterID': '',
+        'CharacterSelectionState': '',
+        'PregamePlayerState': 'joined',
+        'CompetitiveTier': 0,
+        'PlayerIdentity': {
+          'Subject': 'eaa0d224-61bc-593a-a083-d6e18161e4c5',
+          'PlayerCardID': 'ca69b4d8-4b0e-02f8-5bea-c3b629b9b128',
+          'PlayerTitleID': '63057041-4f65-5579-e5a6-d88ae7007ebb',
+          'Incognito': False
+        },
+        'SeasonalBadgeInfo': {
+          'SeasonID': '',
+          'NumberOfWins': 0,
+          'TopWins': None,
+          'WinsByTier': None,
+          'Rank': 0,
+          'LeaderboardRank': 0
+        }
+      }
+    ]
+  },
+  'EnemyTeam': None,
+  'ObserverSubjects': [
+    
+  ],
+  'EnemyTeamSize': 0,
+  'EnemyTeamLockCount': 0,
+  'PregameState': 'character_select_active',
+  'LastUpdated': '0001-01-01T00: 00: 00Z',
+  'MapID': '/Game/Maps/Ascent/Ascent',
+  'GamePodID': 'aresriot.aws-rclusterprod-use1-1.na-gp-ashburn-awsedge-1',
+  'Mode': '/Game/GameModes/Bomb/BombGameMode.BombGameMode_C',
+  'VoiceSessionID': '4f82a5e0-d388-4859-9af0-b9e7b578a376-tm1',
+  'MUCName': '4f82a5e0-d388-4859-9af0-b9e7b578a376-1@ares-pregame.na1.pvp.net',
+  'QueueID': '',
+  'ProvisioningFlowID': 'CustomGame',
+  'IsRanked': False,
+  'PhaseTimeRemainingNS': 7646151878
+}

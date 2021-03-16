@@ -116,6 +116,8 @@ def update_rpc(state):
     if data["partyState"] == "CUSTOM_GAME_SETUP":
         time = False
 
+    join_state = f"partyId/{data['partyId']}" if data["partyAccessibility"] == "OPEN" else None
+
  
     if not data["isIdle"]:
         #menu
@@ -124,13 +126,13 @@ def update_rpc(state):
                 state=party_state,
                 details=("In Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {queue_id}" if queue_id else ""),
                 start=time if not time == False else None,
-                large_image="game_icon",
+                large_image=("game_icon_white" if data["partyState"] == "MATCHMAKING" else "game_icon"),
                 large_text="VALORANT",
                 small_image="crown_icon" if utils.validate_party_size(data) else None,
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=party_size,
-                join=f"partyId/{data['partyId']}"
+                join=join_state
             )
 
         #custom setup
@@ -140,19 +142,20 @@ def update_rpc(state):
                 state=party_state,
                 details="Lobby" + (f" - {queue_id}" if queue_id else ""),
                 start=time if not time == False else None,
-                large_image=f"splash_{game_map.lower()}",
+                large_image=f"splash_{game_map.lower()}_square",
                 large_text=game_map,
                 small_image="crown_icon" if utils.validate_party_size(data) else None,
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=party_size,
+                join=join_state
             )
 
         elif data["sessionLoopState"] == "PREGAME":
             if last_state != "PREGAME":
                 if session is None: 
                     session = match_session.Session(client)
-                    session.init_pregame(data)
+                    asyncio.run(session.init_pregame(data))
 
 
     elif data["isIdle"]:
@@ -177,7 +180,7 @@ def join_listener(data):
 
 
 async def listen(lockfile):
-    global last_presence,client
+    global last_presence,client,session
     while True:
         try:
             if not utils.is_process_running():
@@ -194,9 +197,11 @@ async def listen(lockfile):
                     continue
                 update_rpc(presence)
                 last_presence = presence
+                await asyncio.sleep(1)
             else:
-                session.loop()
-            await asyncio.sleep(1)
+                # while in pregame update less often because less is changing and rate limits
+                await session.loop()
+                await asyncio.sleep(10)
         except:
             if not utils.is_process_running():
                 print("valorant closed, exiting")
