@@ -47,8 +47,7 @@ async def auth(username,password):
     return user_id, headers
 
 def get_auth(user, passw):
-    loop = asyncio.get_event_loop()
-    user_id,headers = loop.run_until_complete(auth(user, passw))
+    user_id,headers = asyncio.run(auth(user, passw))
     return user_id,headers
 
 def get_glz(endpoint,headers):
@@ -63,8 +62,9 @@ def get_pd(endpoint,headers):
     return data
 
 def post_glz(endpoint,headers,data=None):
-    with requests.post(f'https://glz-na-1.na.a.pvp.net{endpoint}', headers=headers, data=data) as r:
-        data = json.loads(r.text)
+    r = requests.post(f'https://glz-na-1.na.a.pvp.net{endpoint}', headers=headers, data=data)
+    print(r)
+    data = json.loads(r.text)
     return data
 
 def post_pd(endpoint,headers,data=None):

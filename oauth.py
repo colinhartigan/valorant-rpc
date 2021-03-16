@@ -44,7 +44,7 @@ def refresh_token(refresh_token):
         'redirect_uri': 'http://127.0.0.1:6969',
         'scope': 'rpc'
     }
-    headers = { 
+    headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
     r = requests.post('%s/oauth2/token' % api_endpoint, data=data, headers=headers)

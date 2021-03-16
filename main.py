@@ -1,5 +1,5 @@
 import riot_api,utils
-import asyncio
+import asyncio 
 import json
 import base64
 import pypresence
@@ -163,19 +163,19 @@ def update_rpc(state):
 def join_listener(data):
     print(data)
     config = utils.get_config()
-    username = config['username']
-    password = config['password']
+    username = config['riot-account']['username']
+    password = config['riot-account']['password']
     uuid,headers = client_api.get_auth(username,password)
     party_id = data['data']['secret'].split('/')[1]
-    loop.run_until_complete(client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers))
+    print(party_id)
+    client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
     #i hope this works!
 
 
 def listen():
-    global last_presence
+    global last_presence,client
     # setup listeners/events
-    client.register_event('ACTIVITY_JOIN',join_listener)
-
+    a = client.register_event('ACTIVITY_JOIN',join_listener)
 
     while True:
         try:
