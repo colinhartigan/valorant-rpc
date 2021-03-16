@@ -1,0 +1,13 @@
+{
+    "rpc-oauth": {
+        "access_token": "Ch7OypqYRiJsRIcrCuDxM9WBHo8yhi",
+        "expires_in": 604800,
+        "refresh_token": "F3VmXTmoO37aFmGJc8ejn1F8Mh2rYR",
+        "scope": "rpc",
+        "token_type": "Bearer"
+    },
+    "riot-account": {
+        "username": "leColinizer",
+        "password": "@Cboy7531"
+    }
+}

@@ -11,13 +11,13 @@ Discord rich presence extension for VALORANT
 # Installation
 > Following these instructions will result in the program automatically launching with VALORANT
 
-*NOTE: Upon downloading, your browser might mark the file as dangerous, but this is a false-positive and can be ignored (all the code is open-source)*
+*NOTE: Upon downloading, your browser might mark the file as dangerous, but this can be ignored (all the code is open-source)*
 ### Part 1: Creating a folder for the executable
 1. Create a folder for the extension; this folder should be stored somewhere safe where it will not be moved
     - it is recommended to create a folder in C:\Program Files\ called "valorant-rpc"
 2. Move the executable to the folder created in step 1 
 
-NOTE: Antivirus/Windows Defender might mark the executable as a **potentially unwanted app**, this is a false-positive
+NOTE: Antivirus/Windows Defender might mark the executable as a **potentially unwanted app**
 
 **Windows Defender:** Select *Allow on device* and *Start actions* to allow the extension to run
 ![](https://user-images.githubusercontent.com/42125428/109581460-5439f900-7aca-11eb-86f4-26bae7bae501.png)
