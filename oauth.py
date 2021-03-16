@@ -71,5 +71,4 @@ def authorize(client):
     else:
         print("already authenticated!")
         new_token = refresh_token(config['rpc-oauth']['refresh_token'])
->>>>>>> Stashed changes
         client.authenticate(new_token['access_token'])
