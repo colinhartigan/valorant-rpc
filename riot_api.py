@@ -1,5 +1,6 @@
 import os
 import requests
+import json
 import base64
 
 lockfilePath = os.path.join(os.getenv('LOCALAPPDATA'), R'Riot Games\Riot Client\Config\lockfile')
@@ -33,6 +34,6 @@ def get_presence(lockfile):
 
         for presence in presences['presences']:
             if presence['puuid'] == get_puuid(lockfile):
-                return presence['private']
+                return json.loads(base64.b64decode(presence['private']))
     except:
         return None

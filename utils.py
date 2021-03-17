@@ -34,6 +34,24 @@ mode_images = {
     "escalation":"mode_escalation",
     "custom":"mode_standard",
 }
+agent_ids = {
+    "5f8d3a7f-467b-97f3-062c-13acf203c006":"Breach",
+    "f94c3b30-42be-e959-889c-5aa313dba261":"Raze",
+    "6f2a04ca-43e0-be17-7f36-b3908627744d":"Skye",
+    "117ed9e3-49f3-6512-3ccf-0cada7e3823b":"Cypher",
+    "320b2a48-4d9b-a075-30f1-1f93a9b638fa":"Sova",
+    "1e58de9c-4950-5125-93e9-a0aee9f98746":"Killjoy",
+    "707eab51-4836-f488-046a-cda6bf494859":"Viper",
+    "eb93336a-449b-9c1b-0a54-a891f7921d69":"Phoenix",
+    "41fb69c1-4189-7b37-f117-bcaf1e96f1bf":"Astra",
+    "9f0d8ba9-4140-b941-57d3-a7ad57c6b417":"Brimstone",
+    "7f94d92c-4234-0a36-9646-3a87eb8b5c89":"Yoru",
+    "569fdd95-4d10-43ab-ca70-79becc718b46":"Sage",
+    "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc":"Reyna",
+    "8e253930-4c05-31dd-1b6c-968525494517":"Omen",
+    "add6443a-41bd-e414-f6ad-e58d267f4e95":"Jett",
+    "":"Selecting"
+}
 
 def get_config():
     try:
@@ -50,6 +68,30 @@ def get_config():
             }
             json.dump(payload,f,indent=4)
             return get_config()
+
+def sanitize_presence(payload):
+    data = payload
+    data["party_state"] = "Solo" 
+    if data["partySize"] > 1:
+        data["party_state"] = "In a Party"
+    data["party_state"] = "In an Open Party" if not data["partyAccessibility"] == "CLOSED" else data["party_state"]
+
+    data["queue_id"] = queue_ids[data["queueId"]]
+    if data["partyState"] == "CUSTOM_GAME_SETUP":
+        data["queue_id"] = "Custom"
+
+    data["party_size"] = [data["partySize"],data["maxPartySize"]] if data["partySize"] > 1 or data["partyAccessibility"] == "OPEN" else None
+
+    #queue timing stuff
+    data["time"] = parse_time(data["queueEntryTime"])
+    if not data["partyState"] == "MATCHMAKING" and not data["sessionLoopState"] == "INGAME" and not data["partyState"] == "MATCHMADE_GAME_STARTING" and not data["sessionLoopState"] == "PREGAME":
+        data["time"] = False
+    if data["partyState"] == "CUSTOM_GAME_SETUP":
+        data["time"] = False
+
+    data["join_state"] = f"partyId/{data['partyId']}" if data["partyAccessibility"] == "OPEN" else None
+    return data
+
 
 def parse_time(time):
     if time == "0001.01.01-00.00.00":

@@ -36,6 +36,7 @@ launch_timeout = 120
 last_presence = {}
 session = None
 last_state = None
+loop = None
 
 #weird workaround for getting image to work with pyinstaller
 def resource_path(relative_path):
@@ -90,78 +91,58 @@ def close_program():
 
 
 
-def update_rpc(state):
+def update_rpc(data):
 
     global session
 
-    data = json.loads(base64.b64decode(state))
-    print(data)
-
     #party state
-    party_state = "Solo" 
-    if data["partySize"] > 1:
-        party_state = "In a Party"
-    party_state = "In an Open Party" if not data["partyAccessibility"] == "CLOSED" else party_state
-
-    queue_id = utils.queue_ids[data["queueId"]]
-    if data["partyState"] == "CUSTOM_GAME_SETUP":
-        queue_id = "Custom"
-
-    party_size = [data["partySize"],data["maxPartySize"]]
-
-    #queue timing stuff
-    time = utils.parse_time(data["queueEntryTime"])
-    if not data["partyState"] == "MATCHMAKING" and not data["sessionLoopState"] == "INGAME" and not data["partyState"] == "MATCHMADE_GAME_STARTING" and not data["sessionLoopState"] == "PREGAME":
-        time = False
-    if data["partyState"] == "CUSTOM_GAME_SETUP":
-        time = False
-
-    join_state = f"partyId/{data['partyId']}" if data["partyAccessibility"] == "OPEN" else None
+    
 
  
     if not data["isIdle"]:
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
             client.set_activity(
-                state=party_state,
-                details=("In Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {queue_id}" if queue_id else ""),
-                start=time if not time == False else None,
+                state=data["party_state"],
+                details=("In Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {data['queue_id']}" if data["queue_id"] else ""),
+                start=data["time"] if not data["time"] == False else None,
                 large_image=("game_icon_white" if data["partyState"] == "MATCHMAKING" else "game_icon"),
                 large_text="VALORANT",
                 small_image="crown_icon" if utils.validate_party_size(data) else None,
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
-                party_size=party_size,
-                join=join_state
+                party_size=data["party_size"],
+                join=data["join_state"]
             )
 
         #custom setup
         elif data["sessionLoopState"] == "MENUS" and data["partyState"] == "CUSTOM_GAME_SETUP":
             game_map = utils.maps[data["matchMap"].split("/")[-1]]
             client.set_activity(
-                state=party_state,
-                details="Lobby" + (f" - {queue_id}" if queue_id else ""),
-                start=time if not time == False else None,
+                state=data["party_state"],
+                details="Lobby" + (f" - {data['queue_id']}" if data['queue_id'] else ""),
+                start=data["time"] if not data["time"] == False else None,
                 large_image=f"splash_{game_map.lower()}_square",
                 large_text=game_map,
                 small_image="crown_icon" if utils.validate_party_size(data) else None,
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
-                party_size=party_size,
-                join=join_state
+                party_size=data['party_size'],
+                join=data['join_state']
             )
 
         elif data["sessionLoopState"] == "PREGAME":
             if last_state != "PREGAME":
                 if session is None: 
                     session = match_session.Session(client)
-                    asyncio.run(session.init_pregame(data))
+                    session.init_pregame(data)
+                    print('new sesh')
 
 
     elif data["isIdle"]:
         client.set_activity(
             state="Away",
-            details="Lobby" + (f" - {queue_id}" if queue_id else ""),
+            details="Lobby" + (f" - {data['queue_id']}" if data["queue_id"] else ""),
             large_image="game_icon",
             large_text="VALORANT",
             small_image="away_icon",
@@ -172,46 +153,51 @@ def join_listener(data):
     config = utils.get_config()
     username = config['riot-account']['username']
     password = config['riot-account']['password']
-    uuid,headers = asyncio.run(client_api.get_auth(username,password))
+    uuid,headers = client_api.get_auth(username,password)
     party_id = data['secret'].split('/')[1]
     print(party_id)
     client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
     #somehow this works!
 
 
-async def listen(lockfile):
+def listen(lockfile):
     global last_presence,client,session
     while True:
-        try:
-            if not utils.is_process_running():
-                print("valorant closed, exiting")
-                close_program()
+        if not utils.is_process_running():
+            print("valorant closed, exiting")
+            close_program()
 
-            #event listeners
-            client.register_event('ACTIVITY_JOIN',join_listener)
-
-            if session is None:
-                presence = riot_api.get_presence(lockfile)
-                if presence == last_presence:
-                    last_presence = presence
-                    continue
-                update_rpc(presence)
+        #event listeners
+        client.register_event('ACTIVITY_JOIN',join_listener)
+        if session is None:
+            presence = riot_api.get_presence(lockfile)
+            presence = utils.sanitize_presence(presence)
+            if presence == last_presence:
                 last_presence = presence
-                await asyncio.sleep(1)
-            else:
-                # while in pregame update less often because less is changing and rate limits
-                await session.loop()
-                await asyncio.sleep(10)
-        except:
+                continue
+            update_rpc(presence)
+            last_presence = presence
+            last_state = presence['sessionLoopState']
+            time.sleep(1)
+        elif session is not None:
+            # while in pregame update less often because less is changing and rate limits
+            presence = riot_api.get_presence(lockfile)
+            presence = utils.sanitize_presence(presence)
+            session.mainloop(presence)
+            time.sleep(5)
+        '''
+        except Exception as e:
+            print(e)
             if not utils.is_process_running():
                 print("valorant closed, exiting")
                 close_program()
+                '''
 
 
 
 # ----------------------------------------------------------------------------------------------
 # startup
-async def main(loop):
+def main(loop):
     global client
     # setup client
     client = pypresence.Client(client_id,loop=loop) 
@@ -251,7 +237,7 @@ async def main(loop):
                 close_program()
             time.sleep(1)
     print("lockfile loaded! hiding window in 3 seconds...")
-    time.sleep(3)
+    #time.sleep(3)
     systray_thread = threading.Thread(target=run_systray)
     systray_thread.start()
     user32.ShowWindow(hWnd, 0)
@@ -259,6 +245,7 @@ async def main(loop):
     #check for presence
     launch_timer = 0
     presence = riot_api.get_presence(lockfile)
+    presence = utils.sanitize_presence(presence)
     if presence is None:
         while presence is None:
             print("waiting for presence...")
@@ -272,9 +259,9 @@ async def main(loop):
     print(f"LOCKFILE: {lockfile}")
 
     #start the loop
-    await listen(lockfile)
+    listen(lockfile)
 
 if __name__=="__main__":   
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(loop))
+    main(loop)
 # ----------------------------------------------------------------------------------------------
