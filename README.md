@@ -24,32 +24,7 @@ NOTE: Antivirus/Windows Defender might mark the executable as a **potentially un
 
 3. Copy the path to the executable for a later step
     - if the folder was made under "C:\Program Files\valorant-rpc", the path would be "C:\Program Files\valorant-rpc\valorant-rpc.exe"
-
-### Part 2: Finding the RiotClientServices.exe path
-1. Search for the installation location of RiotClientServices.exe
-    - it is typically installed in C:\Riot Games\Riot Client\
-    - ex. C:\Riot Games\Riot Client\RiotClientServices.exe
-2. Copy the path for the next part
-
-### Part 3: Creating the system environment variable for RiotClientServices.exe path
-Creating this system variable will allow the extension to launch VALORANT
-1. In the **Windows Search Bar**, search for "environment" and select the *Edit the system environment variables* option
-
-![image](https://user-images.githubusercontent.com/42125428/109581495-61ef7e80-7aca-11eb-82aa-0566caf33e3f.png)
-
-2. In the **System Properties** window, select *Environment Variables*
-
-![image](https://user-images.githubusercontent.com/42125428/109581512-69168c80-7aca-11eb-9eb2-8b8bb2e6f2ab.png)
-
-3. In the **Environment Variables** window, select *New* under *System variables*
-
-![image](https://user-images.githubusercontent.com/42125428/109581530-6f0c6d80-7aca-11eb-95de-05ce21f5e1a8.png)
-
-4. Using the path copied in [part 2, step 2](https://github.com/colinhartigan/valorant-rich-presence/blob/main/README.md#part-2-finding-the-riotclientservicesexe-path), create a new system variable called **RCS_PATH** and click *OK*
-
-![image](https://user-images.githubusercontent.com/42125428/109582065-7718dd00-7acb-11eb-9476-121bb0de9c4c.png)
-
-### Part 4: Changing the VALORANT launch target
+### Part 2: Changing the VALORANT launch target
 
 1. Locate the VALORANT shortcut
     - if you typically launch from your desktop, locate the VALORANT icon
