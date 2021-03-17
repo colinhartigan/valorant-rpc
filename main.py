@@ -234,7 +234,7 @@ if __name__=="__main__":
     #check if val is open
     if not is_process_running():
         print("valorant not opened, attempting to run...")
-        subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
+        subprocess.Popen([utils.get_rcs_path(), "--launch-product=valorant", "--launch-patchline=live"])
         while not is_process_running():
             print("waiting for valorant...")
             launch_timer += 1

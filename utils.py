@@ -1,4 +1,6 @@
 import iso8601
+import os
+import json
 
 maps = {
     "Port":"Icebox",
@@ -36,5 +38,16 @@ def parse_time(time):
     split = iso8601.parse_date(split).timestamp()
     return split
 
+def get_rcs_path():
+    RIOT_CLIENT_INSTALLS_PATH = os.path.expandvars("%PROGRAMDATA%\\Riot Games\\RiotClientInstalls.json")
+    try:
+        with open(RIOT_CLIENT_INSTALLS_PATH, "r") as file:
+            client_installs = json.load(file)
+            rcs_path = os.path.abspath(client_installs["rc_default"])
+            if not os.access(rcs_path, os.X_OK):
+                return None
+            return rcs_path
+    except FileNotFoundError:
+        return None
 
 validate_party_size = lambda data : data["isPartyOwner"] == True and data["partySize"] > 1
