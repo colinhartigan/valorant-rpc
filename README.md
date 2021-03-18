@@ -1,4 +1,4 @@
-# valorant-rich-presence
+# valorant-rich-presence-client
 
 Discord rich presence extension for VALORANT
 
