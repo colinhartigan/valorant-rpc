@@ -1,3 +1,5 @@
+not working on v1 anymore in favor of v2, but if there's any big bugs i'll try to fix them
+
 # valorant-rich-presence-client
 
 Discord rich presence extension for VALORANT
