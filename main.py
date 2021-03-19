@@ -140,6 +140,12 @@ def update_rpc(data):
                     session.init_pregame(data)
                     print('new sesh')
 
+        elif data["sessionLoopState"] == "INGAME":
+            if last_state != "INGAME":
+                if session is None:
+                    session = match_session.Session(client)
+                    session.init_ingame(data)
+
 
     elif data["isIdle"]:
         client.set_activity(
@@ -186,9 +192,13 @@ def listen(lockfile):
         elif session is not None:
             # match started, now use session object for updating presence
             # while in pregame update less often because less is changing and rate limits
-            presence = riot_api.get_presence(lockfile)
-            session.mainloop(presence)
-            time.sleep(3)
+            if session.state is not "MENUS":
+                presence = riot_api.get_presence(lockfile)
+                session.mainloop(presence)
+                time.sleep(3)
+            else:
+                del session
+                session = None
         '''
         except Exception as e:
             print(e)
@@ -226,7 +236,11 @@ def main(loop):
     client.set_activity(
         state="Loading",
         large_image="game_icon",
-        large_text="valorant-rpc by @cm_an#2434"
+        large_text="valorant-rpc by @cm_an#2434",
+        buttons=[{
+            'label':"View on GitHub",
+            'url':"https://github.com/colinhartigan/valorant-rpc"
+        }]
     )
 
     #check for lockfile
