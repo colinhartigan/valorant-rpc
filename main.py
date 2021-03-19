@@ -23,26 +23,27 @@ import nest_asyncio
 
 
 nest_asyncio.apply()
-global systray
 load_dotenv()
 
 
+global systray
 systray = None
 window_shown = False
 client_id = str(os.environ.get('CLIENT_ID'))
-#RPC = Presence(client_id)
 client = None
-launch_timeout = 120
 last_presence = {}
 session = None
 last_state = None
 loop = None
+launch_timeout = 120
 
-#weird workaround for getting image to work with pyinstaller
+
+#weird workaround for getting image w/ relative path to work with pyinstaller
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'): 
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
+
 
 # ----------------------------------------------------------------------------------------------
 # console/taskbar control stuff!
@@ -133,6 +134,7 @@ def update_rpc(data):
 
         elif data["sessionLoopState"] == "PREGAME":
             if last_state != "PREGAME":
+                # new game session, create match object
                 if session is None: 
                     session = match_session.Session(client)
                     session.init_pregame(data)
@@ -169,9 +171,10 @@ def listen(lockfile):
 
         #event listeners
         client.register_event('ACTIVITY_JOIN',join_listener)
+
         if session is None:
+            #in the menus, waiting for match
             presence = riot_api.get_presence(lockfile)
-            presence = utils.sanitize_presence(presence)
             if presence == last_presence:
                 last_presence = presence
                 continue
@@ -179,12 +182,13 @@ def listen(lockfile):
             last_presence = presence
             last_state = presence['sessionLoopState']
             time.sleep(1)
+
         elif session is not None:
+            # match started, now use session object for updating presence
             # while in pregame update less often because less is changing and rate limits
             presence = riot_api.get_presence(lockfile)
-            presence = utils.sanitize_presence(presence)
             session.mainloop(presence)
-            time.sleep(5)
+            time.sleep(3)
         '''
         except Exception as e:
             print(e)
@@ -210,7 +214,7 @@ def main(loop):
     #check if val is open
     if not utils.is_process_running():
         print("valorant not opened, attempting to run...")
-        subprocess.Popen([os.environ['RCS_PATH'], "--launch-product=valorant", "--launch-patchline=live"])
+        subprocess.Popen([utils.get_rcs_path(), "--launch-product=valorant", "--launch-patchline=live"])
         while not utils.is_process_running():
             print("waiting for valorant...")
             launch_timer += 1
@@ -236,7 +240,7 @@ def main(loop):
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
-    print("lockfile loaded! hiding window in 3 seconds...")
+    print("lockfile loaded! hiding window...")
     #time.sleep(3)
     systray_thread = threading.Thread(target=run_systray)
     systray_thread.start()
@@ -245,7 +249,6 @@ def main(loop):
     #check for presence
     launch_timer = 0
     presence = riot_api.get_presence(lockfile)
-    presence = utils.sanitize_presence(presence)
     if presence is None:
         while presence is None:
             print("waiting for presence...")
