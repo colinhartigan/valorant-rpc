@@ -67,16 +67,24 @@ def get_config():
         with open('config.json') as f:
             return json.loads(f.read())
     except FileNotFoundError as e:
+        print('config.json not found! generating a new one...')
         with open('config.json','w') as f:
             payload = {
-                "rpc-oauth": {},
+                "settings": {
+                    "launch_timeout": 120
+                },
                 "riot-account": {
                     "username": "",
                     "password": ""
-                }
+                },
+                "rpc-oauth": {},
+                "rpc-client-override": {
+                    "client_id": 0,
+                    "client_secret": 0
+                },
             }
             json.dump(payload,f,indent=4)
-            return get_config()
+        return get_config()
 
 def sanitize_presence(original):
     try:
@@ -133,7 +141,7 @@ def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotC
     return False
 
 def get_rcs_path():
-    # thanks github/afwolfe 
+    # thanks github/afwolfe :)
 
     """Attempts to use the RiotClientInstalls.json file to detect the location of RiotClientServices.
     Returns the absolute path if found or None if not."""

@@ -212,7 +212,7 @@ def main(loop):
     latest_tag = utils.get_latest_github_release_tag()
     if latest_tag != current_release:
         toaster.show_toast(
-            "Valorant-RPC update available!",
+            "valorant-rpc update available!",
             f"{current_release} -> {latest_tag}",
             icon_path=resource_path("favicon.ico"),
             duration=10,
