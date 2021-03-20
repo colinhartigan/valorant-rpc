@@ -142,9 +142,10 @@ def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotC
 
 def get_rcs_path():
     # thanks github/afwolfe :)
-
-    """Attempts to use the RiotClientInstalls.json file to detect the location of RiotClientServices.
-    Returns the absolute path if found or None if not."""
+    '''
+    Attempts to use the RiotClientInstalls.json file to detect the location of RiotClientServices.
+    Returns the absolute path if found or None if not.
+    '''
     RIOT_CLIENT_INSTALLS_PATH = os.path.expandvars("%PROGRAMDATA%\\Riot Games\\RiotClientInstalls.json")
     try:
         with open(RIOT_CLIENT_INSTALLS_PATH, "r") as file:

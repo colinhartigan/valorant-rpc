@@ -7,22 +7,27 @@ from dotenv import load_dotenv
 from psutil import AccessDenied
 import nest_asyncio
 
+# init some modules ya know
 nest_asyncio.apply()
 load_dotenv()
 toaster = ToastNotifier()
 
+# variables for main
 global systray
 systray = None
 window_shown = False
 client_id = str(os.environ.get('CLIENT_ID'))
+client_secret = str(os.environ.get('CLIENT_SECRET'))
 client = None
 last_presence = {}
 session = None
 last_state = None
 loop = None
-launch_timeout = 120
+launch_timeout = None
+use_enhanced_presence = False
 
-current_release = "v1.2" #don't forget to update this you bimbo
+
+current_release = "v2.0b1" #don't forget to update this you bimbo
 
 
 #weird workaround for getting image w/ relative path to work with pyinstaller
@@ -78,15 +83,10 @@ def close_program():
 # ----------------------------------------------------------------------------------------------
 
 
-
 def update_rpc(data):
 
-    global session
+    global session  
 
-    #party state
-    
-
- 
     if not data["isIdle"]:
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
@@ -128,6 +128,7 @@ def update_rpc(data):
                     print('new sesh')
 
         elif data["sessionLoopState"] == "INGAME":
+            # if a match doesn't have a pregame
             if last_state != "INGAME":
                 if session is None:
                     session = match_session.Session(client)
@@ -145,6 +146,10 @@ def update_rpc(data):
 
 
 def join_listener(data):
+    '''
+    fires when a party invite (from someone else) has been accepted by the client 
+    process the party id and request valorant client api to join party
+    '''
     config = utils.get_config()
     username = config['riot-account']['username']
     password = config['riot-account']['password']
@@ -156,6 +161,9 @@ def join_listener(data):
 
 
 def listen(lockfile):
+    '''
+    listening loop to check for updates in presence
+    '''
     global last_presence,client,session
     while True:
         if not utils.is_process_running():
@@ -195,16 +203,35 @@ def listen(lockfile):
                 '''
 
 
-
 # ----------------------------------------------------------------------------------------------
 # startup
 def main(loop):
-    global client
+    '''
+    startup routine: load config, start VALORANT, load lockfile, wait for presence
+    once startup is complete, run the listening loop
+    '''
+    global client,client_id,client_secret
+
+    # load config
+    config = utils.get_config() 
+    launch_timeout = config['settings']['launch_timeout']
+    if config['rpc-client-override']['client_id'] != 0:
+        client_id = config['rpc-client-override']['client_id']
+    if config['rpc-client-override']['client_secret'] != 0:
+        client_id = config['rpc-client-override']['client_secret']
+
+    if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
+        use_enhanced_presence = True 
+    else:
+        print('no riot account detected, using old presence')
+        #figure out if i can still use client.set_activity without whitelisting/oauthing; if so, then just use that
+
+
     # setup client
     client = pypresence.Client(client_id,loop=loop) 
     webserver.run()
     client.start()
-    oauth.authorize(client)
+    #oauth.authorize(client,client_id,client_secret)
     
     launch_timer = 0
 
@@ -276,6 +303,7 @@ def main(loop):
 
     #start the loop
     listen(lockfile)
+
 
 if __name__=="__main__":   
     loop = asyncio.get_event_loop()
