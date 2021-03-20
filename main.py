@@ -22,7 +22,7 @@ last_state = None
 loop = None
 launch_timeout = 120
 
-current_release = "v1.2"
+current_release = "v1.2" #don't forget to update this you bimbo
 
 
 #weird workaround for getting image w/ relative path to work with pyinstaller
