@@ -6,6 +6,7 @@ from psutil import AccessDenied
 import sys
 import os
 from datetime import datetime
+import requests
 
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
@@ -54,6 +55,12 @@ agent_ids = {
     "add6443a-41bd-e414-f6ad-e58d267f4e95":"Jett",
     "":"Selecting"
 }
+
+def get_latest_github_release_tag():
+    data = requests.get("https://api.github.com/repos/colinhartigan/valorant-rpc/releases/latest")
+    latest = data.json()["tag_name"]
+    return latest
+
 
 def get_config():
     try:

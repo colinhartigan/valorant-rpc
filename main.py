@@ -1,30 +1,15 @@
-import riot_api,utils
-import asyncio 
-import json
-import base64
-import pypresence
-import time
-import threading
-import pystray
+import riot_api,utils,webserver,oauth,client_api,match_session
+import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray
+from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
 from PIL import Image, ImageDraw
-import os
-import subprocess
-import psutil
-import ctypes
-import sys
-import webserver
-import oauth
-import client_api
-import match_session
 from dotenv import load_dotenv
 from psutil import AccessDenied
 import nest_asyncio
 
-
 nest_asyncio.apply()
 load_dotenv()
-
+toaster = ToastNotifier()
 
 global systray
 systray = None
@@ -36,6 +21,8 @@ session = None
 last_state = None
 loop = None
 launch_timeout = 120
+
+current_release = "v1.2"
 
 
 #weird workaround for getting image w/ relative path to work with pyinstaller
@@ -192,7 +179,7 @@ def listen(lockfile):
         elif session is not None:
             # match started, now use session object for updating presence
             # while in pregame update less often because less is changing and rate limits
-            if session.state is not "MENUS":
+            if session.state != "MENUS":
                 presence = riot_api.get_presence(lockfile)
                 session.mainloop(presence)
                 time.sleep(3)
@@ -220,6 +207,18 @@ def main(loop):
     oauth.authorize(client)
     
     launch_timer = 0
+
+    #check for updates
+    latest_tag = utils.get_latest_github_release_tag()
+    if latest_tag != current_release:
+        toaster.show_toast(
+            "Valorant-RPC update available!",
+            f"{current_release} -> {latest_tag}",
+            icon_path=resource_path("favicon.ico"),
+            duration=10,
+            threaded=True
+        )
+        print(f"an update is available! ({current_release} -> {latest_tag})")
 
     #check if val is open
     if not utils.is_process_running():
