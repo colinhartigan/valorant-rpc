@@ -70,18 +70,18 @@ def get_latest_github_release_tag():
 
 
 def get_config():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     try:
-        with open(get_resource_path('config.json')) as f:
+        with open(get_resource_path(os.path.join(dir_path, 'config.json'))) as f:
             return json.loads(f.read())
     except FileNotFoundError as e:
         print('config.json not found! generating a new one...')
-        dir_path = os.path.dirname(os.path.realpath(__file__))
         with open(os.path.join(dir_path, 'config.json'), 'w') as f:
             payload = {
                 "settings": {
                     "launch_timeout": 120,
-                    "menu-refresh":1,
-                    "ingame-refresh":3
+                    "menu-refresh-interval":1,
+                    "ingame-refresh-interval":3
                 },
                 "riot-account": {
                     "username": "",
