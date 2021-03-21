@@ -75,10 +75,13 @@ def get_config():
             return json.loads(f.read())
     except FileNotFoundError as e:
         print('config.json not found! generating a new one...')
-        with open('config.json','w') as f:
+        dir_path = os.path.dirname(os.path.realpath(__file__))
+        with open(os.path.join(dir_path, 'config.json'), 'w') as f:
             payload = {
                 "settings": {
-                    "launch_timeout": 120
+                    "launch_timeout": 120,
+                    "menu-refresh":1,
+                    "ingame-refresh":3
                 },
                 "riot-account": {
                     "username": "",

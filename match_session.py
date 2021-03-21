@@ -4,6 +4,7 @@ import client_api
 import os
 import asyncio
 import time
+from exceptions import AuthError
 
 class Session:
     def __init__(self,client):
@@ -70,7 +71,7 @@ class Session:
         self.client.set_activity(
             state=presence_data['party_state'],
             #details=("Selecting Agent" if not self.selected else "Agent Locked"),# + (f" - {self.mode}" if self.mode else ""),
-            details="Agent Select" + (f" - {self.mode}" if self.mode else ""),
+            details="Pregame" + (f" - {self.mode}" if self.mode else ""),
             end=self.state_end_time,
             large_image=f"agent_{self.agent_name.lower()}" if (self.agent_name != "Selecting" and self.agent_name != "Observer") else "game_icon_white",
             large_text=("Selecting - " if not self.selected else "Locked - ") + f"{self.agent_name}" ,
@@ -84,8 +85,12 @@ class Session:
     def ingame_loop(self,presence_data):
         if presence_data['sessionLoopState'] == 'MENUS':
             self.state = "MENUS"
-        uuid,headers = client_api.get_auth(self.username,self.password)
+        try:
+            uuid,headers = client_api.get_auth(self.username,self.password)
+        except AuthError:
+            return
 
+        self.map = utils.maps[presence_data["matchMap"].split("/")[-1]]
         score = [presence_data["partyOwnerMatchScoreAllyTeam"],presence_data["partyOwnerMatchScoreEnemyTeam"]]
         self.client.set_activity(
             state=presence_data['party_state'],

@@ -87,7 +87,7 @@ def update_rpc(data):
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
             client.set_activity(
                 state=data["party_state"],
-                details=("In Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {data['queue_id']}" if data["queue_id"] else ""),
+                details=("Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {data['queue_id']}" if data["queue_id"] else ""),
                 start=data["time"] if not data["time"] == False else None,
                 large_image=("game_icon_white" if data["partyState"] == "MATCHMAKING" else "game_icon"),
                 large_text="VALORANT",
@@ -213,6 +213,7 @@ def main(loop):
         use_enhanced_presence = True 
     else:
         print('no riot account detected, using old presence')
+        use_enhanced_presence = False
         #figure out if i can still use client.set_activity without whitelisting/oauthing; if so, then just use that
 
 
