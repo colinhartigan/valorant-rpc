@@ -27,6 +27,7 @@ last_state = None
 launch_timeout = None
 use_enhanced_presence = False
 party_invites_enabled = False
+config = {}
 
 
 
@@ -162,8 +163,10 @@ def listen(lockfile):
     while True and utils.is_process_running():
             
         #event listeners
-        client.register_event('ACTIVITY_JOIN',party_join_listener)
+        if party_invites_enabled: 
+            client.register_event('ACTIVITY_JOIN',party_join_listener)
 
+        # normal listening loop
         if session is None:
             #in the menus, waiting for match
             presence = riot_api.get_presence(lockfile)
@@ -173,7 +176,7 @@ def listen(lockfile):
             update_rpc(presence)
             last_presence = presence
             last_state = presence['sessionLoopState']
-            time.sleep(1)
+            time.sleep(config['settings']['menu_refresh_interval'])
 
         elif session is not None:
             # match started, now use session object for updating presence
@@ -181,7 +184,7 @@ def listen(lockfile):
             if session.state != "MENUS":
                 presence = riot_api.get_presence(lockfile)
                 session.mainloop(presence)
-                time.sleep(3)
+                time.sleep(config['settings']['ingame_refresh_interval'])
             else:
                 del session
                 session = None
@@ -197,7 +200,7 @@ def main(loop):
     startup routine: load config, start VALORANT, load lockfile, wait for presence
     once startup is complete, run the listening loop
     '''
-    global client,client_id,client_secret
+    global client,client_id,client_secret,config
 
     # load config
     config = utils.get_config() 
@@ -208,6 +211,8 @@ def main(loop):
     if config['rpc-client-override']['client_secret'] != "":
         print("overriding client secret!")
         client_secret = config['rpc-client-override']['client_secret']
+    else:
+        party_invites_enabled = False
 
     if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
         use_enhanced_presence = True 

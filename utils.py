@@ -102,7 +102,7 @@ def sanitize_presence(original):
         data["party_state"] = "Solo" 
         if data["partySize"] > 1:
             data["party_state"] = "In a Party"
-        data["party_state"] = "In an Open Party" if not data["partyAccessibility"] == "CLOSED" else data["party_state"]
+        data["party_state"] = "Open Party" if not data["partyAccessibility"] == "CLOSED" else data["party_state"]
 
         data["queue_id"] = queue_ids[data["queueId"]]
         if data["partyState"] == "CUSTOM_GAME_SETUP":
