@@ -1,4 +1,4 @@
-import riot_api,utils,webserver,oauth,client_api,match_session
+import webserver,riot_api,utils,oauth,client_api,match_session
 import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray
 from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
@@ -15,26 +15,22 @@ toaster = ToastNotifier()
 # variables for main
 global systray
 systray = None
+loop = None
 window_shown = False
+
 client_id = str(os.environ.get('CLIENT_ID'))
 client_secret = str(os.environ.get('CLIENT_SECRET'))
 client = None
 last_presence = {}
 session = None
 last_state = None
-loop = None
 launch_timeout = None
 use_enhanced_presence = False
+party_invites_enabled = False
+
 
 
 current_release = "v2.0b1" #don't forget to update this you bimbo
-
-
-#weird workaround for getting image w/ relative path to work with pyinstaller
-def resource_path(relative_path):
-    if hasattr(sys, '_MEIPASS'): 
-        return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
 
 
 # ----------------------------------------------------------------------------------------------
@@ -64,7 +60,7 @@ print("initializing systray object")
 def run_systray():
     global systray, window_shown
 
-    systray_image = Image.open(resource_path("favicon.ico"))
+    systray_image = Image.open(utils.get_resource_path("favicon.ico"))
     systray_menu = menu(
         item('show debug', tray_window_toggle, checked=lambda item: window_shown),
         item('quit', close_program),
@@ -84,7 +80,6 @@ def close_program():
 
 
 def update_rpc(data):
-
     global session  
 
     if not data["isIdle"]:
@@ -139,13 +134,12 @@ def update_rpc(data):
         client.set_activity(
             state="Away",
             details="Lobby" + (f" - {data['queue_id']}" if data["queue_id"] else ""),
-            large_image="game_icon",
+            large_image="game_icon_yellow",
             large_text="VALORANT",
-            small_image="away_icon",
         )
 
 
-def join_listener(data):
+def party_join_listener(data):
     '''
     fires when a party invite (from someone else) has been accepted by the client 
     process the party id and request valorant client api to join party
@@ -165,13 +159,10 @@ def listen(lockfile):
     listening loop to check for updates in presence
     '''
     global last_presence,client,session
-    while True:
-        if not utils.is_process_running():
-            print("valorant closed, exiting")
-            close_program()
-
+    while True and utils.is_process_running():
+            
         #event listeners
-        client.register_event('ACTIVITY_JOIN',join_listener)
+        client.register_event('ACTIVITY_JOIN',party_join_listener)
 
         if session is None:
             #in the menus, waiting for match
@@ -194,13 +185,9 @@ def listen(lockfile):
             else:
                 del session
                 session = None
-        '''
-        except Exception as e:
-            print(e)
-            if not utils.is_process_running():
-                print("valorant closed, exiting")
-                close_program()
-                '''
+
+    if not utils.is_process_running():
+        close_program()
 
 
 # ----------------------------------------------------------------------------------------------
@@ -215,10 +202,12 @@ def main(loop):
     # load config
     config = utils.get_config() 
     launch_timeout = config['settings']['launch_timeout']
-    if config['rpc-client-override']['client_id'] != 0:
+    if config['rpc-client-override']['client_id'] != "":
+        print("overriding client id!")
         client_id = config['rpc-client-override']['client_id']
-    if config['rpc-client-override']['client_secret'] != 0:
-        client_id = config['rpc-client-override']['client_secret']
+    if config['rpc-client-override']['client_secret'] != "":
+        print("overriding client secret!")
+        client_secret = config['rpc-client-override']['client_secret']
 
     if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
         use_enhanced_presence = True 
@@ -241,7 +230,7 @@ def main(loop):
         toaster.show_toast(
             "valorant-rpc update available!",
             f"{current_release} -> {latest_tag}",
-            icon_path=resource_path("favicon.ico"),
+            icon_path=utils.get_resource_path("favicon.ico"),
             duration=10,
             threaded=True
         )

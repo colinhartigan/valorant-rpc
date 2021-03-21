@@ -56,6 +56,13 @@ agent_ids = {
     "":"Selecting"
 }
 
+#weird workaround for getting image w/ relative path to work with pyinstaller
+def get_resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'): 
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
+
+
 def get_latest_github_release_tag():
     data = requests.get("https://api.github.com/repos/colinhartigan/valorant-rpc/releases/latest")
     latest = data.json()["tag_name"]
@@ -64,7 +71,7 @@ def get_latest_github_release_tag():
 
 def get_config():
     try:
-        with open('config.json') as f:
+        with open(get_resource_path('config.json')) as f:
             return json.loads(f.read())
     except FileNotFoundError as e:
         print('config.json not found! generating a new one...')
@@ -79,8 +86,8 @@ def get_config():
                 },
                 "rpc-oauth": {},
                 "rpc-client-override": {
-                    "client_id": 0,
-                    "client_secret": 0
+                    "client_id": "811469787657928704",
+                    "client_secret": ""
                 },
             }
             json.dump(payload,f,indent=4)
