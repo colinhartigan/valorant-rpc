@@ -57,8 +57,8 @@ def tray_window_toggle(icon, item):
     except:
         pass
 
-print("initializing systray object")
 def run_systray():
+    print("initializing systray object")
     global systray, window_shown
 
     systray_image = Image.open(utils.get_resource_path("favicon.ico"))
@@ -68,7 +68,7 @@ def run_systray():
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     systray.run()
-print("systray ready!")
+    print("systray ready!")
 
 def close_program():
     global systray,client
@@ -81,6 +81,8 @@ def close_program():
 
 
 def update_rpc(data):
+    if data is None:
+        return
     global session  
 
     if not data["isIdle"]:
@@ -115,20 +117,29 @@ def update_rpc(data):
                 join=data['join_state']
             )
 
-        elif data["sessionLoopState"] == "PREGAME":
-            if last_state != "PREGAME":
-                # new game session, create match object
-                if session is None: 
-                    session = match_session.Session(client)
-                    session.init_pregame(data)
-                    print('new sesh')
+        if use_enhanced_presence:
+            # if username/password is provided i can get more detailed match info for presence
+            if data["sessionLoopState"] == "PREGAME":
+                if last_state != "PREGAME":
+                    # new game session, create match object
+                    if session is None: 
+                        session = match_session.Session(client)
+                        session.init_pregame(data)
+                        print('new sesh')
 
-        elif data["sessionLoopState"] == "INGAME":
-            # if a match doesn't have a pregame
-            if last_state != "INGAME":
-                if session is None:
-                    session = match_session.Session(client)
-                    session.init_ingame(data)
+            elif data["sessionLoopState"] == "INGAME":
+                # if a match doesn't have a pregame
+                if last_state != "INGAME":
+                    if session is None:
+                        session = match_session.Session(client)
+                        session.init_ingame(data)
+
+        else:
+            # if not, use older presence stuff
+            pass
+            
+
+        
 
 
     elif data["isIdle"]:
@@ -202,6 +213,15 @@ def main(loop):
     '''
     global client,client_id,client_secret,config
 
+    print('''
+ _    _____    __    ____  ____  ___    _   ________            ____  ____  ______
+| |  / /   |  / /   / __ \/ __ \/   |  / | / /_  __/           / __ \/ __ \/ ____/
+| | / / /| | / /   / / / / /_/ / /| | /  |/ / / /    ______   / /_/ / /_/ / /     
+| |/ / ___ |/ /___/ /_/ / _, _/ ___ |/ /|  / / /    /_____/  / _, _/ ____/ /___   
+|___/_/  |_/_____/\____/_/ |_/_/  |_/_/ |_/ /_/             /_/ |_/_/    \____/   
+                                                                                  
+    ''')
+
     # load config
     config = utils.get_config() 
     launch_timeout = config['settings']['launch_timeout']
@@ -240,14 +260,14 @@ def main(loop):
             duration=10,
             threaded=True
         )
-        print(f"an update is available! ({current_release} -> {latest_tag})")
+        print(f"[!] an update is available! ({current_release} -> {latest_tag})")
 
     #check if val is open
     if not utils.is_process_running():
         print("valorant not opened, attempting to run...")
         subprocess.Popen([utils.get_rcs_path(), "--launch-product=valorant", "--launch-patchline=live"])
         while not utils.is_process_running():
-            print("waiting for valorant...")
+            print(f"waiting for valorant... ({launch_timer})",end='\r')
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 close_program()
@@ -269,14 +289,14 @@ def main(loop):
     lockfile = riot_api.get_lockfile()
     if lockfile is None:
         while lockfile is None:
-            print("waiting for lockfile...")
+            print(f"waiting for lockfile... ({launch_timer})",end='\r')
             lockfile = riot_api.get_lockfile()
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
     print("lockfile loaded! hiding window...")
-    #time.sleep(3)
+    time.sleep(1)
     systray_thread = threading.Thread(target=run_systray)
     systray_thread.start()
     user32.ShowWindow(hWnd, 0)
@@ -286,15 +306,16 @@ def main(loop):
     presence = riot_api.get_presence(lockfile)
     if presence is None:
         while presence is None:
-            print("waiting for presence...")
+            print(f"waiting for presence... ({launch_timer})",end='\r')
             presence = riot_api.get_presence(lockfile)
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 print("presence took too long, terminating program!")
                 close_program()
             time.sleep(1)
+    print("starting loop")
     update_rpc(presence)
-    print(f"LOCKFILE: {lockfile}")
+    #print(f"LOCKFILE: {lockfile}")
 
     #start the loop
     listen(lockfile)

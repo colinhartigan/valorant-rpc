@@ -1,7 +1,7 @@
-dist/
-build/
 __pycache__/
 assets/
-.vscode
+.vscode/
+build/
+dist/
 .env
 config.json
