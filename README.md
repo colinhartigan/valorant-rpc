@@ -67,7 +67,7 @@ inputting your account credentials is OPTIONAL; however, features including Disc
 
 
 ## Restarting the application
-> this **DOES NOT** close/restart VALORANT, you can restart the app while VALORANT is open
+> this **DOES NOT** close/restart VALORANT
 
 After editing the configuration, locate the tray icon, right click it, and select **restart**
 ![image](https://user-images.githubusercontent.com/42125428/112065554-3268ea80-8b3b-11eb-928a-9cdb92b9dbb1.png)
