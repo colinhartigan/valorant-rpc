@@ -71,13 +71,18 @@ def get_latest_github_release_tag():
 
 
 def get_config():
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
+    if not os.path.exists(appdata_path):
+        os.makedirs(appdata_path)
     try:
-        with open(get_resource_path(os.path.join(dir_path, '../data/config.json'))) as f:
-            return json.loads(f.read())
+        with open(get_resource_path(os.path.join(appdata_path, 'config.json'))) as f:     
+            data = json.loads(f.read())
+            return data
     except FileNotFoundError as e:
-        print('[!] config.json not found! generating a new one...')
-        with open(os.path.join(dir_path, '../data/config.json'), 'w') as f:
+        print(f'[!] config.json not found! generating a new one @ {appdata_path}...')
+        #generate a config in appdata
+
+        with open(get_resource_path(os.path.join(appdata_path, 'config.json')), 'w') as f:
             payload = {
                 "settings": {
                     "launch_timeout": 120,
@@ -95,8 +100,8 @@ def get_config():
                 },
             }
             json.dump(payload,f,indent=4)
-        return get_config()
 
+        return get_config()
 
 def sanitize_presence(original):
     try:

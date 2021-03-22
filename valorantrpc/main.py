@@ -232,6 +232,9 @@ def main(loop):
 
     # load config
     config = utils.get_config() 
+    if config is False:
+        print('[!] exit: config load error')
+        sys.exit()
 
     launch_timeout = config['settings']['launch_timeout']
     if config['rpc-client-override']['client_id'] != "" and config['rpc-client-override']['client_id'] != default_client_id:
@@ -261,6 +264,10 @@ def main(loop):
     client = pypresence.Client(int(client_id),loop=loop) 
     webserver.run()
     client.start()
+
+    # setup systray
+    systray_thread = threading.Thread(target=run_systray)
+    systray_thread.start()
 
     # authorize app if party invites enabled
     if party_invites_enabled:
@@ -331,10 +338,8 @@ def main(loop):
             time.sleep(1)
 
     print("[i] presence detected! hiding window...")
-    systray_thread = threading.Thread(target=run_systray)
-    systray_thread.start()
+    time.sleep(2)
     user32.ShowWindow(hWnd, 0)
-    time.sleep(1)
     
     print("[i] starting loop")
     update_rpc(presence)
