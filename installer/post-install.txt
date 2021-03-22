@@ -1,5 +1,0 @@
-Thank you for installing VALORANT-RPC!
-https://github.com/colinhartigan/valorant-rpc
-
-You're almost done installing, but there's one more step to ensure a seamless experience while using the client:
-https://github.com/colinhartigan/valorant-rpc#part-2-changing-the-valorant-launch-target

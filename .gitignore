@@ -6,4 +6,4 @@ dist/
 .env
 config.json
 main.spec
-installer/
+installer/ 
