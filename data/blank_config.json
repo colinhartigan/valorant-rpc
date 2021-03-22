@@ -1,4 +1,5 @@
 {
+    "version": "v2.0b1",
     "settings": {
         "launch_timeout": 120,
         "menu_refresh_interval": 1,

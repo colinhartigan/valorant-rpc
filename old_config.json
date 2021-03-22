@@ -1,0 +1,23 @@
+{
+    "version": "v2.0b1",
+    "settings": {
+        "launch_timeout": 120,
+        "menu_refresh_interval": 1,
+        "ingame_refresh_interval": 3
+    },
+    "riot-account": {
+        "username": "leColinizer",
+        "password": "!"
+    },
+    "rpc-oauth": {
+        "access_token": "6W72AkCODljB5E7RSodnCBa4zvbwOc",
+        "expires_in": 604800,
+        "refresh_token": "tijS2n18yiTRbjmtrzv1n5JtxaZghe",
+        "scope": "rpc",
+        "token_type": "Bearer"
+    },
+    "rpc-client-override": {
+        "client_id": "811469787657928704",
+        "client_secret": "VJhIh_ViKLq6jDp7LSqOWqG01dCHtMoQ"
+    }
+}

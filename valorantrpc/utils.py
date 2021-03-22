@@ -70,6 +70,8 @@ def get_latest_github_release_tag():
     return latest
 
 
+#------------------------------------------------------------------------------------------------
+# config stuff
 def get_config():
     appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
     if not os.path.exists(appdata_path):
@@ -83,25 +85,37 @@ def get_config():
         #generate a config in appdata
 
         with open(get_resource_path(os.path.join(appdata_path, 'config.json')), 'w') as f:
-            payload = {
-                "settings": {
-                    "launch_timeout": 120,
-                    "menu_refresh_interval":1,
-                    "ingame_refresh_interval":3
-                },
-                "riot-account": {
-                    "username": "",
-                    "password": ""
-                },
-                "rpc-oauth": {},
-                "rpc-client-override": {
-                    "client_id": "811469787657928704",
-                    "client_secret": ""
-                },
-            }
+            payload = get_blank_config()
             json.dump(payload,f,indent=4)
 
         return get_config()
+
+
+def create_new_config():
+    appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
+    old_config = get_config()
+
+    # rename old config, replace old config if there was already one
+    if os.path.exists(get_resource_path(os.path.join(appdata_path, 'old_config.json'))):
+        os.remove(get_resource_path(os.path.join(appdata_path, 'old_config.json')))
+
+    os.rename(get_resource_path(os.path.join(appdata_path, 'config.json')),get_resource_path(os.path.join(appdata_path, 'old_config.json')))
+
+    print(f'[i] creating new config @ {appdata_path}; make sure you update your settings')
+    # create new config
+    with open(get_resource_path(os.path.join(appdata_path, 'config.json')), 'w') as f:
+        payload = get_blank_config()
+        json.dump(payload,f,indent=4)
+
+    return get_config()
+
+
+def get_blank_config():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    with open(get_resource_path(os.path.join(dir_path, '../data/blank_config.json'))) as f:
+        return json.loads(f.read())
+#------------------------------------------------------------------------------------------------
+
 
 def sanitize_presence(original):
     try:

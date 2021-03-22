@@ -1,6 +1,6 @@
 from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session,unenhanced_match_session
 from valorantrpc.exceptions import AuthError
-import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray
+import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray,traceback
 from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
 from PIL import Image, ImageDraw
@@ -33,7 +33,7 @@ config = {}
 
 
 default_client_id = "811469787657928704"
-current_release = "v2.0b1" #don't forget to update this you bimbo
+current_release = None #don't forget to update this you bimbo
 
 
 # ----------------------------------------------------------------------------------------------
@@ -66,11 +66,12 @@ def run_systray():
     systray_image = Image.open(favicon)
     systray_menu = menu(
         item('show debug', tray_window_toggle, checked=lambda item: window_shown),
+        item('restart', restart),
         item('quit', close_program),
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
-    systray.run()
     print("[i] systray ready!")
+    systray.run()
 
 def close_program():
     global systray,client
@@ -78,6 +79,12 @@ def close_program():
     client.close()
     systray.stop()
     sys.exit()
+
+def restart():
+    user32.ShowWindow(hWnd, 1)
+    print("\n-------------------------------------------------------------------")
+    print("[i] restarting program")
+    os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 #end sys tray stuff
 # ----------------------------------------------------------------------------------------------
 
@@ -188,34 +195,40 @@ def listen(lockfile):
     '''
     global last_presence,client,session
     while True and utils.is_process_running():
+        try:
             
-        #event listeners
-        if party_invites_enabled: 
-            client.register_event('ACTIVITY_JOIN',party_join_listener)
+            #event listeners
+            if party_invites_enabled: 
+                client.register_event('ACTIVITY_JOIN',party_join_listener)
 
-        presence = riot_api.get_presence(lockfile)
+            presence = riot_api.get_presence(lockfile)
 
-        # normal listening loop
-        if session is None:
-            #in the menus, waiting for match
-            if presence == last_presence:
-                last_presence = presence
-                continue
-            update_rpc(presence)
-            time.sleep(config['settings']['menu_refresh_interval'])
+            # normal listening loop
+            if session is None:
+                #in the menus, waiting for match
+                if presence == last_presence:
+                    last_presence = presence
+                    continue
+                update_rpc(presence)
+                time.sleep(config['settings']['menu_refresh_interval'])
 
-        elif session is not None:
-            # match started, now use session object for updating presence
-            # while in pregame update less often because less is changing and rate limits
-            if presence['sessionLoopState'] != "MENUS":
-                session.mainloop(presence)
-                time.sleep(config['settings']['ingame_refresh_interval'])
-            else:
-                del session
-                session = None
+            elif session is not None:
+                # match started, now use session object for updating presence
+                # while in pregame update less often because less is changing and rate limits
+                if presence['sessionLoopState'] != "MENUS":
+                    session.mainloop(presence)
+                    time.sleep(config['settings']['ingame_refresh_interval'])
+                else:
+                    del session
+                    session = None
 
-        last_presence = presence
-        last_state = presence['sessionLoopState']
+            last_presence = presence
+            last_state = presence['sessionLoopState']
+        
+        except Exception:
+            print('[!] program closing')
+            traceback.print_exc()
+            close_program()
 
     if not utils.is_process_running():
         close_program()
@@ -232,20 +245,26 @@ def main(loop):
 
     # load config
     config = utils.get_config() 
+    blank_config = utils.get_blank_config()
     if config is False:
         print('[!] exit: config load error')
         sys.exit()
 
     launch_timeout = config['settings']['launch_timeout']
+    current_release = blank_config['version']
+    if config['version'] != current_release:
+        config = utils.create_new_config()
+
     if config['rpc-client-override']['client_id'] != "" and config['rpc-client-override']['client_id'] != default_client_id:
         print("[i] overriding client id!")
         client_id = config['rpc-client-override']['client_id']
     else:
         client_id = default_client_id
+
     if config['rpc-client-override']['client_secret'] != "":
         print("[i] overriding client secret!")
         client_secret = config['rpc-client-override']['client_secret']
-        party_invites_enabled = True
+        party_invites_enabled = True 
     else:
         party_invites_enabled = False
 
@@ -254,11 +273,12 @@ def main(loop):
             uuid,headers = client_api.get_auth(config['riot-account']['username'],config['riot-account']['password'])
             use_enhanced_presence = True
         except AuthError:
+            print("[!] could not authenticate with Riot for enhanced presence, check username/password!")
             use_enhanced_presence = False
     else:
         print('[i] no riot account detected, using old presence')
         use_enhanced_presence = False
-        #figure out if i can still use client.set_activity without whitelisting/oauthing; if so, then just use that
+
 
     # setup client
     client = pypresence.Client(int(client_id),loop=loop) 
@@ -273,9 +293,10 @@ def main(loop):
     if party_invites_enabled:
         try:
             oauth.authorize(client,client_id,client_secret)
-        except:
+        except AuthError:
             use_enhanced_presence = False 
-            print('[!] could not authenticate, check the client secret')
+            party_invites_enabled = False
+            print('[!] could not authenticate with discord!, check the client id and secret!')
     
     launch_timer = 0
 

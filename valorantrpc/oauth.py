@@ -8,7 +8,7 @@ from valorantrpc.exceptions import AuthError
 api_endpoint = 'https://discord.com/api/v8'
 
 def exchange_code(code,client_id,client_secret):
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
     data = {
         'client_id': client_id,
         'client_secret': client_secret,
@@ -22,7 +22,7 @@ def exchange_code(code,client_id,client_secret):
     }
     r = requests.post('%s/oauth2/token' % api_endpoint, data=data, headers=headers)
     r.raise_for_status()
-    with open(os.path.join(dir_path, '../data/config.json'), 'r+') as f:
+    with open(os.path.join(appdata_path, 'config.json'), 'r+') as f:
         data = json.load(f)
         data['rpc-oauth'] = r.json()
         f.seek(0)
@@ -32,7 +32,7 @@ def exchange_code(code,client_id,client_secret):
     return r.json()
 
 def refresh_token(refresh_token,client_id,client_secret):
-    dir_path = os.path.dirname(os.path.realpath(__file__))
+    appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
     data = {
         'client_id': client_id,
         'client_secret': client_secret,
@@ -46,7 +46,7 @@ def refresh_token(refresh_token,client_id,client_secret):
     }
     r = requests.post('%s/oauth2/token' % api_endpoint, data=data, headers=headers)
     r.raise_for_status()
-    with open(os.path.join(dir_path, '../data/config.json'), 'r+') as f:
+    with open(os.path.join(appdata_path, 'config.json'), 'r+') as f:
         data = json.load(f)
         data['rpc-oauth'] = r.json()
         f.seek(0)
@@ -60,7 +60,7 @@ def authorize(client,client_id,client_secret):
     config = utils.get_config()
     if config['rpc-oauth'] == {}:
         try:
-            print("[i] authenticating with discord")
+            print("[i] authorizing with discord")
             auth = client.authorize(client_id,['rpc'])
             config = utils.get_config()
             code_grant = auth['data']['code']
@@ -72,7 +72,7 @@ def authorize(client,client_id,client_secret):
             raise AuthError
     else:
         try:
-            print("[i] already authenticated! refreshing token...")
+            print("[i] already authorized with discord! refreshing token...")
             new_token = refresh_token(config['rpc-oauth']['refresh_token'],client_id,client_secret)
             client.authenticate(new_token['access_token'])
         except:
