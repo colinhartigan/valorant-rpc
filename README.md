@@ -90,6 +90,6 @@ The console window will reappear for a few seconds and the program will restart
 
 3. In the **Target** box, paste the path to *valorant-rpc.exe* from when you installed (ex. `C:\Program Files (x86)\valorant-rpc\valorant-rpc.exe`), then select **Apply**
 
-![image](https://user-images.githubusercontent.com/42125428/109582870-eba04b80-7acc-11eb-8748-7de9376a8e81.png)
+![image](https://user-images.githubusercontent.com/42125428/112066464-c38c9100-8b3c-11eb-8e37-96a0b36cb9bc.png)
 
 4. Launch VALORANT! The program console should appear for a few seconds before the game launches.
