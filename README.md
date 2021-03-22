@@ -75,3 +75,21 @@ After editing the configuration, locate the tray icon, right click it, and selec
 ![image](https://user-images.githubusercontent.com/42125428/112065554-3268ea80-8b3b-11eb-928a-9cdb92b9dbb1.png)
 
 The console window will reappear for a few seconds and the program will restart
+
+
+## Modifying the VALORANT launch target
+
+1. Locate the VALORANT shortcut
+    - if you typically launch from your desktop, locate the VALORANT icon
+    - if you typically launch from the search bar, search for VALORANT and open the file location
+    - you can also do this for every VALORANT shortcut you have
+
+2. Right click on the shortcut/icon, then select **Properties**
+
+![image](https://user-images.githubusercontent.com/42125428/109582766-bdbb0700-7acc-11eb-914e-40a46e139494.png)
+
+3. In the **Target** box, paste the path to *valorant-rpc.exe* from when you installed (ex. `C:\Program Files (x86)\valorant-rpc\valorant-rpc.exe`), then select **Apply**
+
+![image](https://user-images.githubusercontent.com/42125428/109582870-eba04b80-7acc-11eb-8748-7de9376a8e81.png)
+
+4. Launch VALORANT! The program console should appear for a few seconds before the game launches.
