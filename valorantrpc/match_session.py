@@ -80,12 +80,20 @@ class Session:
         )
 
     def ingame_loop(self,presence_data):
+        uuid,headers="",{}
         if presence_data['sessionLoopState'] == 'MENUS':
             self.state = "MENUS"
         try:
             uuid,headers = client_api.get_auth(self.username,self.password)
         except AuthError:
             return
+        
+        if self.agent_name == "":
+            # sometimes it doesn't catch the agent in pregame, so check ingame too
+            match_data = client_api.get_glz(f'/core-game/v1/matches/{self.match_id}',headers)
+            for player in match_data['Players']:
+                if player['Subject'] == self.uuid:
+                    self.agent_name = utils.agent_ids[player['CharacterID'].lower()]
 
         self.map = utils.maps[presence_data["matchMap"].split("/")[-1]]
         score = [presence_data["partyOwnerMatchScoreAllyTeam"],presence_data["partyOwnerMatchScoreEnemyTeam"]]

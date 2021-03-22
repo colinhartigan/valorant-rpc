@@ -223,8 +223,9 @@ def listen(lockfile):
                     session.mainloop(presence)
                     time.sleep(config['settings']['ingame_refresh_interval'])
                 else:
-                    del session
+                    print('match over')
                     session = None
+                    update_rpc(presence)
 
             last_presence = presence
             last_state = presence['sessionLoopState']
