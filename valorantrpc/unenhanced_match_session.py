@@ -1,4 +1,5 @@
 from . import utils
+import time
 
 class Session:
     def __init__(self,client):
@@ -13,11 +14,13 @@ class Session:
 
     def init_ingame(self,presence_data):
         self.state = "INGAME"
-        self,mode = presence_data['queue_id']
+        self.mode = presence_data['queue_id']
 
     def pregame_loop(self,presence_data):
         if presence_data['sessionLoopState'] == "MENUS":
             self.state = "MENUS"
+        if presence_data['sessionLoopState'] == "INGAME":
+            self.state = "INGAME"
         self.map = utils.maps[presence_data["matchMap"].split("/")[-1]]
         self.client.set_activity(
             state=presence_data['party_state'],
@@ -39,7 +42,7 @@ class Session:
         self.client.set_activity(
             state=presence_data['party_state'],
             details=f"{self.mode.upper()}: {score[0]} - {score[1]}",
-            start=presence_data['time'] if not presence_data['time'] == False else None,
+            start=presence_data['time'] if presence_data['time'] is not False else time.time(),
             large_image=f"splash_{self.map.lower()}",
             large_text=self.map,
             small_image=utils.mode_images[self.mode.lower()],
@@ -49,6 +52,6 @@ class Session:
 
     def mainloop(self,presence_data):
         if self.state == "PREGAME":
-            pregame_loop(presence_data)
+            self.pregame_loop(presence_data)
         elif self.state == "INGAME":
-            ingame_loop(presence_data)
+            self.ingame_loop(presence_data)

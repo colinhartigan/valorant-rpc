@@ -137,7 +137,6 @@ def update_rpc(data):
             if last_state != "PREGAME":
                 # new game session, create match object
                 if session is None: 
-                    print(use_enhanced_presence)
                     if use_enhanced_presence:
                         session = match_session.Session(client)
                     else:
