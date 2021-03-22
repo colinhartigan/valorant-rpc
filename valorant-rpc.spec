@@ -4,9 +4,9 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['D:\\colin\\programming\\VALORANT\\valorant-rich-presence\\src'],
+             pathex=['D:\\colin\\programming\\VALORANT\\valorant-rpc'],
              binaries=[],
-             datas=[('favicon.ico','.'),('.env','.')],
+             datas=[("data/config.json", "data"),("data/.env", "data"), ("data/favicon.ico", "data")],
              hiddenimports=['pystray._win32'],
              hookspath=[],
              runtime_hooks=[],
@@ -25,15 +25,13 @@ exe = EXE(pyz,
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
-          upx=True,
-          console=True,
-          icon='favicon.ico' )
+          upx=False,
+          console=True , icon='data\\favicon.ico')
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
                a.datas,
                strip=False,
-               upx=True,
+               upx=False,
                upx_exclude=[],
-               name='main')
- 
+               name='valorant-rpc')

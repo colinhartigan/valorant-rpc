@@ -1,10 +1,8 @@
-import utils
-import riot_api
-import client_api 
+from . import utils,riot_api,client_api
+from .exceptions import AuthError
 import os
 import asyncio
 import time
-from exceptions import AuthError
 
 class Session:
     def __init__(self,client):

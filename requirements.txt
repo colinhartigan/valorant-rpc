@@ -17,4 +17,3 @@ pyinstaller
 iso8601
 requests
 win10toast
-logging

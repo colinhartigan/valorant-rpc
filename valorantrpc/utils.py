@@ -56,6 +56,7 @@ agent_ids = {
     "":"Selecting"
 }
 
+
 #weird workaround for getting image w/ relative path to work with pyinstaller
 def get_resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'): 
@@ -72,16 +73,16 @@ def get_latest_github_release_tag():
 def get_config():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     try:
-        with open(get_resource_path(os.path.join(dir_path, 'config.json'))) as f:
+        with open(get_resource_path(os.path.join(dir_path, '../data/config.json'))) as f:
             return json.loads(f.read())
     except FileNotFoundError as e:
-        print('config.json not found! generating a new one...')
-        with open(os.path.join(dir_path, 'config.json'), 'w') as f:
+        print('[!] config.json not found! generating a new one...')
+        with open(os.path.join(dir_path, '../data/config.json'), 'w') as f:
             payload = {
                 "settings": {
                     "launch_timeout": 120,
-                    "menu-refresh-interval":1,
-                    "ingame-refresh-interval":3
+                    "menu_refresh_interval":1,
+                    "ingame_refresh_interval":3
                 },
                 "riot-account": {
                     "username": "",
@@ -95,6 +96,7 @@ def get_config():
             }
             json.dump(payload,f,indent=4)
         return get_config()
+
 
 def sanitize_presence(original):
     try:

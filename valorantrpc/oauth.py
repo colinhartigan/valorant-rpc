@@ -2,7 +2,7 @@ import requests
 import json
 from dotenv import load_dotenv
 import os
-import utils
+from . import utils
 
 api_endpoint = 'https://discord.com/api/v8'
 

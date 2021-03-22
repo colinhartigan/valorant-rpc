@@ -3,7 +3,6 @@ from flask import request
 import json
 import threading
 import urllib3
-import logging
 urllib3.disable_warnings()
 app = Flask(__name__)
 from flask import cli

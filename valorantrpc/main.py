@@ -1,4 +1,4 @@
-import webserver,riot_api,utils,oauth,client_api,match_session
+from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session
 import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray
 from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
@@ -11,13 +11,14 @@ import nest_asyncio
 nest_asyncio.apply()
 load_dotenv()
 toaster = ToastNotifier()
+current_dir = os.path.dirname(__file__)
+favicon = utils.get_resource_path(os.path.join(current_dir,'../data/favicon.ico'))
 
 # variables for main
 global systray
 systray = None
 loop = None
 window_shown = False
-
 client_id = str(os.environ.get('CLIENT_ID'))
 client_secret = str(os.environ.get('CLIENT_SECRET'))
 client = None
@@ -27,7 +28,7 @@ last_state = None
 launch_timeout = None
 use_enhanced_presence = False
 party_invites_enabled = False
-config = {}
+config = {} 
 
 
 
@@ -58,17 +59,17 @@ def tray_window_toggle(icon, item):
         pass
 
 def run_systray():
-    print("initializing systray object")
+    print("[i] initializing systray object")
     global systray, window_shown
 
-    systray_image = Image.open(utils.get_resource_path("favicon.ico"))
+    systray_image = Image.open(favicon)
     systray_menu = menu(
         item('show debug', tray_window_toggle, checked=lambda item: window_shown),
         item('quit', close_program),
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     systray.run()
-    print("systray ready!")
+    print("[i] systray ready!")
 
 def close_program():
     global systray,client
@@ -218,18 +219,20 @@ def main(loop):
 | |  / /   |  / /   / __ \/ __ \/   |  / | / /_  __/           / __ \/ __ \/ ____/
 | | / / /| | / /   / / / / /_/ / /| | /  |/ / / /    ______   / /_/ / /_/ / /     
 | |/ / ___ |/ /___/ /_/ / _, _/ ___ |/ /|  / / /    /_____/  / _, _/ ____/ /___   
-|___/_/  |_/_____/\____/_/ |_/_/  |_/_/ |_/ /_/             /_/ |_/_/    \____/   
-                                                                                  
+|___/_/  |_/_____/\____/_/ |_/_/  |_/_/ |_/ /_/             /_/ |_/_/    \____/                                                      
+
+https://github.com/colinhartigan/valorant-rpc   
+ 
     ''')
 
     # load config
     config = utils.get_config() 
     launch_timeout = config['settings']['launch_timeout']
     if config['rpc-client-override']['client_id'] != "":
-        print("overriding client id!")
+        print("[i] overriding client id!")
         client_id = config['rpc-client-override']['client_id']
     if config['rpc-client-override']['client_secret'] != "":
-        print("overriding client secret!")
+        print("[i] overriding client secret!")
         client_secret = config['rpc-client-override']['client_secret']
     else:
         party_invites_enabled = False
@@ -237,7 +240,7 @@ def main(loop):
     if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
         use_enhanced_presence = True 
     else:
-        print('no riot account detected, using old presence')
+        print('[i] no riot account detected, using old presence')
         use_enhanced_presence = False
         #figure out if i can still use client.set_activity without whitelisting/oauthing; if so, then just use that
 
@@ -256,7 +259,7 @@ def main(loop):
         toaster.show_toast(
             "valorant-rpc update available!",
             f"{current_release} -> {latest_tag}",
-            icon_path=utils.get_resource_path("favicon.ico"),
+            icon_path=favicon,
             duration=10,
             threaded=True
         )
@@ -264,10 +267,10 @@ def main(loop):
 
     #check if val is open
     if not utils.is_process_running():
-        print("valorant not opened, attempting to run...")
+        print("[i] valorant not opened, attempting to run...")
         subprocess.Popen([utils.get_rcs_path(), "--launch-product=valorant", "--launch-patchline=live"])
         while not utils.is_process_running():
-            print(f"waiting for valorant... ({launch_timer})",end='\r')
+            print(f"[i] waiting for valorant... ({launch_timer})",end='\r')
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 close_program()
@@ -289,13 +292,13 @@ def main(loop):
     lockfile = riot_api.get_lockfile()
     if lockfile is None:
         while lockfile is None:
-            print(f"waiting for lockfile... ({launch_timer})",end='\r')
+            print(f"[i] waiting for lockfile... ({launch_timer})",end='\r')
             lockfile = riot_api.get_lockfile()
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
-    print("lockfile loaded! hiding window...")
+    print("[i] lockfile loaded! hiding window...")
     time.sleep(1)
     systray_thread = threading.Thread(target=run_systray)
     systray_thread.start()
@@ -306,14 +309,13 @@ def main(loop):
     presence = riot_api.get_presence(lockfile)
     if presence is None:
         while presence is None:
-            print(f"waiting for presence... ({launch_timer})",end='\r')
+            print(f"[i] waiting for presence... ({launch_timer})",end='\r')
             presence = riot_api.get_presence(lockfile)
             launch_timer += 1
             if launch_timer >= launch_timeout:
-                print("presence took too long, terminating program!")
                 close_program()
             time.sleep(1)
-    print("starting loop")
+    print("[i] starting loop")
     update_rpc(presence)
     #print(f"LOCKFILE: {lockfile}")
 
@@ -321,7 +323,7 @@ def main(loop):
     listen(lockfile)
 
 
-if __name__=="__main__":   
+def run():
     loop = asyncio.get_event_loop()
     main(loop)
 # ----------------------------------------------------------------------------------------------

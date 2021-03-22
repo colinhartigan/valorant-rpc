@@ -4,7 +4,7 @@ import asyncio
 import requests
 import json
 import os
-from exceptions import AuthError
+from .exceptions import AuthError
 
 def auth(username,password):
     try:
