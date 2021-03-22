@@ -132,39 +132,28 @@ def update_rpc(data):
                 join=data['join_state'] if party_invites_enabled else None
             )
 
-        if use_enhanced_presence:
-            # if username/password is provided i can get more detailed match info for presence
-            if data["sessionLoopState"] == "PREGAME":
-                if last_state != "PREGAME":
-                    # new game session, create match object
-                    if session is None: 
+        # if username/password is provided i can get more detailed match info for presence
+        if data["sessionLoopState"] == "PREGAME":
+            if last_state != "PREGAME":
+                # new game session, create match object
+                if session is None: 
+                    print(use_enhanced_presence)
+                    if use_enhanced_presence:
                         session = match_session.Session(client)
-                        session.init_pregame(data)
-                        print('new sesh')
+                    else:
+                        session = unenhanced_match_session.Session(client)
+                    session.init_pregame(data)
+                    print('new sesh')
 
-            elif data["sessionLoopState"] == "INGAME":
-                # if a match doesn't have a pregame
-                if last_state != "INGAME":
-                    if session is None:
+        elif data["sessionLoopState"] == "INGAME":
+            # if a match doesn't have a pregame
+            if last_state != "INGAME":
+                if session is None:
+                    if use_enhanced_presence:
                         session = match_session.Session(client)
-                        session.init_ingame(data)
-
-        else:
-            # if not, use older presence stuff
-            if data["sessionLoopState"] == "PREGAME":
-                if last_state != "PREGAME":
-                    # new game session, create match object
-                    if session is None: 
+                    else:
                         session = unenhanced_match_session.Session(client)
-                        session.init_pregame(data)
-                        print('new sesh')
-
-            elif data["sessionLoopState"] == "INGAME":
-                # if a match doesn't have a pregame
-                if last_state != "INGAME":
-                    if session is None:
-                        session = unenhanced_match_session.Session(client)
-                        session.init_ingame(data)
+                    session.init_ingame(data)
             
 
         
@@ -205,28 +194,29 @@ def listen(lockfile):
         if party_invites_enabled: 
             client.register_event('ACTIVITY_JOIN',party_join_listener)
 
+        presence = riot_api.get_presence(lockfile)
+
         # normal listening loop
         if session is None:
             #in the menus, waiting for match
-            presence = riot_api.get_presence(lockfile)
             if presence == last_presence:
                 last_presence = presence
                 continue
             update_rpc(presence)
-            last_presence = presence
-            last_state = presence['sessionLoopState']
             time.sleep(config['settings']['menu_refresh_interval'])
 
         elif session is not None:
             # match started, now use session object for updating presence
             # while in pregame update less often because less is changing and rate limits
-            if session.state != "MENUS":
-                presence = riot_api.get_presence(lockfile)
+            if presence['sessionLoopState'] != "MENUS":
                 session.mainloop(presence)
                 time.sleep(config['settings']['ingame_refresh_interval'])
             else:
                 del session
                 session = None
+
+        last_presence = presence
+        last_state = presence['sessionLoopState']
 
     if not utils.is_process_running():
         close_program()
@@ -258,7 +248,11 @@ def main(loop):
         party_invites_enabled = False
 
     if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
-        use_enhanced_presence = True
+        try:
+            uuid,headers = client_api.get_auth(config['riot-account']['username'],config['riot-account']['password'])
+            use_enhanced_presence = True
+        except AuthError:
+            use_enhanced_presence = False
     else:
         print('[i] no riot account detected, using old presence')
         use_enhanced_presence = False
@@ -338,10 +332,10 @@ def main(loop):
             time.sleep(1)
 
     print("[i] presence detected! hiding window...")
-    time.sleep(1)
     systray_thread = threading.Thread(target=run_systray)
     systray_thread.start()
     user32.ShowWindow(hWnd, 0)
+    time.sleep(1)
     
     print("[i] starting loop")
     update_rpc(presence)

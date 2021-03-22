@@ -8,7 +8,7 @@ _    _____    __    ____  ____  ___    _   ________            ____  ____  _____
 | |/ / ___ |/ /___/ /_/ / _, _/ ___ |/ /|  / / /    /_____/  / _, _/ ____/ /___   
 |___/_/  |_/_____/\____/_/ |_/_/  |_/_/ |_/ /_/             /_/ |_/_/    \____/                                                      
 
-    https://github.com/colinhartigan/valorant-rpc   
+https://github.com/colinhartigan/valorant-rpc   
     
     ''')
     main.run()
