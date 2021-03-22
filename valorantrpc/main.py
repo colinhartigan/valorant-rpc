@@ -30,6 +30,7 @@ launch_timeout = None
 use_enhanced_presence = False
 party_invites_enabled = False
 config = {} 
+range_start_time = 0
 
 
 default_client_id = "811469787657928704"
@@ -82,7 +83,6 @@ def close_program():
 
 def restart():
     user32.ShowWindow(hWnd, 1)
-    print("\n-------------------------------------------------------------------")
     print("[i] restarting program")
     os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 #end sys tray stuff
@@ -92,8 +92,10 @@ def restart():
 def update_rpc(data):
     if data is None:
         return
-    global session,use_enhanced_presence,party_invites_enabled
+    global session,use_enhanced_presence,party_invites_enabled,range_start_time
     if not data["isIdle"]:
+        if data['sessionLoopState'] == "MENUS" and not range_start_time == 0:
+            range_start_time = 0
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
             client.set_activity(
@@ -127,13 +129,15 @@ def update_rpc(data):
 
         #in da range
         elif data["sessionLoopState"] == "INGAME" and data["provisioningFlow"] == "ShootingRange":
+            if range_start_time == 0:
+                range_start_time = time.time()
             game_map = utils.maps[data["matchMap"].split("/")[-1]]
             client.set_activity(
                 state=data['party_state'],
                 details="THE RANGE",
+                start=range_start_time,
                 large_image=f"splash_{game_map.lower()}",
                 large_text=game_map,
-                small_image=utils.mode_images[data['queue_id'].lower()],
                 party_id=data["partyId"],
                 party_size=data['party_size'],
                 join=data['join_state'] if party_invites_enabled else None
@@ -151,7 +155,7 @@ def update_rpc(data):
                     session.init_pregame(data)
                     print('new sesh')
 
-        elif data["sessionLoopState"] == "INGAME":
+        elif data["sessionLoopState"] == "INGAME" and not data["provisioningFlow"] == "ShootingRange":
             # if a match doesn't have a pregame
             if last_state != "INGAME":
                 if session is None:
