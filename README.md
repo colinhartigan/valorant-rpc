@@ -79,6 +79,8 @@ The console window will reappear for a few seconds and the program will restart
 
 ## Modifying the VALORANT launch target
 
+This section is for the *"I want the program to automatically launch with VALORANT"* people from earlier
+
 1. Locate the VALORANT shortcut
     - if you typically launch from your desktop, locate the VALORANT icon
     - if you typically launch from the search bar, search for VALORANT and open the file location
