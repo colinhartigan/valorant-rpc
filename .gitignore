@@ -5,5 +5,5 @@ build/
 dist/
 .env
 config.json
-main.spec
+valorant-rpc.spec
 installer/ 
