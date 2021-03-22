@@ -1,4 +1,5 @@
-from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session
+from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session,unenhanced_match_session
+from valorantrpc.exceptions import AuthError
 import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray
 from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
@@ -19,8 +20,8 @@ global systray
 systray = None
 loop = None
 window_shown = False
-client_id = str(os.environ.get('CLIENT_ID'))
-client_secret = str(os.environ.get('CLIENT_SECRET'))
+client_id = None
+client_secret = None
 client = None
 last_presence = {}
 session = None
@@ -31,7 +32,7 @@ party_invites_enabled = False
 config = {} 
 
 
-
+default_client_id = "811469787657928704"
 current_release = "v2.0b1" #don't forget to update this you bimbo
 
 
@@ -84,8 +85,7 @@ def close_program():
 def update_rpc(data):
     if data is None:
         return
-    global session  
-
+    global session,use_enhanced_presence,party_invites_enabled
     if not data["isIdle"]:
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
@@ -99,7 +99,7 @@ def update_rpc(data):
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=data["party_size"],
-                join=data["join_state"]
+                join=data["join_state"] if party_invites_enabled else None
             )
 
         #custom setup
@@ -115,7 +115,21 @@ def update_rpc(data):
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=data['party_size'],
-                join=data['join_state']
+                join=data['join_state'] if party_invites_enabled else None
+            )
+
+        #in da range
+        elif data["sessionLoopState"] == "INGAME" and data["provisioningFlow"] == "ShootingRange":
+            game_map = utils.maps[data["matchMap"].split("/")[-1]]
+            client.set_activity(
+                state=data['party_state'],
+                details="THE RANGE",
+                large_image=f"splash_{game_map.lower()}",
+                large_text=game_map,
+                small_image=utils.mode_images[data['queue_id'].lower()],
+                party_id=data["partyId"],
+                party_size=data['party_size'],
+                join=data['join_state'] if party_invites_enabled else None
             )
 
         if use_enhanced_presence:
@@ -137,7 +151,20 @@ def update_rpc(data):
 
         else:
             # if not, use older presence stuff
-            pass
+            if data["sessionLoopState"] == "PREGAME":
+                if last_state != "PREGAME":
+                    # new game session, create match object
+                    if session is None: 
+                        session = unenhanced_match_session.Session(client)
+                        session.init_pregame(data)
+                        print('new sesh')
+
+            elif data["sessionLoopState"] == "INGAME":
+                # if a match doesn't have a pregame
+                if last_state != "INGAME":
+                    if session is None:
+                        session = unenhanced_match_session.Session(client)
+                        session.init_ingame(data)
             
 
         
@@ -212,44 +239,43 @@ def main(loop):
     startup routine: load config, start VALORANT, load lockfile, wait for presence
     once startup is complete, run the listening loop
     '''
-    global client,client_id,client_secret,config
-
-    print('''
- _    _____    __    ____  ____  ___    _   ________            ____  ____  ______
-| |  / /   |  / /   / __ \/ __ \/   |  / | / /_  __/           / __ \/ __ \/ ____/
-| | / / /| | / /   / / / / /_/ / /| | /  |/ / / /    ______   / /_/ / /_/ / /     
-| |/ / ___ |/ /___/ /_/ / _, _/ ___ |/ /|  / / /    /_____/  / _, _/ ____/ /___   
-|___/_/  |_/_____/\____/_/ |_/_/  |_/_/ |_/ /_/             /_/ |_/_/    \____/                                                      
-
-https://github.com/colinhartigan/valorant-rpc   
- 
-    ''')
+    global client,client_id,client_secret,config,use_enhanced_presence,party_invites_enabled
 
     # load config
     config = utils.get_config() 
+
     launch_timeout = config['settings']['launch_timeout']
-    if config['rpc-client-override']['client_id'] != "":
+    if config['rpc-client-override']['client_id'] != "" and config['rpc-client-override']['client_id'] != default_client_id:
         print("[i] overriding client id!")
         client_id = config['rpc-client-override']['client_id']
+    else:
+        client_id = default_client_id
     if config['rpc-client-override']['client_secret'] != "":
         print("[i] overriding client secret!")
         client_secret = config['rpc-client-override']['client_secret']
+        party_invites_enabled = True
     else:
         party_invites_enabled = False
 
     if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
-        use_enhanced_presence = True 
+        use_enhanced_presence = True
     else:
         print('[i] no riot account detected, using old presence')
         use_enhanced_presence = False
         #figure out if i can still use client.set_activity without whitelisting/oauthing; if so, then just use that
 
-
     # setup client
-    client = pypresence.Client(client_id,loop=loop) 
+    client = pypresence.Client(int(client_id),loop=loop) 
     webserver.run()
     client.start()
-    #oauth.authorize(client,client_id,client_secret)
+
+    # authorize app if party invites enabled
+    if party_invites_enabled:
+        try:
+            oauth.authorize(client,client_id,client_secret)
+        except:
+            use_enhanced_presence = False 
+            print('[!] could not authenticate, check the client secret')
     
     launch_timer = 0
 
@@ -298,11 +324,6 @@ https://github.com/colinhartigan/valorant-rpc
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
-    print("[i] lockfile loaded! hiding window...")
-    time.sleep(1)
-    systray_thread = threading.Thread(target=run_systray)
-    systray_thread.start()
-    user32.ShowWindow(hWnd, 0)
 
     #check for presence
     launch_timer = 0
@@ -315,6 +336,13 @@ https://github.com/colinhartigan/valorant-rpc
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
+
+    print("[i] presence detected! hiding window...")
+    time.sleep(1)
+    systray_thread = threading.Thread(target=run_systray)
+    systray_thread.start()
+    user32.ShowWindow(hWnd, 0)
+    
     print("[i] starting loop")
     update_rpc(presence)
     #print(f"LOCKFILE: {lockfile}")

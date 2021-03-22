@@ -1,4 +1,4 @@
-from . import utils,riot_api,client_api
+from . import utils,client_api
 from .exceptions import AuthError
 import os
 import asyncio
@@ -68,7 +68,6 @@ class Session:
 
         self.client.set_activity(
             state=presence_data['party_state'],
-            #details=("Selecting Agent" if not self.selected else "Agent Locked"),# + (f" - {self.mode}" if self.mode else ""),
             details="Pregame" + (f" - {self.mode}" if self.mode else ""),
             end=self.state_end_time,
             large_image=f"agent_{self.agent_name.lower()}" if (self.agent_name != "Selecting" and self.agent_name != "Observer") else "game_icon_white",
