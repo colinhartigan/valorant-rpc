@@ -197,7 +197,7 @@ def listen(lockfile):
     '''
     listening loop to check for updates in presence
     '''
-    global last_presence,client,session
+    global last_presence,last_state,client,session,party_invites_enabled
     while True and utils.is_process_running():
         try:
             
