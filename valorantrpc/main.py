@@ -206,6 +206,9 @@ def listen(lockfile):
                 client.register_event('ACTIVITY_JOIN',party_join_listener)
 
             presence = riot_api.get_presence(lockfile)
+            if presence is None:
+                print('[i] program ended, you can close this window')
+                close_program()
 
             # normal listening loop
             if session is None:
@@ -231,7 +234,7 @@ def listen(lockfile):
             last_state = presence['sessionLoopState']
         
         except Exception:
-            print('[!] program closing')
+            print('[!] program ended with an exception')
             traceback.print_exc()
             close_program()
 
@@ -327,6 +330,8 @@ def main(loop):
             if launch_timer >= launch_timeout:
                 close_program()
             time.sleep(1)
+    else:
+        print("[i] valorant already running!")
 
     #game launching, set loading presence
     client.set_activity(
