@@ -76,7 +76,7 @@ def run_systray():
 
 def close_program():
     global systray,client
-    #user32.ShowWindow(hWnd, 1)
+    user32.ShowWindow(hWnd, 1)
     client.close()
     systray.stop()
     sys.exit()
@@ -188,12 +188,11 @@ def party_join_listener(data):
     password = config['riot-account']['password']
     uuid,headers = client_api.get_auth(username,password)
     party_id = data['secret'].split('/')[1]
-    print(party_id)
     client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
     #somehow this works!
 
 
-def listen(lockfile):
+def listen(lockfile,debug):
     '''
     listening loop to check for updates in presence
     '''
@@ -235,7 +234,8 @@ def listen(lockfile):
         
         except Exception:
             print('[!] program ended with an exception')
-            traceback.print_exc()
+            if debug:
+                traceback.print_exc()
             close_program()
 
     if not utils.is_process_running():
@@ -377,7 +377,7 @@ def main(loop):
     #print(f"LOCKFILE: {lockfile}")
 
     #start the loop
-    listen(lockfile)
+    listen(lockfile,config['settings']['debug'])
 
 
 def run():

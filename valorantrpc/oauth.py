@@ -65,7 +65,6 @@ def authorize(client,client_id,client_secret):
             config = utils.get_config()
             code_grant = auth['data']['code']
             result = exchange_code(code_grant,client_id,client_secret)
-            print(result)
             client.authenticate(result['access_token'])
         except Exception as e:
             print(e)

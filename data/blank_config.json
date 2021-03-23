@@ -1,9 +1,10 @@
 {
-    "version": "v2.0b1",
+    "version": "2.0",
     "settings": {
         "launch_timeout": 120,
         "menu_refresh_interval": 1,
-        "ingame_refresh_interval": 3
+        "ingame_refresh_interval": 3,
+        "debug": false
     },
     "riot-account": {
         "username": "",

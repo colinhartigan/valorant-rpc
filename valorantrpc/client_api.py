@@ -54,7 +54,6 @@ def get_auth(user, passw):
 
 def get_glz(endpoint,headers):
     r = requests.get(f'https://glz-na-1.na.a.pvp.net{endpoint}', headers=headers)
-    #print(r.text)
     data = json.loads(r.text)
     return data
 
@@ -65,7 +64,6 @@ def get_pd(endpoint,headers):
 
 def post_glz(endpoint,headers,data=None):
     r = requests.post(f'https://glz-na-1.na.a.pvp.net{endpoint}', headers=headers, data=data)
-    print(r.text)
     data = json.loads(r.text)
     return data
 
