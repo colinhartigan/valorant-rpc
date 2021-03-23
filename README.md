@@ -1,5 +1,3 @@
-# DO NOT USE V2! IT'S NOT DONE YET, [USE V1](https://github.com/colinhartigan/valorant-rpc/releases/)
-
 Please read through the README in its entirety before creating issues/messaging me!
 
 ```
