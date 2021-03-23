@@ -65,7 +65,7 @@ inputting your account credentials is OPTIONAL; however, features including Disc
 - leave this section blank; it stores the application's Discord authentication data
 
 ### rpc-client-override
-- leave this section unchanged UNLESS you are setting up your own Discord application to share with friends so you can use the party invites feature. [Read more about it here](https://github.com/colinhartigan/valorant-rpc/wiki)
+- leave this section unchanged UNLESS you are setting up your own Discord application to share with friends so you can use the party invites feature. [Read more about it here](https://github.com/colinhartigan/valorant-rpc/wiki/Creating-a-Discord-Application-for-VALORANT-RPC)
 
 
 ## Restarting the application
