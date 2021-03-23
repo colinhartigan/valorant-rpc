@@ -35,7 +35,7 @@ If you get a Windows notification from User Account Control, choose yes
 
 Take note or copy of the path to your installation, you'll need it later!
 
-![image](https://user-images.githubusercontent.com/42125428/112061608-1f531c00-8b35-11eb-8a1b-4ae1931bf9eb.png)
+![image](https://user-images.githubusercontent.com/42125428/112074255-4c5ef900-8b4c-11eb-91ae-8cb7340fe970.png)
 
 During installation, you have a decision to make: *"do I want the program to automatically launch with VALORANT (recommended), or do I want to manually launch it every time I play?"*. 
 **If you chose the second option**, it is recommended you create a desktop shortcut, otherwise, ignore that option.
