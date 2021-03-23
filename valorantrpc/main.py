@@ -76,7 +76,7 @@ def run_systray():
 
 def close_program():
     global systray,client
-    user32.ShowWindow(hWnd, 1)
+    #user32.ShowWindow(hWnd, 1)
     client.close()
     systray.stop()
     sys.exit()
