@@ -1,14 +1,11 @@
 {
-    "version": "2.0",
+    "current-release": "2.1",
+    "config-version": "2.1",
     "settings": {
         "launch_timeout": 120,
         "menu_refresh_interval": 1,
         "ingame_refresh_interval": 3,
         "debug": false
-    },
-    "riot-account": {
-        "username": "",
-        "password": ""
     },
     "rpc-oauth": {},
     "rpc-client-override": {

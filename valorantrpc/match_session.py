@@ -1,4 +1,4 @@
-from . import utils,client_api
+from . import utils,client_api,riot_api
 from .exceptions import AuthError
 import os
 import asyncio
@@ -8,8 +8,7 @@ class Session:
     def __init__(self,client):
         self.loop = asyncio.get_event_loop()
         self.config = utils.get_config()
-        self.username = self.config['riot-account']['username']
-        self.password = self.config['riot-account']['password']
+        self.lockfile = riot_api.get_lockfile()
         self.client = client
         self.uuid = None 
         self.match_id = None
@@ -24,7 +23,7 @@ class Session:
         
 
     def init_pregame(self,presence_data):
-        self.uuid,headers = client_api.get_auth(self.username,self.password)
+        self.uuid,headers = riot_api.get_auth(self.lockfile)
         pregame_player = client_api.get_glz(f'/pregame/v1/players/{self.uuid}',headers)
         self.match_id = pregame_player['MatchID']
         self.state = "PREGAME"
@@ -32,7 +31,7 @@ class Session:
         self.mode = presence_data['queue_id']
 
     def init_ingame(self,presence_data):
-        self.uuid,headers = client_api.get_auth(self.username,self.password)
+        self.uuid,headers = riot_api.get_auth(self.lockfile)
         coregame_data = client_api.get_glz(f'/core-game/v1/players/{self.uuid}',headers) 
         self.match_id = coregame_data['MatchID']
         match_data = client_api.get_glz(f'/core-game/v1/matches/{self.match_id}',headers)
@@ -48,11 +47,12 @@ class Session:
 
 
     def pregame_loop(self,presence_data):
-        uuid,headers = client_api.get_auth(self.username,self.password)
+        uuid,headers = riot_api.get_auth(self.lockfile)
         pregame_data = client_api.get_glz(f'/pregame/v1/matches/{self.match_id}',headers)
         if ('PhaseTimeRemainingNS' in pregame_data and pregame_data['PhaseTimeRemainingNS'] == 0) or ('httpStatus' in pregame_data and pregame_data['httpStatus'] == 404):
             self.state = "INGAME"
             self.state_start_time = time.time()
+            self.agent_name = "" #just in case the player picks an agent last second and the presence doesnt update before the match loads 
             return
 
         for team in pregame_data['Teams']:
@@ -84,7 +84,7 @@ class Session:
         if presence_data['sessionLoopState'] == 'MENUS':
             self.state = "MENUS"
         try:
-            uuid,headers = client_api.get_auth(self.username,self.password)
+            uuid,headers = riot_api.get_auth(self.lockfile)
         except AuthError:
             return
         

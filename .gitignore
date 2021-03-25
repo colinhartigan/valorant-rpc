@@ -7,3 +7,4 @@ dist/
 config.json
 valorant-rpc.spec 
 installer/ 
+RiotUser.cs

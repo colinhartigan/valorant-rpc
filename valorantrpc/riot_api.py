@@ -2,7 +2,8 @@ import os
 import requests
 import json
 import base64
-from . import utils
+from valorantrpc.exceptions import AuthError
+from valorantrpc import utils
 
 lockfilePath = os.path.join(os.getenv('LOCALAPPDATA'), R'Riot Games\Riot Client\Config\lockfile')
 
@@ -38,3 +39,18 @@ def get_presence(lockfile):
                 return utils.sanitize_presence(json.loads(base64.b64decode(presence['private'])))
     except:
         return None
+
+def get_auth(lockfile):
+    try:
+        headers = {}
+        headers['Authorization'] = 'Basic ' + base64.b64encode(('riot:' + lockfile['password']).encode()).decode()
+
+        response = requests.get("https://127.0.0.1:{port}/entitlements/v1/token".format(port=lockfile['port']), headers=headers, verify=False)
+        entitlements = response.json()
+        payload = {
+            'Authorization': f"Bearer {entitlements['accessToken']}",
+            'X-Riot-Entitlements-JWT': entitlements['token']
+        }
+        return entitlements['subject'],payload
+    except:
+        raise AuthError

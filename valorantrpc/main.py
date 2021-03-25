@@ -1,6 +1,6 @@
-from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session,unenhanced_match_session
+from valorantrpc import webserver,riot_api,utils,oauth,client_api,match_session
 from valorantrpc.exceptions import AuthError
-import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray,traceback
+import pypresence,asyncio,json,base64,time,threading,os,subprocess,psutil,ctypes,sys,pystray,traceback,requests
 from win10toast import ToastNotifier
 from pystray import Icon as icon, Menu as menu, MenuItem as item
 from PIL import Image, ImageDraw
@@ -27,14 +27,12 @@ last_presence = {}
 session = None
 last_state = None
 launch_timeout = None
-use_enhanced_presence = False
 party_invites_enabled = False
 config = {} 
 range_start_time = 0
 
 
 default_client_id = "811469787657928704"
-current_release = None #don't forget to update this you bimbo
 
 
 # ----------------------------------------------------------------------------------------------
@@ -76,10 +74,11 @@ def run_systray():
 
 def close_program():
     global systray,client
-    user32.ShowWindow(hWnd, 1)
+    #user32.ShowWindow(hWnd, 1)
     client.close()
     systray.stop()
-    sys.exit()
+    requests.get('http://127.0.0.1:6969/shutdown')
+    sys.exit(0)
 
 def restart():
     user32.ShowWindow(hWnd, 1)
@@ -92,7 +91,7 @@ def restart():
 def update_rpc(data):
     if data is None:
         return
-    global session,use_enhanced_presence,party_invites_enabled,range_start_time
+    global session,party_invites_enabled,range_start_time
     if not data["isIdle"]:
         if data['sessionLoopState'] == "MENUS" and not range_start_time == 0:
             range_start_time = 0
@@ -143,26 +142,18 @@ def update_rpc(data):
                 join=data['join_state'] if party_invites_enabled else None
             )
 
-        # if username/password is provided i can get more detailed match info for presence
         if data["sessionLoopState"] == "PREGAME":
             if last_state != "PREGAME":
                 # new game session, create match object
                 if session is None: 
-                    if use_enhanced_presence:
-                        session = match_session.Session(client)
-                    else:
-                        session = unenhanced_match_session.Session(client)
+                    session = match_session.Session(client)
                     session.init_pregame(data)
-                    print('new sesh')
 
         elif data["sessionLoopState"] == "INGAME" and not data["provisioningFlow"] == "ShootingRange":
             # if a match doesn't have a pregame
             if last_state != "INGAME":
                 if session is None:
-                    if use_enhanced_presence:
-                        session = match_session.Session(client)
-                    else:
-                        session = unenhanced_match_session.Session(client)
+                    session = match_session.Session(client)
                     session.init_ingame(data)
             
 
@@ -178,15 +169,12 @@ def update_rpc(data):
         )
 
 
-def party_join_listener(data):
+def party_join_listener(data,lockfile):
     '''
     fires when a party invite (from someone else) has been accepted by the client 
     process the party id and request valorant client api to join party
     '''
-    config = utils.get_config()
-    username = config['riot-account']['username']
-    password = config['riot-account']['password']
-    uuid,headers = client_api.get_auth(username,password)
+    uuid,headers = riot_api.get_auth(lockfile)
     party_id = data['secret'].split('/')[1]
     client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
     #somehow this works!
@@ -225,7 +213,6 @@ def listen(lockfile,debug):
                     session.mainloop(presence)
                     time.sleep(config['settings']['ingame_refresh_interval'])
                 else:
-                    print('match over')
                     session = None
                     update_rpc(presence)
 
@@ -249,7 +236,7 @@ def main(loop):
     startup routine: load config, start VALORANT, load lockfile, wait for presence
     once startup is complete, run the listening loop
     '''
-    global client,client_id,client_secret,config,use_enhanced_presence,party_invites_enabled
+    global client,client_id,client_secret,config,party_invites_enabled
 
     # load config
     config = utils.get_config() 
@@ -259,8 +246,15 @@ def main(loop):
         sys.exit()
 
     launch_timeout = config['settings']['launch_timeout']
-    current_release = blank_config['version']
-    if config['version'] != current_release:
+    current_config_version = blank_config['config-version']
+    if config['config-version'] != current_config_version:
+        toaster.show_toast(
+            "please check your valorant-rpc config",
+            f"a new config was created (v{current_config_version}); check that your settings are correct!",
+            icon_path=favicon,
+            duration=10,
+            threaded=True
+        )
         config = utils.create_new_config()
 
     if config['rpc-client-override']['client_id'] != "" and config['rpc-client-override']['client_id'] != default_client_id:
@@ -275,17 +269,6 @@ def main(loop):
         party_invites_enabled = True 
     else:
         party_invites_enabled = False
-
-    if config['riot-account']['username'] != '' and config['riot-account']['password'] != '':
-        try:
-            uuid,headers = client_api.get_auth(config['riot-account']['username'],config['riot-account']['password'])
-            use_enhanced_presence = True
-        except AuthError:
-            print("[!] could not authenticate with Riot for enhanced presence, check username/password!")
-            use_enhanced_presence = False
-    else:
-        print('[i] no riot account detected, using old presence')
-        use_enhanced_presence = False
 
 
     # setup client
@@ -302,7 +285,6 @@ def main(loop):
         try:
             oauth.authorize(client,client_id,client_secret)
         except AuthError:
-            use_enhanced_presence = False 
             party_invites_enabled = False
             print('[!] could not authenticate with discord!, check the client id and secret!')
     
@@ -310,6 +292,7 @@ def main(loop):
 
     #check for updates
     latest_tag = utils.get_latest_github_release_tag()
+    current_release = blank_config['current-release']
     if latest_tag != current_release:
         toaster.show_toast(
             "valorant-rpc update available!",
