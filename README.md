@@ -53,12 +53,6 @@ Navigate to %APPDATA%\valorant-rpc and open config.json with your favorite text 
 - `menu_refresh_interval`: how often, in seconds, the program should update your Discord presence while in the menus
 - `ingame_refresh_interval`: how often, in seconds, the program should update your Discord presence while in a game 
 
-### riot account
-
-inputting your account credentials is OPTIONAL; however, features including Discord party invites and agent details in presence require login
-- `username`: Riot account username
-- `password`: Riot account password
-
 ### rpc-oauth
 - leave this section blank; it stores the application's Discord authentication data
 
