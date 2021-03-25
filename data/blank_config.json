@@ -1,5 +1,5 @@
 {
-    "current-release": "2.1",
+    "app-version": "2.1",
     "config-version": "2.1",
     "settings": {
         "launch_timeout": 120,

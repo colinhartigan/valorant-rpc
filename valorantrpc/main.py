@@ -60,7 +60,7 @@ def tray_window_toggle(icon, item):
 
 def run_systray():
     print("[i] initializing systray object")
-    global systray, window_shown
+    global systray,window_shown
 
     systray_image = Image.open(favicon)
     systray_menu = menu(
@@ -78,6 +78,7 @@ def close_program():
     client.close()
     systray.stop()
     requests.get('http://127.0.0.1:6969/shutdown')
+    time.sleep(1)
     sys.exit(0)
 
 def restart():
@@ -292,7 +293,7 @@ def main(loop):
 
     #check for updates
     latest_tag = utils.get_latest_github_release_tag()
-    current_release = blank_config['current-release']
+    current_release = blank_config['app-version']
     if latest_tag != current_release:
         toaster.show_toast(
             "valorant-rpc update available!",
