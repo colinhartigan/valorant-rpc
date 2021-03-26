@@ -35,3 +35,4 @@ coll = COLLECT(exe,
                upx=False,
                upx_exclude=[],
                name='valorant-rpc') 
+ 
