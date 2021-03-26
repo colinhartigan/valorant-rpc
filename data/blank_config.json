@@ -1,6 +1,6 @@
 {
-    "app-version": "2.1",
-    "config-version": "2.1",
+    "app-version": "v2.1",
+    "config-version": "v2.1",
     "settings": {
         "launch_timeout": 120,
         "menu_refresh_interval": 1,

@@ -49,7 +49,9 @@ def get_auth(lockfile):
         entitlements = response.json()
         payload = {
             'Authorization': f"Bearer {entitlements['accessToken']}",
-            'X-Riot-Entitlements-JWT': entitlements['token']
+            'X-Riot-Entitlements-JWT': entitlements['token'],
+            'X-Riot-ClientPlatform': "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9",
+            'X-Riot-ClientVersion': utils.get_current_version()
         }
         return entitlements['subject'],payload
     except:

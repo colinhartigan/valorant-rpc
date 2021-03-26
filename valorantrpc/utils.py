@@ -53,7 +53,7 @@ agent_ids = {
     "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc":"Reyna",
     "8e253930-4c05-31dd-1b6c-968525494517":"Omen",
     "add6443a-41bd-e414-f6ad-e58d267f4e95":"Jett",
-    "":"Selecting"
+    "":"?"
 }
 
 
@@ -142,6 +142,13 @@ def sanitize_presence(original):
         return data
     except:
         return original
+
+
+def get_current_version():
+    data = requests.get('https://valorant-api.com/v1/version')
+    data = data.json()['data']
+    version = f"{data['branch']}-shipping-{data['buildVersion']}-{data['version'].split('.')[3]}"
+    return version
 
 
 def iso8601_to_epoch(time):

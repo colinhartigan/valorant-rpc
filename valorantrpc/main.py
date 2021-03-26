@@ -28,6 +28,7 @@ session = None
 last_state = None
 launch_timeout = None
 party_invites_enabled = False
+lockfile = None
 config = {} 
 range_start_time = 0
 
@@ -58,6 +59,15 @@ def tray_window_toggle(icon, item):
     except:
         pass
 
+def close_program():
+    global systray,client
+    #user32.ShowWindow(hWnd, 1)
+    client.close()
+    systray.stop()
+    requests.get('http://127.0.0.1:6969/shutdown')
+    time.sleep(1)
+    sys.exit(0)
+
 def run_systray():
     print("[i] initializing systray object")
     global systray,window_shown
@@ -72,15 +82,6 @@ def run_systray():
     print("[i] systray ready!")
     systray.run()
 
-def close_program():
-    global systray,client
-    #user32.ShowWindow(hWnd, 1)
-    client.close()
-    systray.stop()
-    requests.get('http://127.0.0.1:6969/shutdown')
-    time.sleep(1)
-    sys.exit(0)
-
 def restart():
     user32.ShowWindow(hWnd, 1)
     print("[i] restarting program")
@@ -92,12 +93,17 @@ def restart():
 def update_rpc(data):
     if data is None:
         return
-    global session,party_invites_enabled,range_start_time
+    global session,party_invites_enabled,range_start_time,lockfile
     if not data["isIdle"]:
         if data['sessionLoopState'] == "MENUS" and not range_start_time == 0:
             range_start_time = 0
         #menu
         if data["sessionLoopState"] == "MENUS" and data["partyState"] != "CUSTOM_GAME_SETUP":
+            if data['queueId'] == 'competitive':
+                uuid,headers = riot_api.get_auth(lockfile)
+                mmr_data = client_api.get_pd(f'/mmr/v1/players/{uuid}/competitiveupdates',headers)
+                #print(mmr_data)
+                #keep workign on this after i play more comp lol
             client.set_activity(
                 state=data["party_state"],
                 details=("Queue" if data["partyState"] == "MATCHMAKING" else "Lobby") + (f" - {data['queue_id']}" if data["queue_id"] else ""),
@@ -158,8 +164,6 @@ def update_rpc(data):
                     session.init_ingame(data)
             
 
-        
-
 
     elif data["isIdle"]:
         client.set_activity(
@@ -170,22 +174,23 @@ def update_rpc(data):
         )
 
 
-def party_join_listener(data,lockfile):
+def party_join_listener(data):
     '''
     fires when a party invite (from someone else) has been accepted by the client 
     process the party id and request valorant client api to join party
     '''
+    global lockfile
     uuid,headers = riot_api.get_auth(lockfile)
     party_id = data['secret'].split('/')[1]
     client_api.post_glz(f'/parties/v1/players/{uuid}/joinparty/{party_id}',headers)
     #somehow this works!
 
 
-def listen(lockfile,debug):
+def listen(debug):
     '''
     listening loop to check for updates in presence
     '''
-    global last_presence,last_state,client,session,party_invites_enabled
+    global last_presence,last_state,client,session,party_invites_enabled,lockfile
     while True and utils.is_process_running():
         try:
             
@@ -195,9 +200,7 @@ def listen(lockfile,debug):
 
             presence = riot_api.get_presence(lockfile)
             if presence is None:
-                print('[i] program ended, you can close this window')
-                close_program()
-
+                continue
             # normal listening loop
             if session is None:
                 #in the menus, waiting for match
@@ -221,10 +224,10 @@ def listen(lockfile,debug):
             last_state = presence['sessionLoopState']
         
         except Exception:
-            print('[!] program ended with an exception')
             if debug:
+                print('\n[!] exception:')
                 traceback.print_exc()
-            close_program()
+            continue
 
     if not utils.is_process_running():
         close_program()
@@ -237,7 +240,7 @@ def main(loop):
     startup routine: load config, start VALORANT, load lockfile, wait for presence
     once startup is complete, run the listening loop
     '''
-    global client,client_id,client_secret,config,party_invites_enabled
+    global client,client_id,client_secret,config,party_invites_enabled,lockfile
 
     # load config
     config = utils.get_config() 
@@ -361,7 +364,7 @@ def main(loop):
     #print(f"LOCKFILE: {lockfile}")
 
     #start the loop
-    listen(lockfile,config['settings']['debug'])
+    listen(config['settings']['debug'])
 
 
 def run():
