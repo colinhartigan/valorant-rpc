@@ -9,8 +9,7 @@ Please read through the README in its entirety before creating issues/messaging 
 ```
 
 # valorant-rich-presence-client
- 
-A feature-rich Discord rich-presence extension for VALORANT
+A feature-rich Discord rich-presence extension for VALORANT.
 
 
 ## Images
