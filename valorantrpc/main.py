@@ -208,6 +208,13 @@ def listen(debug):
                     last_presence = presence
                     continue
                 update_rpc(presence)
+
+                #can listen on local webserver for presence in other apps
+                try:
+                    requests.post('http://127.0.0.1:7001/ingest',json=presence)
+                except:
+                    pass
+
                 time.sleep(config['settings']['menu_refresh_interval'])
 
             elif session is not None:

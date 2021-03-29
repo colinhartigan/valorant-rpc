@@ -36,7 +36,8 @@ def get_presence(lockfile):
 
         for presence in presences['presences']:
             if presence['puuid'] == get_puuid(lockfile):
-                return utils.sanitize_presence(json.loads(base64.b64decode(presence['private'])))
+                payload = utils.sanitize_presence(json.loads(base64.b64decode(presence['private'])))
+                return payload
     except:
         return None
 
