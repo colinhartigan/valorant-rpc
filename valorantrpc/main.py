@@ -93,6 +93,7 @@ def restart():
 def update_rpc(data):
     if data is None:
         return
+
     global session,party_invites_enabled,range_start_time,lockfile
     if not data["isIdle"]:
         if data['sessionLoopState'] == "MENUS" and not range_start_time == 0:
@@ -201,19 +202,20 @@ def listen(debug):
             presence = riot_api.get_presence(lockfile)
             if presence is None:
                 continue
+            if presence == last_presence:
+                last_presence = presence
+                continue
+
+
+            #can listen on local webserver for presence in other apps
+            try:
+                requests.post('http://127.0.0.1:7001/ingest',json=presence)
+            except:
+                pass
             # normal listening loop
             if session is None:
                 #in the menus, waiting for match
-                if presence == last_presence:
-                    last_presence = presence
-                    continue
                 update_rpc(presence)
-
-                #can listen on local webserver for presence in other apps
-                try:
-                    requests.post('http://127.0.0.1:7001/ingest',json=presence)
-                except:
-                    pass
 
                 time.sleep(config['settings']['menu_refresh_interval'])
 

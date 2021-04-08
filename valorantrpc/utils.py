@@ -139,6 +139,8 @@ def sanitize_presence(original):
             data["time"] = False
 
         data["join_state"] = f"partyId/{data['partyId']}" if data["partyAccessibility"] == "OPEN" else None
+
+        data["map_name"] = maps[data["matchMap"].split("/")[-1]]
         return data
     except:
         return original
