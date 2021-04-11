@@ -1,16 +1,16 @@
 {
-	"app-version": "v2.1",
-	"config-version": "v2.1",
+	"app-version": "v2.2",
+	"config-version": "v2.2",
 	"settings": {
 		"launch_timeout": 120,
 		"menu_refresh_interval": 1,
 		"ingame_refresh_interval": 3,
 		"debug": false
 	},
+    "region": "na",
 	"rpc-oauth": {},
 	"rpc-client-override": {
 		"client_id": "811469787657928704",
 		"client_secret": ""
 	},
-	"region": "na"
 }
