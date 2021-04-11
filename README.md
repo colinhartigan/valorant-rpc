@@ -1,3 +1,5 @@
+### another rewrite (v3) coming after I finish my [API wrapper](https://github.com/colinhartigan/valclient.py); should be much more optimized and clean
+
 Please read through the README in its entirety before creating issues/messaging me!
 
 ```
@@ -47,11 +49,13 @@ Navigate to %APPDATA%\valorant-rpc and open config.json with your favorite text 
 > press CTRL+R, type *%APPDATA%\valorant-rpc* then press enter
 
 ### settings
-
 - `launch_timeout`: time, in seconds, the program should wait for VALORANT to launch. if the time passes before the game fully loads, the program will exit
 - `menu_refresh_interval`: how often, in seconds, the program should update your Discord presence while in the menus
 - `ingame_refresh_interval`: how often, in seconds, the program should update your Discord presence while in a game 
 - `debug`: set to true to show a traceback when the program crashes (useful for bug reports!)
+
+### region
+- change this to your client's region, can be found in settings -> about -> game shard
 
 ### rpc-oauth
 - leave this section blank; it stores the application's Discord authentication data
