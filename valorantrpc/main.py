@@ -263,7 +263,7 @@ def main(loop):
     if config['config-version'] != current_config_version:
         toaster.show_toast(
             "please check your valorant-rpc config",
-            f"a new config was created (v{current_config_version}); check that your settings are correct!",
+            f"a new config was created ({current_config_version}); check that your settings are correct!",
             icon_path=favicon,
             duration=10,
             threaded=True
