@@ -7,10 +7,10 @@
 		"ingame_refresh_interval": 3,
 		"debug": false
 	},
-    "region": "na",
+    	"region": "na",
 	"rpc-oauth": {},
 	"rpc-client-override": {
 		"client_id": "811469787657928704",
 		"client_secret": ""
-	},
+	}
 }
