@@ -93,6 +93,6 @@ This section is for the *"I want the program to automatically launch with VALORA
 4. Launch VALORANT! The program console should appear for a few seconds before the game launches.
 
 ## Legal Stuff
-**This project is not affiliated with Riot Games or any of its employees and therefore does not reflect the views of said parties.**
+**This project is not affiliated with Riot Games or any of its employees and therefore does not reflect the views of said parties. This is purely a fan-made project to enhance VALORANT's Discord integration.**
 
 Riot Games does not endorse or sponsor this project. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
