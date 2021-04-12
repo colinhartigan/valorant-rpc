@@ -91,3 +91,8 @@ This section is for the *"I want the program to automatically launch with VALORA
 ![image](https://user-images.githubusercontent.com/42125428/112066464-c38c9100-8b3c-11eb-8e37-96a0b36cb9bc.png)
 
 4. Launch VALORANT! The program console should appear for a few seconds before the game launches.
+
+## Legal Stuff
+**This project is not affiliated with Riot Games or any of its employees and therefore does not reflect the views of said parties.**
+
+Riot Games does not endorse or sponsor this project. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
