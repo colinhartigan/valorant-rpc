@@ -18,6 +18,7 @@ maps = {
     "Bonsai":"Split",
     "Ascent":"Ascent",
     "Triad":"Haven",
+    "Foxtrot":"Breeze",
     "Range":"Range",
     "":"game_icon"
 }
@@ -27,6 +28,7 @@ queue_ids = {
     "spikerush":"Spike Rush",
     "deathmatch":"Deathmatch",
     "ggteam":"Escalation",
+    "newmap":"Breeze",
     "":""
 }
 mode_images = {
@@ -35,6 +37,7 @@ mode_images = {
     "spike rush":"mode_spike_rush",
     "deathmatch":"mode_deathmatch",
     "escalation":"mode_escalation",
+    "newmap":"mode_standard",
     "custom":"mode_standard",
 }
 agent_ids = {
