@@ -111,7 +111,7 @@ def update_rpc(data):
                 start=data["time"] if not data["time"] == False else None,
                 large_image=("game_icon_white" if data["partyState"] == "MATCHMAKING" else "game_icon"),
                 large_text="VALORANT",
-                small_image="crown_icon" if utils.validate_party_size(data) else None,
+                small_image="splash_breeze" if data['queueId'] == "newmap" else "crown_icon" if utils.validate_party_size(data) else None,
                 small_text="Party Leader" if utils.validate_party_size(data) else None,
                 party_id=data["partyId"],
                 party_size=data["party_size"],
