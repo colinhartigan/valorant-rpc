@@ -260,6 +260,8 @@ def main(loop):
 
     launch_timeout = config['settings']['launch_timeout']
     current_config_version = blank_config['config-version']
+    current_app_version = blank_config['app-version']
+    appdata_path = os.path.join(os.getenv('APPDATA'),'valorant-rpc')
     if config['config-version'] != current_config_version:
         toaster.show_toast(
             "please check your valorant-rpc config",
@@ -270,6 +272,13 @@ def main(loop):
         )
         config = utils.create_new_config()
 
+    if config['app-version'] != current_app_version:
+        config['app-version'] = current_app_version
+
+        with open(utils.get_resource_path(os.path.join(appdata_path, 'config.json')), 'w') as fil:
+            json.dump(config,fil)
+
+    # rpc client stuff
     if config['rpc-client-override']['client_id'] != "" and config['rpc-client-override']['client_id'] != default_client_id:
         print("[i] overriding client id!")
         client_id = config['rpc-client-override']['client_id']
