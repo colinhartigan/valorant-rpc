@@ -46,7 +46,7 @@ It is recommended you run the program after installing; it runs a few first-time
 
 ## Editing the configuration
 Navigate to %APPDATA%\valorant-rpc and open config.json with your favorite text editor
-> press CTRL+R, type *%APPDATA%\valorant-rpc* then press enter
+> press WIN+R, type *%APPDATA%\valorant-rpc* then press enter
 
 ### settings
 - `launch_timeout`: time, in seconds, the program should wait for VALORANT to launch. if the time passes before the game fully loads, the program will exit
