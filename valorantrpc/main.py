@@ -204,7 +204,8 @@ def listen(debug):
                 continue
             if presence == last_presence:
                 last_presence = presence
-                continue
+                if presence['sessionLoopState'] == "MENUS":
+                    continue
 
 
             #can listen on local webserver for presence in other apps

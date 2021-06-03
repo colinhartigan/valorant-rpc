@@ -59,21 +59,22 @@ class Session:
             for player in team['Players']:
                 if player['Subject'] == self.uuid:
                     self.agent_name = utils.agent_ids[player['CharacterID'].lower()]
+                    # when player has not selected a agent it returns "" which gets mapped to "?" in utils
                     self.selected = True if player['CharacterSelectionState'] == 'locked' else False
         
         if self.uuid in pregame_data['ObserverSubjects']:
             self.agent_name = "Observer"
-            
+
         self.state_end_time = (pregame_data['PhaseTimeRemainingNS'] // 1000000000) + time.time() #why the heck does riot give agent select remaining time in nanoseconds!?!?
 
         self.client.set_activity(
             state=presence_data['party_state'],
             details="Pregame" + (f" - {self.mode}" if self.mode else ""),
             end=self.state_end_time,
-            large_image=f"agent_{self.agent_name.lower()}" if (self.agent_name != "Selecting" and self.agent_name != "Observer") else "game_icon_white",
-            large_text=("Selecting - " if not self.selected else "Locked - ") + f"{self.agent_name}" ,
+            large_image=f"agent_{self.agent_name.lower()}" if (self.agent_name != "?" and self.agent_name != "Observer") else "game_icon_white",
+            large_text=("Selecting - " if not self.selected else "Locked - ") + f"{self.agent_name}",
             small_image=utils.mode_images[self.mode.lower()],
-            small_text = f"{self.mode}" if self.mode else "",
+            small_text=f"{self.mode}" if self.mode else "",
             party_id=presence_data["partyId"],
             party_size=presence_data['party_size'],
             join=presence_data['join_state']

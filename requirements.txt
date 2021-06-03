@@ -1,3 +1,4 @@
+requests
 Pillow
 win10toast 
 pystray 
