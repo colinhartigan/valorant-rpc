@@ -6,3 +6,5 @@ dist/
 config.json
 installer/ 
 RiotUser.cs
+/venv/
+.idea
