@@ -173,19 +173,10 @@ def seconds_to_iso8601(seconds):
 
 def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
     processes = []
-    running_count = 0
     for proc in psutil.process_iter():
-        try:
-            processes.append(proc.name())
-        except (PermissionError, AccessDenied):
-            pass 
-    for process in required_processes:
-        if process in processes:
-            running_count += 1
-    if running_count == len(required_processes):
-        return True
-    else:
-        return False
+        processes.append(proc.name())
+    
+    return set(required_processes).issubset(processes)  # Checks if required_processes is in the list of all processes
 
 def get_rcs_path():
     # thanks github/afwolfe :)
