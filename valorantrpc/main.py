@@ -74,9 +74,9 @@ def run_systray():
 
     systray_image = Image.open(favicon)
     systray_menu = menu(
-        item('show debug', tray_window_toggle, checked=lambda item: window_shown),
-        item('restart', restart),
-        item('quit', close_program),
+        item('Show debug', tray_window_toggle, checked=lambda item: window_shown),
+        item('Restart', restart),
+        item('Quit', close_program),
     )
     systray = pystray.Icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
     print("[i] systray ready!")
