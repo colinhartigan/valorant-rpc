@@ -56,7 +56,7 @@ agent_ids = {
     "a3bfb853-43b2-7238-a4f1-ad90e9e46bcc":"Reyna",
     "8e253930-4c05-31dd-1b6c-968525494517":"Omen",
     "add6443a-41bd-e414-f6ad-e58d267f4e95":"Jett",
-    "":"?"
+    "601dbbe7-43ce-be57-2a40-4abd24953621" : "KAY/O"
 }
 
 
@@ -173,19 +173,10 @@ def seconds_to_iso8601(seconds):
 
 def is_process_running(required_processes=["VALORANT-Win64-Shipping.exe", "RiotClientServices.exe"]):
     processes = []
-    running_count = 0
     for proc in psutil.process_iter():
-        try:
-            processes.append(proc.name())
-        except (PermissionError, AccessDenied):
-            pass 
-    for process in required_processes:
-        if process in processes:
-            running_count += 1
-    if running_count == len(required_processes):
-        return True
-    else:
-        return False
+        processes.append(proc.name())
+    
+    return set(required_processes).issubset(processes)  # Checks if required_processes is in the list of all processes
 
 def get_rcs_path():
     # thanks github/afwolfe :)
