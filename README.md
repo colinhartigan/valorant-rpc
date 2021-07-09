@@ -1,4 +1,4 @@
-### another rewrite (v3) coming after I finish my [API wrapper](https://github.com/colinhartigan/valclient.py); should be much more optimized and clean
+### started working on v3! follow development in the [v3 branch](https://github.com/colinhartigan/valorant-rpc/tree/v3)
 
 Please read through the README in its entirety before creating issues/messaging me!
 
