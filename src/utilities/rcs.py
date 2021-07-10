@@ -14,3 +14,4 @@ class Riot_Client_Services:
                 return rcs_path
         except FileNotFoundError:
             return None
+    
