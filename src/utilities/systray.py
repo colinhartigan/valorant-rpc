@@ -9,7 +9,7 @@ kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
 kernel32 = ctypes.windll.kernel32
-kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), 128)
+#kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), 128) #disable inputs to console
 
 class Systray:
 
@@ -17,7 +17,8 @@ class Systray:
         self.window_shown = True
 
     def run(self):
-        favicon = Filepath.get_path(os.path.abspath(os.path.join(os.path.dirname(__file__),'../../favicon.ico')))
+        current_dir = os.path.dirname(__file__)
+        favicon = Filepath.get_path(os.path.join(current_dir,'../../favicon.ico'))
         systray_image = Image.open(favicon)
         systray_menu = menu(
             item('config', Systray.modify_config),
