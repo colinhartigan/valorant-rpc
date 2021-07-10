@@ -1,2 +1,2 @@
-python -m PyInstaller --noupx --name="valorant-rpc" --icon=data/favicon.ico --hidden-import "pystray._win32" --noconfirm valorant-rpc.spec
+"C:/Program Files/Python37/python.exe" -m PyInstaller main.py --name="valorant-rpc" --icon=favicon.ico --onefile
 pause

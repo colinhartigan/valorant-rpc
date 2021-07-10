@@ -26,5 +26,7 @@ class Presence:
         presence_types = {
             "startup": startup,
             "MENUS": menu,
+            "INGAME": ingame,
         }
-        presence_types[ptype].presence(self.rpc,client=self.client,data=data,content_data=self.content_data)
+        if ptype in presence_types.keys():
+            presence_types[ptype].presence(self.rpc,client=self.client,data=data,content_data=self.content_data)

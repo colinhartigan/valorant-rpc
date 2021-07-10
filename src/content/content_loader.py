@@ -25,6 +25,7 @@ class Loader:
                 "custom": "Custom",
                 "snowball": "Snowball Fight"
             },
+            "modes_with_icons": ["deathmatch","ggteam","onefa","snowball","spikerush","unrated"]
         }
         agents = Loader.fetch("/agents")["data"]
         maps = Loader.fetch("/maps")["data"]
