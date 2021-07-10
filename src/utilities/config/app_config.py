@@ -10,8 +10,10 @@ default_config = {
         "menu": {
             "show_rank_in_comp_lobby": False
         },
-        "competitive": {
-            "show_rank_instead_of_agent": False
+        "modes": {
+            "competitive": {
+                "show_rank_instead_of_agent": False,
+            }
         }
     },
     "startup": {
