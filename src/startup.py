@@ -1,6 +1,7 @@
 from InquirerPy.utils import color_print
-import sys, psutil, time, cursor, valclient, threading
+import sys, psutil, time, cursor, valclient
 
+from .utilities.killable_thread import Thread
 from .utilities.config.app_config import Config
 from .utilities.processes import Processes
 from .utilities.rcs import Riot_Client_Services
@@ -16,6 +17,7 @@ class Startup:
         self.config = Config.fetch_config()
         self.systray = Systray()
         self.client = None
+        color_print([("Red", "waiting for rpc client")])
         self.presence = Presence()
 
         self.dispatch_systray()
@@ -34,16 +36,18 @@ class Startup:
             self.wait_for_presence()
 
         self.dispatch_presence()
-
-        self.systray_thread.join() # wait for this guy to close app
+        self.systray_thread.join()
+        self.presence_thread.stop()
+        color_print([("Red","presence closed")])
+        
         
         
     def dispatch_presence(self):
-        self.presence_thread = threading.Thread(target=self.presence.main_loop,daemon=True)
+        self.presence_thread = Thread(target=self.presence.main_loop,daemon=True)
         self.presence_thread.start()
 
     def dispatch_systray(self):
-        self.systray_thread = threading.Thread(target=self.systray.run)
+        self.systray_thread = Thread(target=self.systray.run,daemon=True)
         self.systray_thread.start()
 
     def setup_client(self):
