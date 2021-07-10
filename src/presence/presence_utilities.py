@@ -23,3 +23,15 @@ class Utilities:
         split = "T".join(i for i in split)
         split = iso8601.parse_date(split).timestamp() #converts iso8601 to epoch
         return split
+
+    @staticmethod 
+    def fetch_rank_data(client,data,content_data):
+        mmr = client.fetch_mmr()["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][content_data["season"]["uuid"]]
+        rank_data = {}
+        for tier in content_data["comp_tiers"]:
+            if tier["id"] == mmr["CompetitiveTier"]:
+                rank_data = tier
+        rank_image = f"rank_{rank_data['id']}"
+        rank_text = f"{rank_data['display_name']} - {mmr['RankedRating']}RR"
+
+        return rank_image, rank_text

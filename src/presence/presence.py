@@ -1,9 +1,9 @@
 from pypresence import Presence as PyPresence
-import time
+import time, sys
 
 from ..utilities.config.app_config import Config
 from ..content.content_loader import Loader
-from .presences import *
+from .presences import (ingame,menu,startup)
 
 class Presence:
 
@@ -29,4 +29,4 @@ class Presence:
             "INGAME": ingame,
         }
         if ptype in presence_types.keys():
-            presence_types[ptype].presence(self.rpc,client=self.client,data=data,content_data=self.content_data)
+            presence_types[ptype].presence(self.rpc,client=self.client,data=data,content_data=self.content_data,config=self.config)

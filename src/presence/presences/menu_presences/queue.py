@@ -1,6 +1,6 @@
 from ...presence_utilities import Utilities
 
-def presence(rpc,client=None,data=None,content_data=None):
+def presence(rpc,client=None,data=None,content_data=None,config=None):
     
     party_state,party_size = Utilities.build_party_state(data)
     start_time = Utilities.iso8601_to_epoch(data['queueEntryTime'])

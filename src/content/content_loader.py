@@ -14,6 +14,7 @@ class Loader:
             "maps": [],
             "modes": [],   
             "comp_tiers": [],
+            "season": {},
             "queue_aliases": { #i'm so sad these have to be hardcoded but oh well :(
                 "newmap": "New Map",
                 "competitive": "Competitive",
@@ -31,6 +32,13 @@ class Loader:
         maps = Loader.fetch("/maps")["data"]
         modes = Loader.fetch("/gamemodes")["data"]
         comp_tiers = Loader.fetch("/competitivetiers")["data"][-1]["tiers"]
+
+        season_uuid = client.fetch_mmr()["LatestCompetitiveUpdate"]["SeasonID"]
+        season = Loader.fetch(f"/seasons/{season_uuid}")["data"]
+        content_data["season"] = {
+            "uuid": season_uuid,
+            "display_name": season["displayName"]
+        }
         
         for agent in agents:
             content_data["agents"].append({

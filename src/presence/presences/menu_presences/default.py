@@ -1,19 +1,28 @@
 from ...presence_utilities import Utilities
 
-def presence(rpc,client=None,data=None,content_data=None):
-    is_afk = False #data["isIdle"]
-    party_state,party_size = Utilities.build_party_state(data)
-    
+from .away import presence as away
+
+def presence(rpc,client=None,data=None,content_data=None,config=None):
+    is_afk = data["isIdle"]
     if is_afk:
-        pass 
-    
+        away(rpc,client,data,content_data,config)  
+     
     else:
+        party_state,party_size = Utilities.build_party_state(data)
+        small_image = f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'unrated'}"
+        small_text = None
+
+        if data["queueId"] == "competitive" and config["presences"]["menu"]["show_rank_in_comp_lobby"]: 
+            small_image, small_text = Utilities.fetch_rank_data(client,data,content_data)
+
+
         rpc.update(
             state=party_state,
             details=f"Menu - {content_data['queue_aliases'][data['queueId']]}",
             large_image="game_icon",
             large_text=f"Level {data['accountLevel']}",
-            small_image=f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'unrated'}",
+            small_image=small_image,
+            small_text=small_text,
             party_size=party_size,
             party_id=data["partyId"],
         )
