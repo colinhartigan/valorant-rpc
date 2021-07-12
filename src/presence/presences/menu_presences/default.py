@@ -9,16 +9,15 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
      
     else:
         party_state,party_size = Utilities.build_party_state(data)
-        small_image = f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'unrated'}"
+        small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
         small_text = None
 
         if data["queueId"] == "competitive" and config["presences"]["menu"]["show_rank_in_comp_lobby"]: 
             small_image, small_text = Utilities.fetch_rank_data(client,data,content_data)
 
-
         rpc.update(
             state=party_state,
-            details=f"Menu - {content_data['queue_aliases'][data['queueId']]}",
+            details=f"Menu - {mode_name}",
             large_image="game_icon",
             large_text=f"Level {data['accountLevel']}",
             small_image=small_image,

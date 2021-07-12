@@ -41,7 +41,7 @@ class Loader:
                 "Red": "team_defender",
                 "Blue": "team_attacker",
             },
-            "modes_with_icons": ["deathmatch","ggteam","onefa","snowball","spikerush","unrated"]
+            "modes_with_icons": ["ggteam","onefa","snowball","spikerush","unrated"]
         }
         agents = Loader.fetch("/agents")["data"]
         maps = Loader.fetch("/maps")["data"]

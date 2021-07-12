@@ -1,9 +1,10 @@
 from PIL import Image
 from pystray import Icon as icon, Menu as menu, MenuItem as item
-import ctypes, os
+import ctypes, os, time
 
 from .filepath import Filepath
 from .config.modify_config import Config_Editor
+from .processes import Processes
 
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
@@ -25,8 +26,7 @@ class Systray:
             item('exit', self.exit)
         )
         self.systray = icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
-        self.systray.run() 
-
+        self.systray.run()
 
     def exit(self):
         self.systray.visible = False
