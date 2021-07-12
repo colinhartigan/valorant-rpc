@@ -37,7 +37,7 @@ class Systray:
         Config_Editor()
 
     @staticmethod
-    def tray_window_toggle(icon, item):
+    def tray_window_toggle(item):
         try:
             window_shown = not item.checked
             if window_shown:

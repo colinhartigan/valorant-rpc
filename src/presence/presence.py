@@ -1,9 +1,10 @@
 from pypresence import Presence as PyPresence
+from InquirerPy.utils import color_print
 import time, sys
 
 from ..utilities.config.app_config import Config
 from ..content.content_loader import Loader
-from .presences import (ingame,menu,startup)
+from .presences import (ingame,menu,startup,pregame)
 
 class Presence:
 
@@ -16,6 +17,7 @@ class Presence:
     
     def main_loop(self):
         self.content_data = Loader.load_all_content(self.client)
+        color_print([("LimeGreen bold", "presence running!")])
         while True:
             presence_data = self.client.fetch_presence()
             self.update_presence(presence_data["sessionLoopState"],presence_data)
@@ -26,6 +28,7 @@ class Presence:
         presence_types = {
             "startup": startup,
             "MENUS": menu,
+            "PREGAME": pregame,
             "INGAME": ingame,
         }
         if ptype in presence_types.keys():

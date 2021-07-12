@@ -24,7 +24,22 @@ class Loader:
                 "ggteam": "Escalation",
                 "onefa": "Replication",
                 "custom": "Custom",
-                "snowball": "Snowball Fight"
+                "snowball": "Snowball Fight",
+                "": "Custom",
+            },
+            "team_aliases": {
+                "TeamOne": "Defender",
+                "TeamTwo": "Attacker",
+                "TeamSpectate": "Observor",
+                "TeamOneCoaches": "Defender Coach",
+                "TeamTwoCoaches": "Attacker Coach",
+                "Red": ""
+            },
+            "team_image_aliases": {
+                "TeamOne": "team_defender",
+                "TeamTwo": "team_attacker",
+                "Red": "team_defender",
+                "Blue": "team_attacker",
             },
             "modes_with_icons": ["deathmatch","ggteam","onefa","snowball","spikerush","unrated"]
         }

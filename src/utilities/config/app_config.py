@@ -3,6 +3,7 @@ import os
 from ..filepath import Filepath
 
 default_config = {
+    "version": "v3.0",
     "region": "na",
     "client_id": 811469787657928704,
     "presence_refresh_interval": 5,
@@ -50,6 +51,8 @@ class Config:
         def check_for_new_vars(blank,current):
             for key,value in blank.items():
                 if not key in current.keys():
+                    current[key] = value
+                if key == "version": 
                     current[key] = value
                 if isinstance(value,dict):
                     check_for_new_vars(value,current[key])

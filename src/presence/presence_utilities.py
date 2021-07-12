@@ -1,5 +1,6 @@
 import iso8601
 
+
 class Utilities:
 
     @staticmethod 
@@ -35,3 +36,20 @@ class Utilities:
         rank_text = f"{rank_data['display_name']} - {mmr['RankedRating']}RR"
 
         return rank_image, rank_text
+        
+    @staticmethod 
+    def fetch_map_data(data,content_data):
+        for gmap in content_data["maps"]:
+            if gmap["path"] == data["matchMap"]:
+                return gmap["display_name"]
+        return ""
+
+    @staticmethod 
+    def fetch_agent_data(uuid,content_data):
+        for agent in content_data["agents"]:
+            if agent["uuid"] == uuid:
+                print(agent)
+                agent_image = f"agent_{agent['display_name'].lower()}"
+                agent_name = agent['display_name']
+                return agent_image, agent_name
+        return "rank_0","Unknown"
