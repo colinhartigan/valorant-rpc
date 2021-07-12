@@ -6,6 +6,7 @@ from .utilities.config.app_config import Config
 from .utilities.processes import Processes
 from .utilities.rcs import Riot_Client_Services
 from .utilities.systray import Systray
+from .utilities.version_checker import Checker
 
 from .presence.presence import Presence
 
@@ -26,6 +27,7 @@ class Startup:
 
     def run(self):
         self.presence.update_presence("startup")
+        Checker.check_version(self.config)
         if not Processes.are_processes_running():
             color_print([("Red", "starting VALORANT")])
             self.start_game()
