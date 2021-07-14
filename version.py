@@ -1,7 +1,7 @@
 VSVersionInfo(
     ffi=FixedFileInfo(
-  filevers=(1, 1, 0, 30920),
-  prodvers=(1, 1, 0, 30920),
+  filevers=(3, 0),
+  prodvers=(3, 0),
   mask=0x3f,
   flags=0x0,
   OS=0x4,
@@ -13,7 +13,7 @@ VSVersionInfo(
       u'040904B0',
       [StringStruct(u'CompanyName', u'colin'),
       StringStruct(u'FileDescription', u'VALORANT-RPC'),
-      StringStruct(u'FileVersion', u'1.1'),
+      StringStruct(u'FileVersion', u'v3'),
       StringStruct(u'InternalName', u'VALORANT-RPC'),
       StringStruct(u'LegalCopyright', u'colin'),
       StringStruct(u'OriginalFilename', u'VALORANT-RPC'),
