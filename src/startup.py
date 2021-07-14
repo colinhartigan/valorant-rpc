@@ -25,9 +25,9 @@ class Startup:
         self.client = None
         ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
-        if self.config["region"] == "":
+        if self.config["region"][0] == "":
             # if region hasn't been set yet
-            self.config["region"] = Config_Editor.set_region("na")
+            self.config["region"] = Config_Editor.config_set("region",self.config["region"])
             Config.modify_config(self.config)
             Startup.clear_line()
 
@@ -74,7 +74,7 @@ class Startup:
         self.systray_thread.start()
 
     def setup_client(self):
-        self.client = valclient.Client(region=self.config["region"])
+        self.client = valclient.Client(region=self.config["region"][0])
         self.client.activate()
         self.presence.client = self.client
 

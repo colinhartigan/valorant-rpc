@@ -28,6 +28,10 @@ class Systray:
     def exit(self):
         self.systray.visible = False
         self.systray.stop()
+        try:
+            sys.exit()
+        except:
+            pass
 
     @staticmethod
     def generate_icon():

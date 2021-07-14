@@ -19,10 +19,10 @@ class Config_Editor:
         # recursion makes me want to die but its for a good cause
 
         prompt_choices = [
-            {"name": f"{setting}" + (f" ({value})" if not isinstance(value, dict) else " (>>)"), "value": setting} for
+            {"name": f"{setting}" + ( f" ({value[0]})" if isinstance(value, list) else f" ({value})" if not isinstance(value, dict) else " (>>)"), "value": setting} for
             setting, value in choices.items()
         ]
-        prompt_choices.insert(0, {"name": "back", "value": "back"})
+        prompt_choices.insert(0, {"name": "back" if section != "main" else "done", "value": "back"} )
 
         choice = inquirer.select(
             message=f"[{section}] select a configuration option",
@@ -37,21 +37,17 @@ class Config_Editor:
             elif callback is None:
                 Config.modify_config(self.config)
                 color_print(
-                    [("LimeGreen", "config saved! restart the program if you changed your region.")])
+                    [("LimeGreen", "config saved! restart the program for changes to take effect.")])
                 return
         else:
             if isinstance(choices[choice], dict):
-                self.config_menu(choice, choices[choice], callback=self.config_menu,
-                                 callback_args=(section, choices, callback, callback_args))
+                self.config_menu(choice, choices[choice], callback=self.config_menu,callback_args=(section, choices, callback, callback_args))
             else:
                 choices[choice] = self.config_set(choice, choices[choice])
                 self.config_menu(section, choices, callback, callback_args)
 
     @staticmethod
     def config_set(name, option):
-        if name == "region":
-            return Config_Editor.set_region(option)
-
         if type(option) is str:
             choice = inquirer.text(
                 message=f"set value for {name} (expecting str)",
@@ -83,14 +79,15 @@ class Config_Editor:
             choice = choice.execute()
             return choice
 
-    @staticmethod
-    def set_region(option):
-        regions = Client.fetch_regions()
-        choice = inquirer.select(
-            message="select your region",
-            choices=[{"name": region, "value": region} for region in regions],
-            default=option,
-            pointer=">"
-        )
-        choice = choice.execute()
-        return choice
+        if type(option) is list:
+            current = option[0]
+            options = option[1]
+            choice = inquirer.select(
+                message=f"set value for {name}",
+                default=current,
+                choices={option:option for option in options},
+                pointer=">"
+            )
+            choice = choice.execute()
+            option[0] = choice 
+            return option

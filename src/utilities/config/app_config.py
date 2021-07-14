@@ -1,24 +1,29 @@
-import json
-import os
+import json, os
+from valclient.client import Client 
+
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0b1",
-    "region": "",
+    "version": "v3.0b2",
+    "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
-    "presence_refresh_interval": 5,
+    "presence_refresh_interval": 3,
     "presences": {
         "menu": {
-            "show_rank_in_comp_lobby": False
+            "show_rank_in_comp_lobby": True
         },
         "modes": {
             "competitive": {
-                "show_rank_instead_of_agent": False,
+                "small_image": ["agent",["rank","agent","map"]],
+                "large_image": ["map",["rank","agent","map"]],
+            },
+            "range": {
+                "show_rank_in_range": False,
             }
         }
     },
     "startup": {
-        "game_launch_timeout": 30,
+        "game_launch_timeout": 40,
         "presence_timeout": 60,
     },
 }
@@ -28,7 +33,7 @@ class Config:
     @staticmethod
     def fetch_config():
         try:
-            with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'config.json'))) as f:
+            with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), "config.json"))) as f:
                 config = json.load(f)
                 return config
         except:
@@ -36,7 +41,7 @@ class Config:
 
     @staticmethod
     def modify_config(new_config):
-        with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'config.json')), 'w') as f:
+        with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), "config.json")), "w") as f:
             json.dump(new_config, f)
 
         return Config.fetch_config()
@@ -52,7 +57,11 @@ class Config:
             for key,value in blank.items():
                 if not key in current.keys():
                     current[key] = value
+                if type(value) != type(current[key]):
+                    # if type of option is changed
+                    current[key] = value
                 if key == "version": 
+                    # version can't be changed by the user lmao
                     current[key] = value
                 if isinstance(value,dict):
                     check_for_new_vars(value,current[key])
@@ -76,6 +85,6 @@ class Config:
     def create_default_config():
         if not os.path.exists(Filepath.get_appdata_folder()):
             os.mkdir(Filepath.get_appdata_folder())
-        with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'config.json')), 'w') as f:
+        with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), "config.json")), "w") as f:
             json.dump(default_config, f)
         return Config.fetch_config()

@@ -43,12 +43,12 @@ class Utilities:
             if gmap["path"] == data["matchMap"]:
                 return gmap["display_name"]
         return ""
-
+ 
     @staticmethod 
     def fetch_agent_data(uuid,content_data):
         for agent in content_data["agents"]:
             if agent["uuid"] == uuid:
-                agent_image = f"agent_{agent['display_name'].lower()}"
+                agent_image = f"agent_{agent['display_name'].lower().replace('/','')}"
                 agent_name = agent['display_name']
                 return agent_image, agent_name
         return "rank_0","Unknown"
@@ -58,3 +58,13 @@ class Utilities:
         image = f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'discovery'}"
         mode_name = content_data['queue_aliases'][data['queueId']] if data["queueId"] in content_data["queue_aliases"].keys() else "Custom"
         return image,mode_name
+
+    @staticmethod 
+    def get_content_preferences(client,pref,presence,player_data,content_data):
+        if pref == "rank":
+            return Utilities.fetch_rank_data(client,presence,content_data)
+        if pref == "map": 
+            gmap = Utilities.fetch_map_data(presence,content_data)
+            return f"splash_{gmap.lower()}",gmap
+        if pref == "agent": 
+            return Utilities.fetch_agent_data(player_data["CharacterID"],content_data)
