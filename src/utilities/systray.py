@@ -1,6 +1,6 @@
 from PIL import Image
 from pystray import Icon as icon, Menu as menu, MenuItem as item
-import ctypes, os, urllib.request
+import ctypes, os, urllib.request, sys
 
 from .filepath import Filepath
 from .config.modify_config import Config_Editor
@@ -19,6 +19,7 @@ class Systray:
         systray_image = Image.open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'favicon.ico')))
         systray_menu = menu(
             item('config', Systray.modify_config),
+            item('reload', Systray.restart),
             item('exit', self.exit)
         )
         self.systray = icon("valorant-rpc", systray_image, "valorant-rpc", systray_menu)
@@ -35,6 +36,11 @@ class Systray:
     @staticmethod 
     def modify_config():
         Config_Editor()
+
+    @staticmethod
+    def restart():
+        os.system('cls' if os.name == 'nt' else 'clear')
+        os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
     @staticmethod
     def tray_window_toggle(item):

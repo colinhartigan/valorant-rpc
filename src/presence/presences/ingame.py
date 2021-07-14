@@ -48,7 +48,6 @@ class Game_Session:
 
     def main_loop(self):
         while self.client.fetch_presence()["sessionLoopState"] == "INGAME":
-            print("l00p")
             presence = self.client.fetch_presence()
             is_afk = presence["isIdle"]
             if is_afk:

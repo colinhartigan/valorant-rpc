@@ -29,6 +29,7 @@ class Startup:
             # if region hasn't been set yet
             self.config["region"] = Config_Editor.set_region("na")
             Config.modify_config(self.config)
+            Startup.clear_line()
 
 
         color_print([("Red", "waiting for rpc client")])

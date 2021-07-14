@@ -74,6 +74,8 @@ class Config:
 
     @staticmethod
     def create_default_config():
+        if not os.path.exists(Filepath.get_appdata_folder()):
+            os.mkdir(Filepath.get_appdata_folder())
         with open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'config.json')), 'w') as f:
             json.dump(default_config, f)
         return Config.fetch_config()
