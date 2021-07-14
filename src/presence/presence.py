@@ -26,7 +26,7 @@ class Presence:
             presence_data = self.client.fetch_presence()
             if presence_data is not None:
                 self.update_presence(presence_data["sessionLoopState"],presence_data)
-                print(presence_data)
+                #print(presence_data)
                 time.sleep(self.config["presence_refresh_interval"])
             else:
                 systray.exit() #stop systray thread

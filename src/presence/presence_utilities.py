@@ -48,7 +48,6 @@ class Utilities:
     def fetch_agent_data(uuid,content_data):
         for agent in content_data["agents"]:
             if agent["uuid"] == uuid:
-                print(agent)
                 agent_image = f"agent_{agent['display_name'].lower()}"
                 agent_name = agent['display_name']
                 return agent_image, agent_name
@@ -57,5 +56,5 @@ class Utilities:
     @staticmethod
     def fetch_mode_data(data, content_data):
         image = f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'discovery'}"
-        mode_name = content_data['queue_aliases'][data['queueId']] if data["queueId"] in content_data["queue_aliases"].keys() else "Discovery"
+        mode_name = content_data['queue_aliases'][data['queueId']] if data["queueId"] in content_data["queue_aliases"].keys() else "Custom"
         return image,mode_name

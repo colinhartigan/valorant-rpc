@@ -3,8 +3,8 @@ import os
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0",
-    "region": "na",
+    "version": "v3.0b1",
+    "region": "",
     "client_id": 811469787657928704,
     "presence_refresh_interval": 5,
     "presences": {

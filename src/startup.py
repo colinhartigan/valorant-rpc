@@ -1,14 +1,19 @@
 from InquirerPy.utils import color_print
-import sys, psutil, time, cursor, valclient
+import sys, psutil, time, cursor, valclient, ctypes
 
 from .utilities.killable_thread import Thread
 from .utilities.config.app_config import Config
+from .utilities.config.modify_config import Config_Editor
 from .utilities.processes import Processes
 from .utilities.rcs import Riot_Client_Services
 from .utilities.systray import Systray
 from .utilities.version_checker import Checker
 
 from .presence.presence import Presence
+
+kernel32 = ctypes.WinDLL('kernel32')
+#kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), 128) #disable inputs to console
+kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7) #allow for ANSI sequences
 
 class Startup:
     def __init__(self):
@@ -18,10 +23,18 @@ class Startup:
         self.config = Config.fetch_config()
         self.systray = Systray()
         self.client = None
+        ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
+
+        if self.config["region"] == "":
+            # if region hasn't been set yet
+            self.config["region"] = Config_Editor.set_region("na")
+            Config.modify_config(self.config)
+
+
         color_print([("Red", "waiting for rpc client")])
-        Startup.clear_line()
         try:
             self.presence = Presence()
+            Startup.clear_line()
             self.dispatch_systray()
             self.run()
         except Exception as e:
@@ -61,13 +74,13 @@ class Startup:
 
     def setup_client(self):
         self.client = valclient.Client(region=self.config["region"])
-        self.client.hook()
+        self.client.activate()
         self.presence.client = self.client
 
     def wait_for_presence(self):
         presence_timeout = self.config["startup"]["presence_timeout"]
         presence_timer = 0 
-
+        print()
         while self.client.fetch_presence() is None:
             Startup.clear_line()
             color_print([("Cyan", "["),("White",f"{presence_timer}"),("Cyan", "] waiting for presence... ")])
@@ -94,8 +107,9 @@ class Startup:
                 self.systray.exit()
                 sys.exit()
             time.sleep(1)
+        Startup.clear_line()
 
     @staticmethod
     def clear_line():
         sys.stdout.write("\033[F") # move cursor up one line
-        sys.stdout.write("\x1b[2K\r") # clear line
+        sys.stdout.write("\r\033[K")
