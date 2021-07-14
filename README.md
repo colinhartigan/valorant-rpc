@@ -13,6 +13,8 @@ Please read through the README in its entirety before creating issues/messaging 
 # valorant-rich-presence-client
 A feature-rich Discord rich-presence extension for VALORANT.
 
+[![Discord](https://img.shields.io/badge/discord-join-7389D8?style=flat&logo=discord)](https://discord.gg/uGuswsZwAT)
+
 
 ## Images
 ![image](https://user-images.githubusercontent.com/42125428/112060312-64764e80-8b33-11eb-843b-2bb457b39a31.png)
