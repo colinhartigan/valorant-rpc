@@ -20,8 +20,8 @@ class Game_Session:
         self.small_image = ""
         self.mode_name = ""
 
-        self.large_pref = self.config["presences"]["modes"]["competitive"]["large_image"][0]
-        self.small_pref = self.config["presences"]["modes"]["competitive"]["small_image"][0]
+        self.large_pref = self.config["presences"]["modes"]["all"]["large_image"][0]
+        self.small_pref = self.config["presences"]["modes"]["all"]["small_image"][0]
 
         self.build_static_states()
 

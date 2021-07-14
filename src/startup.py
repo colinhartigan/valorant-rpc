@@ -1,5 +1,5 @@
 from InquirerPy.utils import color_print
-import sys, psutil, time, cursor, valclient, ctypes
+import sys, psutil, time, cursor, valclient, ctypes, traceback, os
 
 from .utilities.killable_thread import Thread
 from .utilities.config.app_config import Config
@@ -12,7 +12,7 @@ from .utilities.version_checker import Checker
 from .presence.presence import Presence
 
 kernel32 = ctypes.WinDLL('kernel32')
-#kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), 128) #disable inputs to console
+kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x00|0x100)) #disable inputs to console
 kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7) #allow for ANSI sequences
 
 class Startup:
@@ -37,36 +37,46 @@ class Startup:
             self.presence = Presence()
             Startup.clear_line()
             self.dispatch_systray()
-            self.run()
         except Exception as e:
             color_print([("Cyan",f"discord not detected! starting game without presence... ({e})")])
             if not Processes.are_processes_running():
                 color_print([("Red", "starting VALORANT")])
                 self.start_game()
-                sys.exit()
+                os._exit(1)
+
+        self.run()
 
 
     def run(self):
-        self.presence.update_presence("startup")
-        Checker.check_version(self.config)
-        if not Processes.are_processes_running():
-            color_print([("Red", "starting VALORANT")])
-            self.start_game()
-        
-        self.setup_client()
-        
-        if self.client.fetch_presence() is None:
-            self.wait_for_presence()
-        
-        self.dispatch_presence()
-        self.systray_thread.join()
-        self.presence_thread.stop()
-        color_print([("Red","presence closed")])
+        try:
+            self.presence.update_presence("startup")
+            Checker.check_version(self.config)
+            if not Processes.are_processes_running():
+                color_print([("Red", "starting VALORANT")])
+                self.start_game()
+            
+            self.setup_client()
+            
+            if self.client.fetch_presence() is None:
+                self.wait_for_presence()
+
+            self.dispatch_presence()
+
+            self.systray_thread.join()
+            self.presence_thread.stop()
+            color_print([("Red","presence closed")])
+
+        except Exception as e:
+            color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
+            traceback.print_exc()
+            self.presence_thread.stop()
+            self.systray_thread.stop()
+            os._exit(1)
         
         
         
     def dispatch_presence(self):
-        self.presence_thread = Thread(target=self.presence.main_loop,args=(self.systray,),daemon=True)
+        self.presence_thread = Thread(target=self.presence.main_loop,daemon=True)
         self.presence_thread.start()
 
     def dispatch_systray(self):
@@ -88,7 +98,7 @@ class Startup:
             presence_timer += 1
             if presence_timer >= presence_timeout:
                 self.systray.exit()
-                sys.exit()
+                os._exit(1)
             time.sleep(1)
         Startup.clear_line()
         Startup.clear_line()
@@ -106,7 +116,7 @@ class Startup:
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 self.systray.exit()
-                sys.exit()
+                os._exit(1)
             time.sleep(1)
         Startup.clear_line()
 

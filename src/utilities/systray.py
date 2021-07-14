@@ -29,7 +29,7 @@ class Systray:
         self.systray.visible = False
         self.systray.stop()
         try:
-            sys.exit()
+            os._exit(1)
         except:
             pass
 

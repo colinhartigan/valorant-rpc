@@ -4,7 +4,7 @@ from valclient.client import Client
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0b2",
+    "version": "v3.0b3",
     "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
@@ -13,7 +13,7 @@ default_config = {
             "show_rank_in_comp_lobby": True
         },
         "modes": {
-            "competitive": {
+            "all": {
                 "small_image": ["agent",["rank","agent","map"]],
                 "large_image": ["map",["rank","agent","map"]],
             },
@@ -63,6 +63,8 @@ class Config:
                 if key == "version": 
                     # version can't be changed by the user lmao
                     current[key] = value
+                if key == "region": 
+                    current[key][1] = Client.fetch_regions() # update regions jic ya know
                 if isinstance(value,dict):
                     check_for_new_vars(value,current[key])
             

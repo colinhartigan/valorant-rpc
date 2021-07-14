@@ -7,4 +7,4 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         "CUSTOM_GAME_SETUP": custom_setup,
     }
     if data['partyState'] in state_types.keys():
-        state_types[data['partyState']].presence(rpc,client=client,data=data,content_data=content_data,config=config)
+        state_types[data['partyState']].presence(client=client,data=data,content_data=content_data,config=config)
