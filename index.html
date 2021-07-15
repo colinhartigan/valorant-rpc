@@ -10,7 +10,7 @@
                 var http = new XMLHttpRequest();
                 http.open('HEAD', url, false);
                 http.send();
-                if (http.status == 200)
+                if (http.status == 101)
                     window.location.replace("https://localhost:6969");
                 else
                     window.location.reload();
