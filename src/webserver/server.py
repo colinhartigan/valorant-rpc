@@ -1,8 +1,12 @@
 from flask import Flask, request, cli
+from flask_cors import CORS
 import urllib3, logging
+
+from .cors import crossdomain
 
 urllib3.disable_warnings()
 app = Flask(__name__)
+CORS(app,support_credentials=True)
 cli.show_server_banner = lambda *_: None
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -20,6 +24,7 @@ def shutdown():
     return 'server shutting down...'
 
 @app.route('/valorant/request/<party_id>/<friend_id>')
+@crossdomain(origin='*')
 def request_party(party_id,friend_id):
     data = client.party_request_to_join(party_id,friend_id)
     for player in data["Requests"]:
@@ -28,6 +33,7 @@ def request_party(party_id,friend_id):
     return data
 
 @app.route('/valorant/join/<party_id>')
+@crossdomain(origin='*')
 def join_party(party_id):
     data = client.party_join(party_id)
     if "CurrentPartyID" in data.keys():

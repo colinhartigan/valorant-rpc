@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html>
 
-    <body onload="check_localhost()">
+    <body id="text" onload="check_localhost()">
         test
         <script>
         function check_localhost(){
-            var url = 'https://localhost:6969';
-            function UrlExists(url) {
-                var http = new XMLHttpRequest();
-                http.open('HEAD', url, false);
-                http.send();
-                if (http.status == 101)
-                    window.location.replace("https://localhost:6969");
-                else
-                    window.location.reload();
-            }
+            var url = 'http://127.0.0.1:6969';
+            var http = new XMLHttpRequest();
+            http.open('GET', url, true);
+            http.send();
+            document.getElementById("text").innerHTML = text;
+            if (http.status == 200)
+                window.location.replace("http://127.0.0.1:6969");
+            else
+                window.location.reload();
         }
         </script>
     
