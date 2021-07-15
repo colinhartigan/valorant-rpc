@@ -4,13 +4,15 @@ from valclient.client import Client
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0b4",
+    "version": "v3.0b6",
     "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
     "presences": {
         "menu": {
-            "show_rank_in_comp_lobby": True
+            "show_rank_in_comp_lobby": True,
+            "show_join_button_with_open_party": True,
+            "allow_join_requests": False,
         },
         "modes": {
             "all": {

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<body onload="check_localhost()">
+
+<script>
+function check_localhost(){
+    var url = 'https://localhost:6969';
+    function UrlExists(url) {
+        var http = new XMLHttpRequest();
+        http.open('HEAD', url, false);
+        http.send();
+        if (http.status != 404)
+            window.location.replace("https://localhost:6969");
+        else
+            window.location.reload();
+    }
+}
+</script>
+
+
+</html> 

@@ -11,6 +11,8 @@ from .utilities.version_checker import Checker
 
 from .presence.presence import Presence
 
+from .webserver import server
+
 # weird console window management stuff
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
@@ -33,7 +35,6 @@ class Startup:
             self.config["region"] = Config_Editor.config_set("region",self.config["region"])
             Config.modify_config(self.config)
             Startup.clear_line()
-
 
         color_print([("Red", "waiting for rpc client")])
         try:
@@ -64,7 +65,9 @@ class Startup:
                 self.wait_for_presence()
 
             self.dispatch_presence()
-            color_print([("LimeGreen","program running, hiding window in 5 seconds\n")])
+            self.dispatch_webserver() 
+            
+            color_print([("LimeGreen","program startup successful, hiding window in 5 seconds\n")])
             time.sleep(5)
             user32.ShowWindow(hWnd, 0) #hide window
 
@@ -72,7 +75,8 @@ class Startup:
             self.presence_thread.stop()
             color_print([("Red","presence closed")])
 
-        except Exception as e:
+
+        except Exception as e: #error catching
             user32.ShowWindow(hWnd, 1)
             color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
             traceback.print_exc()
@@ -81,6 +85,11 @@ class Startup:
             os._exit(1)
         
         
+    def dispatch_webserver(self):
+        server.client = self.client 
+        server.config = self.config
+        self.webserver_thread = Thread(target=server.start,daemon=True)
+        self.webserver_thread.start()
         
     def dispatch_presence(self):
         self.presence_thread = Thread(target=self.presence.main_loop,daemon=True)
