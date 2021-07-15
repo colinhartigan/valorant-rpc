@@ -2,18 +2,23 @@
 <html>
 
     <body id="text" onload="check_localhost()">
-        test
+        redirecting...
         <script>
         function check_localhost(){
             var url = 'http://127.0.0.1:6969';
             var http = new XMLHttpRequest();
+            var target = window.location.href
             http.open('GET', url, true);
             http.send();
-            document.getElementById("text").innerHTML = text;
-            if (http.status == 200)
-                window.location.replace("http://127.0.0.1:6969");
-            else
-                window.location.reload();
+            http.onreadystatechange = function () {
+                if (http.readyState == 4 && http.status == 200) {
+                    document.getElementById("text").innerHTML = text;
+                    window.location.replace("http://127.0.0.1:6969");
+                }else if (http.readyState == 4){
+                    window.location.replace("https://github.com/colinhartigan/valorant-rpc");
+                }
+            };
+            
         }
         </script>
     
