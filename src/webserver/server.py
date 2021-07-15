@@ -46,4 +46,4 @@ def shutdown_server():
     func()  
 
 def start():
-    app.run(port=6969)
+    app.run(port=4100)

@@ -73,9 +73,9 @@ class Utilities:
     def get_join_state(presence,client,config):
         if int(presence["partySize"]) < int(presence["maxPartySize"]):
             if presence["partyAccessibility"] == "OPEN" and config["presences"]["menu"]["show_join_button_with_open_party"]:
-                return [{"label":"Join (requires VAL-rpc)","url":f"https://localhost:6969/valorant/join/{presence['partyId']}"}]
+                return [{"label":"Join (requires VAL-rpc)","url":f"https://localhost:4100/valorant/join/{presence['partyId']}"}]
             
             if presence["partyAccessibility"] == "CLOSED" and config["presences"]["menu"]["allow_join_requests"]:
-                return [{"label":"Request (requires VAL-rpc)","url":f"https://localhost:6969/valorant/request/{presence['partyId']}/{client.puuid}"}]
+                return [{"label":"Request (requires VAL-rpc)","url":f"https://localhost:4100/valorant/request/{presence['partyId']}/{client.puuid}"}]
 
         return None
