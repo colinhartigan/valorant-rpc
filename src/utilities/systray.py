@@ -1,6 +1,7 @@
 from PIL import Image
 from pystray import Icon as icon, Menu as menu, MenuItem as item
-import ctypes, os, urllib.request, sys
+import ctypes, os, urllib.request, sys, time
+from InquirerPy.utils import color_print
 
 from .filepath import Filepath
 from .config.modify_config import Config_Editor
@@ -9,15 +10,19 @@ kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
 hWnd = kernel32.GetConsoleWindow()
 
+window_shown = False
+
 class Systray:
 
     def __init__(self):
-        self.window_shown = True
+        pass
 
     def run(self):
+        global window_shown
         Systray.generate_icon()
         systray_image = Image.open(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'favicon.ico')))
         systray_menu = menu(
+            item('show window', Systray.tray_window_toggle, checked=lambda item: window_shown),
             item('config', Systray.modify_config),
             item('reload', Systray.restart),
             item('exit', self.exit)
@@ -39,7 +44,12 @@ class Systray:
 
     @staticmethod 
     def modify_config():
+        user32.ShowWindow(hWnd, 1)
         Config_Editor()
+        if not window_shown:
+            color_print([("LimeGreen","hiding window\n")])
+            time.sleep(2)
+            user32.ShowWindow(hWnd, 0)
 
     @staticmethod
     def restart():
@@ -47,12 +57,13 @@ class Systray:
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 
     @staticmethod
-    def tray_window_toggle(item):
+    def tray_window_toggle(icon,item):
+        global window_shown
         try:
             window_shown = not item.checked
             if window_shown:
                 user32.ShowWindow(hWnd, 1)
             else:
                 user32.ShowWindow(hWnd, 0)
-        except:
-            pass
+        except Exception as e:
+            pass # oh no! bad python practices! 

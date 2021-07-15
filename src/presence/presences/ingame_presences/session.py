@@ -59,6 +59,7 @@ class Game_Session:
                     small_text=self.small_text,
                     party_size=party_size,
                     party_id=presence["partyId"],
+                    instance=True,
                 )
 
             time.sleep(self.config["presence_refresh_interval"])

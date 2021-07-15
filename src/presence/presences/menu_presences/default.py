@@ -24,4 +24,5 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
             small_text=small_text,
             party_size=party_size,
             party_id=data["partyId"],
+            join=f"party_{data['partyId']}"
         )

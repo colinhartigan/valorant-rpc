@@ -11,7 +11,10 @@ from .utilities.version_checker import Checker
 
 from .presence.presence import Presence
 
+# weird console window management stuff
 kernel32 = ctypes.WinDLL('kernel32')
+user32 = ctypes.WinDLL('user32')
+hWnd = kernel32.GetConsoleWindow()
 kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x00|0x100)) #disable inputs to console
 kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7) #allow for ANSI sequences
 
@@ -61,12 +64,16 @@ class Startup:
                 self.wait_for_presence()
 
             self.dispatch_presence()
+            color_print([("LimeGreen","program running, hiding window in 5 seconds\n")])
+            time.sleep(5)
+            user32.ShowWindow(hWnd, 0) #hide window
 
             self.systray_thread.join()
             self.presence_thread.stop()
             color_print([("Red","presence closed")])
 
         except Exception as e:
+            user32.ShowWindow(hWnd, 1)
             color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
             traceback.print_exc()
             self.presence_thread.stop()
