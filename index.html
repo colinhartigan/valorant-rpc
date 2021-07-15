@@ -5,10 +5,14 @@
         redirecting...
         <script>
         function check_localhost(){
-            var target = window.location.href.replace('https://colinhartigan.github.io/valorant-rpc','')
-            var url = 'http://127.0.0.1:4100';
+            var local_url = 'http://127.0.0.1:4100';
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var target = urlParams.get('redir')
+            console.log(target)
             var http = new XMLHttpRequest();
-            http.open('GET', url, true);
+            
+            http.open('GET', local_url, true);
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
