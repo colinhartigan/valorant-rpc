@@ -19,7 +19,7 @@
                 if (http.readyState == 4 && http.status == 200) {
                     document.getElementById("text").innerHTML = text;
                     location = "http://127.0.0.1:4100"+target
-                    if(region != ""){
+                    if(region != null){
                         location = location + "?region=" + region
                     }
                     window.location.replace(location);
