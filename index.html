@@ -18,7 +18,7 @@
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
-                    location = "http://127.0.0.1:4100"
+                    location = local_url
                     if(location != null){
                         location = location + target
                     }
