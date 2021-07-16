@@ -18,15 +18,15 @@
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
-                    var location = local_url
-                    if(location != null){
-                        location = location + target
+                    var local_location = local_url
+                    if(local_location != null){
+                        local_location = local_location + target
                     }
                     if(region != null){
-                        location = location + "?region=" + region
+                        local_location = local_location + "?region=" + region
                     }
-                    document.getElementById("text").innerHTML = "redirecting to <a href="+location+">"+location+"</>";
-                    window.location.replace(location);
+                    document.getElementById("text").innerHTML = "redirecting to <a href="+local_location+">"+local_location+"</>";
+                    window.location.replace(local_location);
                 }else if (http.readyState == 4){
                     var github_location = "https://github.com/colinhartigan/valorant-rpc"
                     document.getElementById("text").innerHTML = "redirecting to <a href="+github_location+">"+github_location+"</>";
