@@ -19,7 +19,7 @@
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     var local_location = local_url
-                    if(local_location != null){
+                    if(target != null){
                         local_location = local_location + target
                     }
                     if(region != null){
