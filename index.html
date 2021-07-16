@@ -9,6 +9,7 @@
             var target = urlParams.get('redir')
             var region = urlParams.get('region')
             console.log(region)
+            console.log(target)
             
             var local_url = 'http://127.0.0.1:4100';
             var http = new XMLHttpRequest();
@@ -17,7 +18,10 @@
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
-                    location = "http://127.0.0.1:4100"+target
+                    location = "http://127.0.0.1:4100"
+                    if(location != null){
+                        location = location + target
+                    }
                     if(region != null){
                         location = location + "?region=" + region
                     }
