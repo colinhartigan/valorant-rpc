@@ -71,11 +71,12 @@ class Utilities:
 
     @staticmethod 
     def get_join_state(presence,client,config):
+        base_api_url = "https://colinhartigan.github.io/valorant-rpc?redir={redirect}&region={region}"
         if int(presence["partySize"]) < int(presence["maxPartySize"]):
             if presence["partyAccessibility"] == "OPEN" and config["presences"]["menu"]["show_join_button_with_open_party"]:
-                return [{"label":"Join (requires VAL-rpc)","url":f"https://colinhartigan.github.io?redir=valorant-rpc/valorant/join/{presence['partyId']}"}]
+                return [{"label":"Join","url":base_api_url.format(redirect=f"/valorant/join/{presence['partyId']}",region=client.region)}]
             
             if presence["partyAccessibility"] == "CLOSED" and config["presences"]["menu"]["allow_join_requests"]:
-                return [{"label":"Request (requires VAL-rpc)","url":f"https://colinhartigan.github.io?redir=valorant-rpc/valorant/request/{presence['partyId']}/{client.puuid}"}]
+                return [{"label":"Request to Join","url":base_api_url.format(redirect=f"/valorant/request/{presence['partyId']}/{client.puuid}",region=client.region)}]
 
         return None

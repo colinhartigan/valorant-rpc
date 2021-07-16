@@ -5,19 +5,24 @@
         redirecting...
         <script>
         function check_localhost(){
-            var local_url = 'http://127.0.0.1:4100';
-
             var urlParams = new URLSearchParams(window.location.search);
             var target = urlParams.get('redir')
-            console.log(target)
-            var http = new XMLHttpRequest();
+            var region = urlParams.get('region')
+            console.log(region)
             
+            var local_url = 'http://127.0.0.1:4100';
+            var http = new XMLHttpRequest();
+
             http.open('GET', local_url, true);
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     document.getElementById("text").innerHTML = text;
-                    window.location.replace("http://127.0.0.1:4100"+target);
+                    location = "http://127.0.0.1:4100"+target
+                    if(region != ""){
+                        location = location + "?region=" + region
+                    }
+                    window.location.replace(location);
                 }else if (http.readyState == 4){
                     window.location.replace("https://github.com/colinhartigan/valorant-rpc");
                 }

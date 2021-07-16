@@ -1,4 +1,4 @@
-from flask import Flask, request, cli, jsonify
+from flask import Flask, request, cli, jsonify, Response
 from flask_cors import CORS
 import urllib3, logging
 
@@ -14,36 +14,36 @@ config = None
 
 @app.route('/')
 def home():
-    response = jsonify(message="yo")
+    response = Response(response="ok")
 
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
 
-@app.route('/shutdown')
-def shutdown():
-    shutdown_server()
-    return 'server shutting down...'
 
 @app.route('/valorant/request/<party_id>/<friend_id>')
 def request_party(party_id,friend_id):
-    data = client.party_request_to_join(party_id,friend_id)
-    for player in data["Requests"]:
-        if client.puuid == player["RequestedBySubject"]:
-            return 'ok'
-    return data
+    region = request.args.get('region')
+    if region == client.region:
+        data = client.party_request_to_join(party_id,friend_id)
+        for player in data["Requests"]:
+            if client.puuid == player["RequestedBySubject"]:
+                return 'ok'
+        return data
+    else:
+        return f"you're not in the right region! (their region: {region}, your region: {client.region}"
 
 @app.route('/valorant/join/<party_id>')
 def join_party(party_id):
-    data = client.party_join(party_id)
-    if "CurrentPartyID" in data.keys():
-        return "<script>window.onload = window.close();</script>"
-    return data
+    region = request.args.get('region')
+    if region == client.region:
+        data = client.party_join(party_id)
+        if "CurrentPartyID" in data.keys():
+            return "<script>window.onload = window.close();</script>"
+        return data
 
-def shutdown_server():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()  
+    return f"you're not in the right region! (their region: {region}, your region: {client.region}"
+
+
 
 def start():
     app.run(port=4100)
