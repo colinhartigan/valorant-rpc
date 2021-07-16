@@ -18,7 +18,7 @@
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
-                    location = local_url
+                    var location = local_url
                     if(location != null){
                         location = location + target
                     }
@@ -28,7 +28,7 @@
                     document.getElementById("text").innerHTML = "redirecting to <a href="+location+">"+location+"</>";
                     window.location.replace(location);
                 }else if (http.readyState == 4){
-                    github_location = "https://github.com/colinhartigan/valorant-rpc"
+                    var github_location = "https://github.com/colinhartigan/valorant-rpc"
                     document.getElementById("text").innerHTML = "redirecting to <a href="+github_location+">"+github_location+"</>";
                     window.location.replace(github_location);
                 }
