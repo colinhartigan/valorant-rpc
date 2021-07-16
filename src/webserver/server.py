@@ -9,15 +9,14 @@ cli.show_server_banner = lambda *_: None
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+# a not-so-rich discord invite system
+
 client = None 
 config = None
 
 @app.route('/')
 def home():
-    response = Response(response="ok")
-
-    response.headers.add("Access-Control-Allow-Origin", "*")
-    return response
+    return 'ok'
 
 
 @app.route('/valorant/request/<party_id>/<friend_id>')
@@ -27,10 +26,10 @@ def request_party(party_id,friend_id):
         data = client.party_request_to_join(party_id,friend_id)
         for player in data["Requests"]:
             if client.puuid == player["RequestedBySubject"]:
-                return 'ok'
+                return "<script>window.onload = window.close();</script>"
         return data
     else:
-        return f"you're not in the right region! (their region: {region}, your region: {client.region}"
+        return f"you're not in the right region! (their region: {region}, your region: {client.region})"
 
 @app.route('/valorant/join/<party_id>')
 def join_party(party_id):
@@ -41,7 +40,7 @@ def join_party(party_id):
             return "<script>window.onload = window.close();</script>"
         return data
 
-    return f"you're not in the right region! (their region: {region}, your region: {client.region}"
+    return f"you're not in the right region! (their region: {region}, your region: {client.region})"
 
 
 

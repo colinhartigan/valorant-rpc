@@ -53,6 +53,7 @@ class Systray:
 
     @staticmethod
     def restart():
+        user32.ShowWindow(hWnd, 1)
         os.system('cls' if os.name == 'nt' else 'clear')
         os.execl(sys.executable, os.path.abspath(__file__), *sys.argv) 
 

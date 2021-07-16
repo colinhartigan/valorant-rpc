@@ -60,6 +60,7 @@ class Startup:
                 self.start_game()
             
             self.setup_client()
+            self.check_region() # verify region is correct
             
             if self.client.fetch_presence() is None:
                 self.wait_for_presence()
@@ -84,7 +85,16 @@ class Startup:
             self.systray_thread.stop()
             os._exit(1)
         
-        
+
+    def check_region(self):
+        try:
+            self.client.fetch_content()
+        except:
+            color_print([("Red bold",f"{self.client.region} region didn't work! please try a different region")])
+            self.config["region"] = Config_Editor.config_set("region",self.config["region"])
+            Config.modify_config(self.config)
+            Systray.restart()
+
     def dispatch_webserver(self):
         server.client = self.client 
         server.config = self.config

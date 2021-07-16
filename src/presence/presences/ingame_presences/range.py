@@ -21,7 +21,7 @@ class Range_Session:
         self.small_text = None 
 
         if self.config["presences"]["modes"]["range"]["show_rank_in_range"]:
-            self.small_image, self.small_text = Utilities.fetch_rank_data(self.client,data,self.content_data)
+            self.small_image, self.small_text = Utilities.fetch_rank_data(self.client,self.content_data)
 
     def main_loop(self):
         presence = self.client.fetch_presence()

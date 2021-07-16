@@ -43,17 +43,22 @@ class Loader:
             },
             "modes_with_icons": ["ggteam","onefa","snowball","spikerush","unrated","deathmatch"]
         }
+        all_content = client.fetch_content()
         agents = Loader.fetch("/agents")["data"]
         maps = Loader.fetch("/maps")["data"]
         modes = Loader.fetch("/gamemodes")["data"]
         comp_tiers = Loader.fetch("/competitivetiers")["data"][-1]["tiers"]
+        
 
-        season_uuid = client.fetch_mmr()["LatestCompetitiveUpdate"]["SeasonID"]
-        season = Loader.fetch(f"/seasons/{season_uuid}")["data"]
-        content_data["season"] = {
-            "uuid": season_uuid,
-            "display_name": season["displayName"]
-        }
+        for season in all_content["Seasons"]:
+            if season["IsActive"] and season["Type"] == "act":
+                for comp_season in all_content["CompetitiveSeasons"]:
+                    if comp_season["SeasonID"] == season["ID"]:
+                        content_data["season"] = {
+                            "competitive_uuid": comp_season["ID"],
+                            "season_uuid": season["ID"],
+                            "display_name": season["Name"]
+                        }
         
         for agent in agents:
             content_data["agents"].append({

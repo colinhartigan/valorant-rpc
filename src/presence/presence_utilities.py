@@ -26,8 +26,8 @@ class Utilities:
         return split
 
     @staticmethod 
-    def fetch_rank_data(client,data,content_data):
-        mmr = client.fetch_mmr()["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][content_data["season"]["uuid"]]
+    def fetch_rank_data(client,content_data):
+        mmr = client.fetch_mmr()["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][content_data["season"]["season_uuid"]]
         rank_data = {}
         for tier in content_data["comp_tiers"]:
             if tier["id"] == mmr["CompetitiveTier"]:
@@ -51,7 +51,7 @@ class Utilities:
                 agent_image = f"agent_{agent['display_name'].lower().replace('/','')}"
                 agent_name = agent['display_name']
                 return agent_image, agent_name
-        return "rank_0","Unknown"
+        return "rank_0","A Secret Agent"
 
     @staticmethod
     def fetch_mode_data(data, content_data):
@@ -62,7 +62,7 @@ class Utilities:
     @staticmethod 
     def get_content_preferences(client,pref,presence,player_data,content_data):
         if pref == "rank":
-            return Utilities.fetch_rank_data(client,presence,content_data)
+            return Utilities.fetch_rank_data(client,content_data)
         if pref == "map": 
             gmap = Utilities.fetch_map_data(presence,content_data)
             return f"splash_{gmap.lower()}",gmap
