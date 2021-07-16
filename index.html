@@ -24,7 +24,9 @@
                     document.getElementById("text").innerHTML = "redirecting to <a href="+location+">"+location+"</>";
                     window.location.replace(location);
                 }else if (http.readyState == 4){
-                    window.location.replace("https://github.com/colinhartigan/valorant-rpc");
+                    location = "https://github.com/colinhartigan/valorant-rpc"
+                    document.getElementById("text").innerHTML = "redirecting to <a href="+location+">"+location+"</>";
+                    window.location.replace(location);
                 }
             };
             
