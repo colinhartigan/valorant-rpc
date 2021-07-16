@@ -30,12 +30,6 @@ class Startup:
         self.client = None
         ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
-        if self.config["region"][0] == "":
-            # if region hasn't been set yet
-            self.config["region"] = Config_Editor.config_set("region",self.config["region"])
-            Config.modify_config(self.config)
-            Startup.clear_line()
-
         color_print([("Red", "waiting for rpc client")])
         try:
             self.presence = Presence()
@@ -88,12 +82,22 @@ class Startup:
 
     def check_region(self):
         try:
-            self.client.fetch_content()
+            self.client.fetch_config()
         except:
-            color_print([("Red bold",f"{self.client.region} region didn't work! please try a different region")])
-            self.config["region"] = Config_Editor.config_set("region",self.config["region"])
-            Config.modify_config(self.config)
-            Systray.restart()
+            color_print([("Red bold",f"this region ({self.client.region}) doesn't work! autodetecting region...")])
+            sessions = self.client.riotclient_session_fetch_sessions()
+            for _,session in sessions.items():
+                if session["productId"] == "valorant":
+                    launch_args = session["launchConfiguration"]["arguments"]
+                    for arg in launch_args:
+                        if "-ares-deployment" in arg:
+                            region = arg.replace("-ares-deployment=","")
+                            self.config["region"] = region
+                            Config.modify_config(self.config)
+                            color_print([("LimeGreen",f"autodetected region: {self.config['region']}")])
+                            time.sleep(5)
+                            Systray.restart()
+
 
     def dispatch_webserver(self):
         server.client = self.client 
