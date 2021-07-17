@@ -43,6 +43,5 @@ def join_party(party_id):
     return f"you're not in the right region! (their region: {region}, your region: {client.region})"
 
 
-
 def start():
     app.run(port=4100)

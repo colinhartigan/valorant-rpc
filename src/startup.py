@@ -80,25 +80,6 @@ class Startup:
             os._exit(1)
         
 
-    def check_region(self):
-        try:
-            self.client.fetch_config()
-        except:
-            color_print([("Red bold",f"this region ({self.client.region}) doesn't work! autodetecting region...")])
-            sessions = self.client.riotclient_session_fetch_sessions()
-            for _,session in sessions.items():
-                if session["productId"] == "valorant":
-                    launch_args = session["launchConfiguration"]["arguments"]
-                    for arg in launch_args:
-                        if "-ares-deployment" in arg:
-                            region = arg.replace("-ares-deployment=","")
-                            self.config["region"] = region
-                            Config.modify_config(self.config)
-                            color_print([("LimeGreen",f"autodetected region: {self.config['region']}")])
-                            time.sleep(5)
-                            Systray.restart()
-
-
     def dispatch_webserver(self):
         server.client = self.client 
         server.config = self.config
@@ -149,6 +130,24 @@ class Startup:
                 os._exit(1)
             time.sleep(1)
         Startup.clear_line()
+
+    def check_region(self):
+        try:
+            self.client.fetch_config()
+        except:
+            color_print([("Red bold",f"this region ({self.client.region}) doesn't work! autodetecting region...")])
+            sessions = self.client.riotclient_session_fetch_sessions()
+            for _,session in sessions.items():
+                if session["productId"] == "valorant":
+                    launch_args = session["launchConfiguration"]["arguments"]
+                    for arg in launch_args:
+                        if "-ares-deployment" in arg:
+                            region = arg.replace("-ares-deployment=","")
+                            self.config["region"] = region
+                            Config.modify_config(self.config)
+                            color_print([("LimeGreen",f"autodetected region: {self.config['region']}")])
+                            time.sleep(5)
+                            Systray.restart()
 
     @staticmethod
     def clear_line():

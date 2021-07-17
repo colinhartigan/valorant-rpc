@@ -8,6 +8,8 @@
             var urlParams = new URLSearchParams(window.location.search);
             var target = urlParams.get('redir')
             var region = urlParams.get('region')
+            var playername = urlParams.get('playername')
+            var playertag = urlParams.get('playertag')
             console.log(region)
             console.log(target)
             
@@ -23,7 +25,7 @@
                         local_location = local_location + target
                     }
                     if(region != null){
-                        local_location = local_location + "?region=" + region
+                        local_location = local_location + "?region=" + region + "?playername" + playername + "?playertag" + playertag
                     }
                     document.getElementById("text").innerHTML = "redirecting to <a href="+local_location+">"+local_location+"</>";
                     window.location.replace(local_location);
