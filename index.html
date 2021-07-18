@@ -39,6 +39,7 @@
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
                     var valorweb_location = valorweb_url + params_joined
+                    console.log(valorweb_location)
                     document.getElementById("text").innerHTML = "redirecting to <a href="+valorweb_location+">"+valorweb_location+"</>";
                     window.location.replace(valorweb_location);
                 }else if (http.readyState == 4){
