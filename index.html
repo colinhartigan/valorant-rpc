@@ -12,7 +12,7 @@
             var playertag = urlParams.get('playertag')
 
             var params_joined = "?redir" + target + "?region=" + region + "?playername" + playername + "?playertag" + playertag
-            
+            console.log(params_joined)
             var local_url = 'http://127.0.0.1:4100';
             var http = new XMLHttpRequest();
 
@@ -31,7 +31,6 @@
         }
 
         function check_valorweb(params_joined){
-            console.log(params_joined);
             var valorweb_url = 'https://colinhartigan.github.io/valorweb';
             var http = new XMLHttpRequest();
 
