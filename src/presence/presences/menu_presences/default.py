@@ -11,7 +11,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         party_state,party_size = Utilities.build_party_state(data)
         small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
         small_text = None
-        buttons = Utilities.get_join_state(data,client,config)
+        buttons = Utilities.get_join_state(client,config,data)
 
         if data["queueId"] == "competitive" and config["presences"]["menu"]["show_rank_in_comp_lobby"]: 
             small_image, small_text = Utilities.fetch_rank_data(client,content_data)

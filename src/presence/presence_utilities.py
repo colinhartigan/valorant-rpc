@@ -70,7 +70,9 @@ class Utilities:
             return Utilities.fetch_agent_data(player_data["CharacterID"],content_data)
 
     @staticmethod 
-    def get_join_state(presence,client,config):
+    def get_join_state(client,config,presence=None):
+        if presence is None:
+            presence = client.fetch_presence()
         base_api_url = "https://colinhartigan.github.io/valorant-rpc?redir={redirect}&type={type}"
         base_api_url = f"{base_api_url}&region={client.region}&playername={client.player_name}&playertag={client.player_tag}" # add on static values (region/playername)
         if int(presence["partySize"]) < int(presence["maxPartySize"]):

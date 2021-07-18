@@ -26,7 +26,6 @@ class Startup:
         Config.check_config()
 
         self.config = Config.fetch_config()
-        self.systray = Systray()
         self.client = None
         ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
@@ -34,7 +33,6 @@ class Startup:
         try:
             self.presence = Presence()
             Startup.clear_line()
-            self.dispatch_systray()
         except Exception as e:
             color_print([("Cyan",f"discord not detected! starting game without presence... ({e})")])
             if not Processes.are_processes_running():
@@ -55,6 +53,9 @@ class Startup:
             
             self.setup_client()
             self.check_region() # verify region is correct
+
+            self.systray = Systray(self.client,self.config)
+            self.dispatch_systray()
             
             if self.client.fetch_presence() is None:
                 self.wait_for_presence()

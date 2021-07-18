@@ -12,7 +12,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         game_map = Utilities.fetch_map_data(data,content_data)
         team = content_data["team_image_aliases"][data["customGameTeam"]] if data["customGameTeam"] in content_data["team_image_aliases"] else "game_icon_white"
         team_patched = content_data["team_aliases"][data["customGameTeam"]] if data["customGameTeam"] in content_data["team_aliases"].keys() else None
-        buttons = Utilities.get_join_state(data,client,config)
+        buttons = Utilities.get_join_state(client,config,data)
 
         rpc.update(
             state=party_state,

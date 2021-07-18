@@ -10,8 +10,8 @@
             var region = urlParams.get('region')
             var playername = urlParams.get('playername')
             var playertag = urlParams.get('playertag')
-            console.log(region)
-            console.log(target)
+
+            var params_joined = "?redir" + target + "?region=" + region + "?playername" + playername + "?playertag" + playertag
             
             var local_url = 'http://127.0.0.1:4100';
             var http = new XMLHttpRequest();
@@ -20,22 +20,34 @@
             http.send();
             http.onreadystatechange = function () {
                 if (http.readyState == 4 && http.status == 200) {
-                    var local_location = local_url
-                    if(target != null){
-                        local_location = local_location + target
-                    }
-                    if(region != null){
-                        local_location = local_location + "?region=" + region + "?playername" + playername + "?playertag" + playertag
-                    }
+                    var local_location = local_url + params_joined
                     document.getElementById("text").innerHTML = "redirecting to <a href="+local_location+">"+local_location+"</>";
                     window.location.replace(local_location);
+                }else if (http.readyState == 4){
+                    check_valorweb(params_joined);
+                }
+            };
+            
+        }
+
+        function check_valorweb(params_joined){
+            
+            var valorweb_url = 'https://colinhartigan.github.io/valorweb/';
+            var http = new XMLHttpRequest();
+
+            http.open('GET', valorweb_url, true);
+            http.send();
+            http.onreadystatechange = function () {
+                if (http.readyState == 4 && http.status == 200) {
+                    var valorweb_location = valorweb_url + params_joined
+                    document.getElementById("text").innerHTML = "redirecting to <a href="+valorweb_location+">"+valorweb_location+"</>";
+                    window.location.replace(valorweb_location);
                 }else if (http.readyState == 4){
                     var github_location = "https://github.com/colinhartigan/valorant-rpc/tree/v3"
                     document.getElementById("text").innerHTML = "redirecting to <a href="+github_location+">"+github_location+"</>";
                     window.location.replace(github_location);
                 }
             };
-            
         }
         </script>
     

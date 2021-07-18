@@ -10,3 +10,4 @@ Pillow
 flask
 requests
 flask-cors
+pyperclip

@@ -1,10 +1,11 @@
 from PIL import Image
 from pystray import Icon as icon, Menu as menu, MenuItem as item
-import ctypes, os, urllib.request, sys, time
+import ctypes, os, urllib.request, sys, time, pyperclip
 from InquirerPy.utils import color_print
 
 from .filepath import Filepath
 from .config.modify_config import Config_Editor
+from ..presence.presence_utilities import Utilities
 
 kernel32 = ctypes.WinDLL('kernel32')
 user32 = ctypes.WinDLL('user32')
@@ -14,8 +15,9 @@ window_shown = False
 
 class Systray:
 
-    def __init__(self):
-        pass
+    def __init__(self, client, config):
+        self.client = client
+        self.config = config
 
     def run(self):
         global window_shown
@@ -24,6 +26,7 @@ class Systray:
         systray_menu = menu(
             item('show window', Systray.tray_window_toggle, checked=lambda item: window_shown),
             item('config', Systray.modify_config),
+            item('copy join link', self.copy_join_link),
             item('reload', Systray.restart),
             item('exit', self.exit)
         )
@@ -37,6 +40,9 @@ class Systray:
             os._exit(1)
         except:
             pass
+
+    def copy_join_link(self):
+        pyperclip.copy(Utilities.get_join_state(self.client,self.config)[0]["url"])
 
     @staticmethod
     def generate_icon():
