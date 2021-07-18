@@ -10,8 +10,9 @@
             var region = urlParams.get('region')
             var playername = urlParams.get('playername')
             var playertag = urlParams.get('playertag')
+            var type = urlParams.get('type')
 
-            var params_joined = "?redir=" + target + "&region=" + region + "&playername=" + playername + "&playertag=" + playertag
+            var params_joined = "?redir=" + target + "&region=" + region + "&playername=" + playername + "&playertag=" + playertag + "&type=" + type
             console.log(params_joined)
             var local_url = 'http://127.0.0.1:4100';
             var http = new XMLHttpRequest();
