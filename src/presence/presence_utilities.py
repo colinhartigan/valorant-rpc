@@ -73,13 +73,13 @@ class Utilities:
     def get_join_state(client,config,presence=None):
         if presence is None:
             presence = client.fetch_presence()
-        base_api_url = "https://colinhartigan.github.io/valorant-rpc?redir={redirect}&type={type}"
+        base_api_url = "https://colinhartigan.github.io/valorant-rpc?redir={redirect}&type={req_type}"
         base_api_url = f"{base_api_url}&region={client.region}&playername={client.player_name}&playertag={client.player_tag}" # add on static values (region/playername)
         if int(presence["partySize"]) < int(presence["maxPartySize"]):
             if presence["partyAccessibility"] == "OPEN" and config["presences"]["menu"]["show_join_button_with_open_party"]:
-                return [{"label":"Join","url":base_api_url.format(redirect=f"/valorant/join/{presence['partyId']}",type="join")}]
+                return [{"label":"Join","url":base_api_url.format(redirect=f"/valorant/join/{presence['partyId']}",req_type="join")}]
             
             if presence["partyAccessibility"] == "CLOSED" and config["presences"]["menu"]["allow_join_requests"]:
-                return [{"label":"Request to Join","url":base_api_url.format(redirect=f"/valorant/request/{presence['partyId']}/{client.puuid}",type="request")}]
+                return [{"label":"Request to Join","url":base_api_url.format(redirect=f"/valorant/request/{presence['partyId']}/{client.puuid}",req_type="request")}]
 
         return None

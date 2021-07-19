@@ -4,8 +4,8 @@ from valclient.client import Client
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0b9",
-    "region": ["na",Client.fetch_regions()],
+    "version": "v3.0b11",
+    "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
     "presences": {

@@ -27,6 +27,8 @@ class Startup:
 
         self.config = Config.fetch_config()
         self.client = None
+        if self.config["region"][0] == "": # try to autodetect region on first launch
+            self.check_region() 
         ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
         color_print([("Red", "waiting for rpc client")])
@@ -52,7 +54,6 @@ class Startup:
                 self.start_game()
             
             self.setup_client()
-            self.check_region() # verify region is correct
 
             self.systray = Systray(self.client,self.config)
             self.dispatch_systray()
@@ -74,10 +75,12 @@ class Startup:
 
         except Exception as e: #error catching
             user32.ShowWindow(hWnd, 1)
+            kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x40|0x100))
             color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
             traceback.print_exc()
             self.presence_thread.stop()
             self.systray_thread.stop()
+            input("press enter to exit...")
             os._exit(1)
         
 
@@ -133,22 +136,21 @@ class Startup:
         Startup.clear_line()
 
     def check_region(self):
-        try:
-            self.client.fetch_config()
-        except:
-            color_print([("Red bold",f"this region ({self.client.region}) doesn't work! autodetecting region...")])
-            sessions = self.client.riotclient_session_fetch_sessions()
-            for _,session in sessions.items():
-                if session["productId"] == "valorant":
-                    launch_args = session["launchConfiguration"]["arguments"]
-                    for arg in launch_args:
-                        if "-ares-deployment" in arg:
-                            region = arg.replace("-ares-deployment=","")
-                            self.config["region"] = region
-                            Config.modify_config(self.config)
-                            color_print([("LimeGreen",f"autodetected region: {self.config['region']}")])
-                            time.sleep(5)
-                            Systray.restart()
+        color_print([("Red bold",f"attempting to autodetect region")])
+        client = valclient.Client(region="na")
+        client.activate()
+        sessions = client.riotclient_session_fetch_sessions()
+        for _,session in sessions.items():
+            if session["productId"] == "valorant":
+                launch_args = session["launchConfiguration"]["arguments"]
+                for arg in launch_args:
+                    if "-ares-deployment" in arg:
+                        region = arg.replace("-ares-deployment=","")
+                        self.config["region"][0] = region
+                        Config.modify_config(self.config)
+                        color_print([("LimeGreen",f"autodetected region: {self.config['region'][0]}")])
+                        time.sleep(5)
+                        Systray.restart()
 
     @staticmethod
     def clear_line():

@@ -8,6 +8,8 @@ from ..content.content_loader import Loader
 from .presences import (ingame,menu,startup,pregame)
 
 kernel32 = ctypes.WinDLL('kernel32')
+user32 = ctypes.WinDLL('user32')
+hWnd = kernel32.GetConsoleWindow()
 
 class Presence:
 
@@ -29,18 +31,20 @@ class Presence:
                 presence_data = self.client.fetch_presence()
                 if presence_data is not None:
                     self.update_presence(presence_data["sessionLoopState"],presence_data)
-                    print(presence_data)
+                    #print(presence_data)
                     time.sleep(self.config["presence_refresh_interval"])
                 else:
                     os._exit(1)
 
                     
         except Exception as e:
-            color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
-            color_print([("Red","traceback:")])
-            traceback.print_exc()
+            user32.ShowWindow(hWnd, 1)
             kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x40|0x100))
-            input("press enter to continue...")
+            color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
+            traceback.print_exc()
+            self.presence_thread.stop()
+            self.systray_thread.stop()
+            input("press enter to exit...")
             os._exit(1)
 
     def update_presence(self,ptype,data=None):
