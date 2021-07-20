@@ -42,8 +42,6 @@ class Presence:
             kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x40|0x100))
             color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
             traceback.print_exc()
-            self.presence_thread.stop()
-            self.systray_thread.stop()
             input("press enter to exit...")
             os._exit(1)
 

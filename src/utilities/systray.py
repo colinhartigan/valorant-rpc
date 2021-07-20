@@ -54,7 +54,7 @@ class Systray:
         Config_Editor()
         if not window_shown:
             color_print([("LimeGreen","hiding window\n")])
-            time.sleep(2)
+            time.sleep(1)
             user32.ShowWindow(hWnd, 0)
 
     @staticmethod

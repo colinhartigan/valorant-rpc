@@ -27,7 +27,10 @@ class Utilities:
 
     @staticmethod 
     def fetch_rank_data(client,content_data):
-        mmr = client.fetch_mmr()["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][content_data["season"]["season_uuid"]]
+        try:
+            mmr = client.fetch_mmr()["QueueSkills"]["competitive"]["SeasonalInfoBySeasonID"][content_data["season"]["season_uuid"]]
+        except:
+            return "rank_0","Rank not found"
         rank_data = {}
         for tier in content_data["comp_tiers"]:
             if tier["id"] == mmr["CompetitiveTier"]:
