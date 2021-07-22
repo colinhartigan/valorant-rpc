@@ -49,40 +49,30 @@ class Startup:
 
 
     def run(self):
-        try:
-            self.presence.update_presence("startup")
-            Checker.check_version(self.config)
-            if not Processes.are_processes_running():
-                color_print([("Red", "starting VALORANT")])
-                self.start_game()
-            
-            self.setup_client()
+        self.presence.update_presence("startup")
+        Checker.check_version(self.config)
+        if not Processes.are_processes_running():
+            color_print([("Red", "starting VALORANT")])
+            self.start_game()
+        
+        self.setup_client()
 
-            self.systray = Systray(self.client,self.config)
-            self.dispatch_systray()
-            
-            if self.client.fetch_presence() is None:
-                self.wait_for_presence()
+        self.systray = Systray(self.client,self.config)
+        self.dispatch_systray()
+        
+        if self.client.fetch_presence() is None:
+            self.wait_for_presence()
 
-            self.dispatch_presence()
-            self.dispatch_webserver() 
-            
-            color_print([("LimeGreen","program startup successful, hiding window in 5 seconds\n")])
-            time.sleep(5)
-            user32.ShowWindow(hWnd, 0) #hide window
+        self.dispatch_presence()
+        self.dispatch_webserver() 
+        
+        color_print([("LimeGreen","program startup successful, hiding window in 5 seconds\n")])
+        time.sleep(5)
+        user32.ShowWindow(hWnd, 0) #hide window
 
-            self.systray_thread.join()
-            self.presence_thread.stop()
-            color_print([("Red","presence closed")])
-
-
-        except Exception as e: #error catching
-            user32.ShowWindow(hWnd, 1)
-            kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x40|0x100))
-            color_print([("Red bold","the program encountered an error; please create an issue with the traceback below if this problem persists")])
-            traceback.print_exc()
-            input("press enter to exit...")
-            os._exit(1)
+        self.systray_thread.join()
+        self.presence_thread.stop()
+        color_print([("Red","presence closed")])
         
 
     def dispatch_webserver(self):
