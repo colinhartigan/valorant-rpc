@@ -63,4 +63,3 @@ class Game_Session:
                 )
 
             time.sleep(self.config["presence_refresh_interval"])
-        

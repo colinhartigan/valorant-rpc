@@ -13,6 +13,7 @@ hWnd = kernel32.GetConsoleWindow()
 
 window_shown = False
 
+
 class Systray:
 
     def __init__(self, client, config):
@@ -26,7 +27,7 @@ class Systray:
         systray_menu = menu(
             item('show window', Systray.tray_window_toggle, checked=lambda item: window_shown),
             item('config', Systray.modify_config),
-            item('copy join link', self.copy_join_link),
+            #item('copy join link', self.copy_join_link),
             item('reload', Systray.restart),
             item('exit', self.exit)
         )
