@@ -11,8 +11,8 @@ default_config = {
     "presences": {
         "menu": {
             "show_rank_in_comp_lobby": True,
-            "show_join_button_with_open_party": True,
-            "allow_join_requests": False,
+            #"show_join_button_with_open_party": True,
+            #"allow_join_requests": False,
         },
         "modes": {
             "all": {
