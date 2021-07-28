@@ -1,4 +1,4 @@
-### THANK YOU FOR 100 STARS!
+### thanks for 100 stars :)
 
 ```
  _   _____   __   ____  ___  ___   _  ________                
