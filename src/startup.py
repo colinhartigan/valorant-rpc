@@ -23,29 +23,30 @@ kernel32.SetConsoleMode(kernel32.GetStdHandle(-11), 7) #allow for ANSI sequences
 
 class Startup:
     def __init__(self):
-        cursor.hide()
-        Config.check_config()
-        Logger.create_logger()
+        if not Processes.is_program_already_running():
+            cursor.hide()
+            Config.check_config()
+            Logger.create_logger()
 
-        self.config = Config.fetch_config()
-        Logger.debug(self.config)
-        self.client = None
-        if self.config["region"][0] == "": # try to autodetect region on first launch
-            self.check_region() 
-        ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
+            self.config = Config.fetch_config()
+            Logger.debug(self.config)
+            self.client = None
+            if self.config["region"][0] == "": # try to autodetect region on first launch
+                self.check_region() 
+            ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
-        color_print([("Red", "waiting for rpc client")])
-        try:
-            self.presence = Presence()
-            Startup.clear_line()
-        except Exception as e:
-            color_print([("Cyan",f"discord not detected! starting game without presence... ({e})")])
-            if not Processes.are_processes_running():
-                color_print([("Red", "starting VALORANT")])
-                self.start_game()
-                os._exit(1)
+            color_print([("Red", "waiting for rpc client")])
+            try:
+                self.presence = Presence()
+                Startup.clear_line()
+            except Exception as e:
+                color_print([("Cyan",f"discord not detected! starting game without presence... ({e})")])
+                if not Processes.are_processes_running():
+                    color_print([("Red", "starting VALORANT")])
+                    self.start_game()
+                    os._exit(1)
 
-        self.run()
+            self.run()
 
 
     def run(self):

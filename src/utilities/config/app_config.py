@@ -4,7 +4,7 @@ from valclient.client import Client
 from ..filepath import Filepath
 
 default_config = {
-    "version": "v3.0.0",
+    "version": "v3.0.1b1",
     "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
@@ -25,7 +25,7 @@ default_config = {
         }
     },
     "startup": {
-        "game_launch_timeout": 40,
+        "game_launch_timeout": 50,
         "presence_timeout": 60,
     },
 }
