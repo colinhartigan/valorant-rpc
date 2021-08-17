@@ -30,7 +30,7 @@ class Loader:
             "team_aliases": {
                 "TeamOne": "Defender",
                 "TeamTwo": "Attacker",
-                "TeamSpectate": "Observor",
+                "TeamSpectate": "Observer",
                 "TeamOneCoaches": "Defender Coach",
                 "TeamTwoCoaches": "Attacker Coach",
                 "Red": ""

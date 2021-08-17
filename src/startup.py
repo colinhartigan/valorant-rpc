@@ -1,5 +1,5 @@
 from InquirerPy.utils import color_print
-import sys, psutil, time, cursor, valclient, ctypes, traceback, os
+import sys, psutil, time, cursor, valclient, ctypes, traceback, os, subprocess
 
 from .utilities.killable_thread import Thread
 from .utilities.config.app_config import Config
@@ -9,6 +9,7 @@ from .utilities.rcs import Riot_Client_Services
 from .utilities.systray import Systray
 from .utilities.version_checker import Checker
 from .utilities.logging import Logger
+from .utilities.program_data import Program_Data
 
 from .presence.presence import Presence
 
@@ -27,8 +28,11 @@ class Startup:
             cursor.hide()
             Config.check_config()
             Logger.create_logger()
+            Program_Data.update_file_location()
 
             self.config = Config.fetch_config()
+            self.installs = Program_Data.fetch_installs()
+
             Logger.debug(self.config)
             self.client = None
             if self.config["region"][0] == "": # try to autodetect region on first launch
@@ -46,6 +50,7 @@ class Startup:
                     self.start_game()
                     os._exit(1)
 
+            self.check_run_cli()
             self.run()
 
 
@@ -126,6 +131,11 @@ class Startup:
                 os._exit(1)
             time.sleep(1)
         Startup.clear_line()
+
+    def check_run_cli(self):
+        skincli_path = self.installs.get("valorant-skin-cli")
+        if skincli_path is not None:
+            subprocess.Popen(f"start {skincli_path}", shell=True)
 
     def check_region(self):
         color_print([("Red bold",f"attempting to autodetect region")])

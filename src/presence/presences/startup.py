@@ -1,5 +1,3 @@
-
-
 def presence(rpc,client=None,data=None,content_data=None,config=None):
     rpc.update(
         state="Loading",
@@ -8,5 +6,5 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         buttons=[{
             'label':"View on GitHub",
             'url':"https://github.com/colinhartigan/valorant-rpc"
-        }]
+        }] if config["startup"]["show_github_link"] else None
     )
