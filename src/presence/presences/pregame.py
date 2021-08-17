@@ -1,4 +1,5 @@
 from ..presence_utilities import Utilities
+from ...localization.localization import Localizer
 import time
 
 def presence(rpc,client=None,data=None,content_data=None,config=None):
@@ -18,12 +19,12 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         pregame_end_time = (pregame_data['PhaseTimeRemainingNS'] // 1000000000) + time.time()
 
         agent_image, agent_name = Utilities.fetch_agent_data(pregame_player_data["CharacterID"],content_data)
-        select_state = "Locked" if pregame_player_data["CharacterSelectionState"] == "locked" else "Selecting"
+        select_state = Localizer.get_localized_text("presences","pregame","locked") if pregame_player_data["CharacterSelectionState"] == "locked" else Localizer.get_localized_text("presences","pregame","selecting")
         small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
 
         rpc.update(
             state=party_state,
-            details=f"Pregame - {mode_name}",
+            details=f"{Localizer.get_localized_text('presences','client_states','pregame')} - {mode_name}",
             end=pregame_end_time,
             large_image=agent_image,
             large_text=f"{select_state} - {agent_name}",

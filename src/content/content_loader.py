@@ -1,10 +1,12 @@
 import requests
 
+from ..localization.localization import Localizer
+
 class Loader:
 
     @staticmethod 
     def fetch(endpoint="/"):
-        data = requests.get(f"https://valorant-api.com/v1{endpoint}")
+        data = requests.get(f"https://valorant-api.com/v1{endpoint}?language=all")
         return data.json()
 
     @staticmethod 
@@ -33,7 +35,6 @@ class Loader:
                 "TeamSpectate": "Observer",
                 "TeamOneCoaches": "Defender Coach",
                 "TeamTwoCoaches": "Attacker Coach",
-                "Red": ""
             },
             "team_image_aliases": {
                 "TeamOne": "team_defender",
@@ -63,14 +64,16 @@ class Loader:
         for agent in agents:
             content_data["agents"].append({
                 "uuid": agent["uuid"],
-                "display_name": agent["displayName"],
+                "display_name": agent["displayName"]["en-US"],
+                "display_name_localized": agent["displayName"][Localizer.locale],
                 "internal_name": agent["developerName"]
             })
 
         for game_map in maps:
             content_data["maps"].append({
                 "uuid": game_map["uuid"],
-                "display_name": game_map["displayName"],
+                "display_name": game_map["displayName"]["en-US"],
+                "display_name_localized": game_map["displayName"][Localizer.locale],
                 "path": game_map["mapUrl"],
                 "internal_name": game_map["mapUrl"].split("/")[-1]
             })
@@ -78,12 +81,14 @@ class Loader:
         for mode in modes:
             content_data["modes"].append({
                 "uuid": mode["uuid"],
-                "display_name": mode["displayName"],
+                "display_name": mode["displayName"]["en-US"],
+                "display_name_localized": mode["displayName"][Localizer.locale],
             })
 
         for tier in comp_tiers:
             content_data["comp_tiers"].append({
-                "display_name": tier["tierName"],
+                "display_name": tier["tierName"]["en-US"],
+                "display_name_localized": tier["tierName"][Localizer.locale],
                 "id": tier["tier"],
             })
 

@@ -1,16 +1,17 @@
 import iso8601
 from ..utilities.logging import Logger 
+from ..localization.localization import Localizer
 debug = Logger.debug
 
 class Utilities:
 
     @staticmethod 
     def build_party_state(data):
-        party_state = "Solo"       
+        party_state = Localizer.get_localized_text("presences","party_states","solo")     
         if data["partySize"] > 1:
-            party_state = "In a Party"
+            party_state = Localizer.get_localized_text("presences","party_states","in_party")   
         elif data["partyAccessibility"] == "OPEN":
-            party_state = "Open Party"
+            party_state = Localizer.get_localized_text("presences","party_states","open")
 
         party_size = [data["partySize"],data["maxPartySize"]] if data["partySize"] > 1 or data["partyAccessibility"] == "OPEN" else None
         if party_size is not None:
@@ -40,7 +41,7 @@ class Utilities:
             if tier["id"] == mmr["CompetitiveTier"]:
                 rank_data = tier
         rank_image = f"rank_{rank_data['id']}"
-        rank_text = f"{rank_data['display_name']} - {mmr['RankedRating']}RR"
+        rank_text = f"{rank_data['display_name_localized']} - {mmr['RankedRating']}RR"
 
         return rank_image, rank_text
         
@@ -48,7 +49,7 @@ class Utilities:
     def fetch_map_data(data,content_data):
         for gmap in content_data["maps"]:
             if gmap["path"] == data["matchMap"]:
-                return gmap["display_name"]
+                return gmap["display_name"], gmap["display_name_localized"]
         return ""
  
     @staticmethod 
@@ -56,14 +57,15 @@ class Utilities:
         for agent in content_data["agents"]:
             if agent["uuid"] == uuid:
                 agent_image = f"agent_{agent['display_name'].lower().replace('/','')}"
-                agent_name = agent['display_name']
+                agent_name = agent['display_name_localized']
                 return agent_image, agent_name
-        return "rank_0","A Secret Agent"
+        return "rank_0","?"
 
     @staticmethod
     def fetch_mode_data(data, content_data):
         image = f"mode_{data['queueId'] if data['queueId'] in content_data['modes_with_icons'] else 'discovery'}"
         mode_name = content_data['queue_aliases'][data['queueId']] if data["queueId"] in content_data["queue_aliases"].keys() else "Custom"
+        mode_name = Utilities.localize_content_name(mode_name, "presences", "modes", data["queueId"])
         return image,mode_name
 
     @staticmethod 
@@ -72,9 +74,16 @@ class Utilities:
             return Utilities.fetch_rank_data(client,content_data)
         if pref == "map": 
             gmap = Utilities.fetch_map_data(presence,content_data)
-            return f"splash_{gmap.lower()}",gmap
+            return f"splash_{gmap[0].lower()}",gmap[1]
         if pref == "agent": 
             return Utilities.fetch_agent_data(player_data["CharacterID"],content_data)
+
+    @staticmethod
+    def localize_content_name(default,*keys):
+        localized = Localizer.get_localized_text(*keys)
+        if localized is not None:
+            return localized 
+        return default
 
     @staticmethod 
     def get_join_state(client,config,presence=None):

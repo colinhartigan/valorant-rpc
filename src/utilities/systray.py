@@ -5,6 +5,7 @@ from InquirerPy.utils import color_print
 
 from .filepath import Filepath
 from .config.modify_config import Config_Editor
+from ..localization.localization import Localizer
 from ..presence.presence_utilities import Utilities
 
 kernel32 = ctypes.WinDLL('kernel32')
@@ -54,7 +55,7 @@ class Systray:
         user32.ShowWindow(hWnd, 1)
         Config_Editor()
         if not window_shown:
-            color_print([("LimeGreen","hiding window\n")])
+            color_print([("LimeGreen",f"{Localizer.get_localized_text('prints','systray','hiding_window')}\n")])
             time.sleep(1)
             user32.ShowWindow(hWnd, 0)
 

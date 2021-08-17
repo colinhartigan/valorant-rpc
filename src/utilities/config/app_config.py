@@ -78,6 +78,8 @@ class Config:
                 if isinstance(value,list):
                     current[key][0] = current[key][0]
                     current[key][1] = blank[key][1]
+                    if not current[key][0] in blank[key][1]:
+                        current[key][0] = blank[key][0]
                 if isinstance(value,dict):
                     check_for_new_vars(value,current[key])
             return current

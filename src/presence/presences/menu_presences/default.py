@@ -1,4 +1,5 @@
 from ...presence_utilities import Utilities
+from ....localization.localization import Localizer
 
 from .away import presence as away
 
@@ -18,9 +19,9 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
 
         rpc.update(
             state=party_state,
-            details=f"Menu - {mode_name}",
+            details=f"{Localizer.get_localized_text('presences','client_states','menu')} - {mode_name}",
             large_image="game_icon",
-            large_text=f"Level {data['accountLevel']}",
+            large_text=f"{Localizer.get_localized_text('presences','leveling','level')} {data['accountLevel']}",
             small_image=small_image,
             small_text=small_text,
             party_size=party_size,

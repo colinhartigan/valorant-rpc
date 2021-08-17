@@ -5,6 +5,7 @@ import time, sys, traceback, os, ctypes
 
 from ..utilities.config.app_config import Config
 from ..content.content_loader import Loader
+from ..localization.localization import Localizer
 from .presences import (ingame,menu,startup,pregame)
 
 kernel32 = ctypes.WinDLL('kernel32')
@@ -26,7 +27,7 @@ class Presence:
     def main_loop(self):
         try:
             self.content_data = Loader.load_all_content(self.client)
-            color_print([("LimeGreen bold", "presence running!")])
+            color_print([("LimeGreen bold", Localizer.get_localized_text("prints","presence","presence_running"))])
             while True:
                 presence_data = self.client.fetch_presence()
                 if presence_data is not None:
@@ -40,9 +41,9 @@ class Presence:
         except Exception as e:
             user32.ShowWindow(hWnd, 1)
             kernel32.SetConsoleMode(kernel32.GetStdHandle(-10), (0x4|0x80|0x20|0x2|0x10|0x1|0x40|0x100))
-            color_print([("Red bold","the program encountered an error: please create an issue with the traceback below if this problem persists")])
+            color_print([("Red bold",Localizer.get_localized_text("prints","errors","error_message"))])
             traceback.print_exc()
-            input("press enter to exit...")
+            input(Localizer.get_localized_text("prints","errors","exit"))
             os._exit(1)
 
     def update_presence(self,ptype,data=None):

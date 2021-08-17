@@ -1,5 +1,5 @@
 Locales = {
-    "en-us": {
+    "en-US": {
         "config": {
             "version": "version",
             "region": "region",
@@ -24,27 +24,97 @@ Locales = {
             "rank": "rank",
             "map": "map",
         },
-        "config_modification": {
-            "select_option": "select a configuration option",
-            "config_saved": "config saved! restart the program for changes to take effect.",
-            "set_prompt": "set value for"
+        "prints": {
+            "config_modification": {
+                "select_option": "select a configuration option",
+                "config_saved": "config saved! restart the program for changes to take effect.",
+                "set_prompt": "set value for"
+            },
+            "startup": {
+                "wait_for_rpc": "waiting for rpc client",
+                "discord_not_detected": "discord not detected! starting game without presence...",
+                "starting_valorant": "starting VALORANT",
+                "startup_successful": "program startup successful, hiding window in 5 seconds",
+                "waiting_for_presence": "waiting for presence...",
+                "waiting_for_valorant": "waiting for VALORANT...",
+                "autodetect_region": "attempting to autodetect region",
+                "autodetected_region": "autodetected region:",
+            },
+            "presence": {
+                "presence_running": "presence running!",
+            },
+            "systray": {
+                "hiding_window": "hiding window",
+            },
+            "errors": {
+                "error_message": "the program encountered an error: please create an issue with the traceback below if this problem persists",
+                "exit": "press enter to exit...",
+            },
+            "version_checker": {
+                "update_available": "an update is available! download it at",
+                "checker_error": "unable to check for updates!",
+            }
         },
-        "startup": {
-            "wait_for_rpc": "waiting for rpc client",
-            "discord_not_detected": "discord not detected! starting game without presence...",
-            "starting_valorant": "starting VALORANT",
-            "startup_successful": "program startup successful, hiding window in 5 seconds",
-            "waiting_for_presence": "waiting for presence...",
-            "waiting_for_valorant": "waiting for VALORANT...",
-            "autodetect_region": "attempting to autodetect region",
-            "autodetected_region": "autodetected region:",
+        "presences": {
+            "party_states": {
+                "open": "Open Party",
+                "solo": "Solo",
+                "in_party": "In a Party",
+            },
+            "client_states": {
+                "away": "Away",
+                "menu": "Menu",
+                "custom_setup": "Custom Setup",
+                "queue": "Queue",
+                "pregame": "Pregame",
+            },
+            "team_names": {
+                "TeamOne": "Defender",
+                "TeamTwo": "Attacker",
+                "TeamSpectate": "Observer",
+                "TeamOneCoaches": "Defender Coach",
+                "TeamTwoCoaches": "Attacker Coach",
+            },
+            "modes": {
+                "newmap": "New Map",
+                "competitive": "Competitive",
+                "unrated": "Unrated",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Escalation",
+                "onefa": "Replication",
+                "custom": "Custom",
+                "snowball": "Snowball Fight",
+                "": "Custom",
+            },
+            "pregame": {
+                "selecting": "Selecting",
+                "locked": "Locked",
+            },
+            "leveling":{
+                "level": "Level",  
+            },
+            "startup": {
+                "loading": "Loading",
+                "view_github": "View on GitHub",
+            }
         },
-
     },
-    "en-uk": {
-        # wo'oh bo'oh innit? on a chewsday?
-    },
-    "br": {
-
-    },
+    "ar-AE": {},
+    "de-DE": {},
+    "es-ES": {},
+    "es-MX": {},
+    "fr-FR": {},
+    "id-ID": {},
+    "it-IT": {},
+    "ja-JP": {},
+    "ko-KR": {},
+    "pl-PL": {},
+    "pt-BR": {},
+    "ru-RU": {},
+    "th-TH": {},
+    "tr-TR": {},
+    "vi-VN": {},
+    "zh-CN": {},
+    "zh-TW": {},
 }

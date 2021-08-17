@@ -50,14 +50,14 @@ class Startup:
 
             ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {Localizer.get_config_value('version')}") 
 
-            color_print([("Red", Localizer.get_localized_text("startup","wait_for_rpc"))])
+            color_print([("Red", Localizer.get_localized_text("prints","startup","wait_for_rpc"))])
             try:
                 self.presence = Presence()
                 Startup.clear_line()
             except Exception as e:
-                color_print([("Cyan",f"{Localizer.get_localized_text('startup','discord_not_detected')} ({e})")])
+                color_print([("Cyan",f"{Localizer.get_localized_text('prints','startup','discord_not_detected')} ({e})")])
                 if not Processes.are_processes_running():
-                    color_print([("Red", Localizer.get_localized_text("startup","starting_valorant"))])
+                    color_print([("Red", Localizer.get_localized_text("prints","startup","starting_valorant"))])
                     self.start_game()
                     os._exit(1)
 
@@ -69,7 +69,7 @@ class Startup:
         self.presence.update_presence("startup")
         Checker.check_version(self.config)
         if not Processes.are_processes_running():
-            color_print([("Red", Localizer.get_localized_text("startup","starting_valorant"))])
+            color_print([("Red", Localizer.get_localized_text("prints","startup","starting_valorant"))])
             self.start_game()
         
         self.setup_client()
@@ -83,7 +83,7 @@ class Startup:
         self.dispatch_presence()
         self.dispatch_webserver() 
         
-        color_print([("LimeGreen",f"{Localizer.get_localized_text('startup','startup_successful')}\n")])
+        color_print([("LimeGreen",f"{Localizer.get_localized_text('prints','startup','startup_successful')}\n")])
         time.sleep(5)
         user32.ShowWindow(hWnd, 0) #hide window
 
@@ -116,7 +116,7 @@ class Startup:
         print()
         while self.client.fetch_presence() is None:
             Startup.clear_line()
-            color_print([("Cyan", "["),("White",f"{presence_timer}"),("Cyan", f"] {Localizer.get_localized_text('startup','waiting_for_presence')}")])
+            color_print([("Cyan", "["),("White",f"{presence_timer}"),("Cyan", f"] {Localizer.get_localized_text('prints','startup','waiting_for_presence')}")])
             presence_timer += 1
             if presence_timer >= presence_timeout:
                 self.systray.exit()
@@ -134,7 +134,7 @@ class Startup:
         print()
         while not Processes.are_processes_running():
             Startup.clear_line()
-            color_print([("Cyan", "["),("White",f"{launch_timer}"),("Cyan", f"] {Localizer.get_localized_text('startup','waiting_for_valorant')}")])
+            color_print([("Cyan", "["),("White",f"{launch_timer}"),("Cyan", f"] {Localizer.get_localized_text('prints','startup','waiting_for_valorant')}")])
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 self.systray.exit()
@@ -149,7 +149,7 @@ class Startup:
                 subprocess.Popen(f"start {skincli_path}", shell=True)
 
     def check_region(self):
-        color_print([("Red bold",Localizer.get_localized_text("startup","autodetect_region"))])
+        color_print([("Red bold",Localizer.get_localized_text("prints","startup","autodetect_region"))])
         client = valclient.Client(region="na")
         client.activate()
         sessions = client.riotclient_session_fetch_sessions()
@@ -161,7 +161,7 @@ class Startup:
                         region = arg.replace("-ares-deployment=","")
                         self.config[Localizer.get_config_key("region")][0] = region
                         Config.modify_config(self.config)
-                        color_print([("LimeGreen",f"{Localizer.get_localized_text('startup','starting_valorant')}: {Localizer.get_config_value('region',0)}")])
+                        color_print([("LimeGreen",f"{Localizer.get_localized_text('prints','startup','autodetected_region')}: {Localizer.get_config_value('region',0)}")])
                         time.sleep(5)
                         Systray.restart()
 

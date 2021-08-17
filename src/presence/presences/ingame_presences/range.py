@@ -14,9 +14,9 @@ class Range_Session:
         self.puuid = self.client.puuid
 
         self.start_time = time.time()
-        self.map_name = "Range"
+        self.map_name = Utilities.localize_content_name("Range","presences","maps","range")
         self.map_image = "splash_range"
-        self.mode_name = "Range"
+        self.mode_name = Utilities.localize_content_name("Range","presences","maps","range")
         self.small_image = "mode_unrated"
         self.small_text = None 
 

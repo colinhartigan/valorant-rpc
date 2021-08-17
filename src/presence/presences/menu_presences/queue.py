@@ -1,4 +1,5 @@
 from ...presence_utilities import Utilities
+from ....localization.localization import Localizer
 
 def presence(rpc,client=None,data=None,content_data=None,config=None):
     
@@ -7,7 +8,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
 
     rpc.update(
         state=party_state,
-        details=f"Queue - {content_data['queue_aliases'][data['queueId']]}",
+        details=f"{Localizer.get_localized_text('presences','client_states','queue')} - {content_data['queue_aliases'][data['queueId']]}",
         start=start_time,
         large_image="game_icon_white",
         large_text=f"Level {data['accountLevel']}",

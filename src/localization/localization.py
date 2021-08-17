@@ -3,23 +3,40 @@ from .locales import Locales
 
 class Localizer:
 
-    locale = "en-us"
+    locale = "en-US"
     config = None
 
     @staticmethod
-    def get_localized_text(section,key):
-        localized = Locales[Localizer.locale].get(key)
-        if localized is not None:
-            return Locales[Localizer.locale][section][key]
-        return Locales["en-us"][section][key]
+    def get_localized_text(*keys):
+
+        def get_default(*keys):
+            localized = Locales["en-US"]
+            for key in keys:
+                localized = localized.get(key)
+            return localized
+
+        try:
+            localized = Locales[Localizer.locale]
+            for key in keys:
+                if localized is None:
+                    get_default(*keys)
+                localized = localized.get(key)
+            if localized is not None:
+                return localized
+        except:
+            return get_default(*keys)
+
 
     @staticmethod
     def get_config_key(key):
-        for k,value in Locales[Localizer.locale]["config"].items():
-            #print(f"{k}/{value}")
-            if k == key:
-                return value
-        return key
+        try:
+            for k,value in Locales[Localizer.locale]["config"].items():
+                #print(f"{k}/{value}")
+                if k == key:
+                    return value
+            return key
+        except:
+            return key
 
     @staticmethod
     def unlocalize_key(key):
