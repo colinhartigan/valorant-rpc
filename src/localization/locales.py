@@ -153,27 +153,27 @@ Locales = {
     "ja-JP": {},
     "ko-KR": {},
     "pl-PL": {},
-    "pt-BR": {
+    "pt-BR": { ##portuguese by janinha#6244
         "config": {
             "version": "versão",
             "region": "região",
             "client_id": "client_id",
-            "presence_refresh_interval": "intervalo_atualização_presença",
-            "locale": "locale",
+            "presence_refresh_interval": "intervalo_att_presença",
+            "locale": "localidade",
             "presences": "presenças",
             "menu": "menu",
-            "show_rank_in_comp_lobby": "mostrar_ranque_em_lobby_competitivo",
+            "show_rank_in_comp_lobby": "mostrar_ranque_no_lobby_comp",
             "modes": "modos",
             "all": "todos",
             "small_image": "imagem_pequena",
-            "large_image": "imagem_larga",
+            "large_image": "imagem_grande",
             "range": "range",
             "show_rank_in_range": "mostrar_ranque_na_range",
             "startup": "inicialização",
-            "game_launch_timeout": "atraso_início_jogo",
+            "game_launch_timeout": "atraso_execução_jogo",
             "presence_timeout": "atraso_presença",
             "show_github_link": "mostrar_link_github",
-            "auto_launch_skincli": "auto_abrir_skincli",
+            "auto_launch_skincli": "abrir_skincli_auto",
             "agent": "agente",
             "rank": "ranque",
             "map": "mapa",
@@ -181,19 +181,77 @@ Locales = {
         "prints": {
             "config_modification": {
                 "select_option": "selecione uma opção de configuração",
-                "config_saved": "configuração salva! reinicie o programa para as mudanças fazerem efeito.",
-                "set_prompt": "selecione o valor para"
+                "config_saved": "configuração salva! reinicie para as mudanças fazerem efeito.",
+                "set_prompt": "definir valor para"
             },
             "startup": {
-                "wait_for_rpc": "esperando cliente rpc",
+                "wait_for_rpc": "esperando por cliente rpc...",
                 "discord_not_detected": "discord não detectado! iniciando jogo sem presença...",
-                "starting_valorant": "iniciando o VALORANT",
-                "startup_successful": "programa iniciado com sucesso, escondendo janela em 5 segundos",
-                "waiting_for_presence": "esperando por presença...",
-                "waiting_for_valorant": "esperando pelo VALORANT...",
-                "autodetect_region": "tentando autodetectar região",
-                "autodetected_region": "região detectada automaticamente:",
+                "starting_valorant": "iniciado VALORANT..",
+                "startup_successful": "programa iniciado com sucesso, minimizando em 5 segundos...",
+                "waiting_for_presence": "esperando a presença...",
+                "waiting_for_valorant": "esperando o VALORANT...",
+                "autodetect_region": "tentando detectar região..",
+                "autodetected_region": "região detectada:",
             },
+            "presence": {
+                "presence_running": "presença rodando!",
+            },
+            "systray": {
+                "hiding_window": "minimizando janela...",
+            },
+            "errors": {
+                "error_message": "o programa encontrou um erro: favor criar um issue com o traceback abaixo se o problema persistir:",
+                "exit": "pressione enter para sair...",
+            },
+            "version_checker": {
+                "update_available": "atualização disponível! baixe-a em",
+                "checker_error": "incapaz de checar atualizações!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Grupo Aberto",
+                "solo": "Grupo Fechado (Solo)", ##this is longer so it doesn't look off because of mode name lengths (aka consistency), keep only solo if needed
+                "in_party": "Em um Grupo",
+            },
+            "client_states": {
+                "away": "Ausente",
+                "menu": "Nos Menus", ##translated from "in menus" for consistency
+                "custom_setup": "Setup Personalizado",
+                "queue": "Na Fila", ##translated from "in queue" for consistency
+                "pregame": "Pré-Jogo",
+            },
+            "team_names": {
+                "TeamOne": "Defensor",
+                "TeamTwo": "Atacante",
+                "TeamSpectate": "",
+                "TeamOneCoaches": "Treinador dos Defensores",
+                "TeamTwoCoaches": "Treinador dos Atacantes",
+            },
+            "modes": {
+                "newmap": "Mapa Novo",
+                "competitive": "Competitivo",
+                "unrated": "Sem Classificação",
+                "spikerush": "Disputa da Spike",
+                "deathmatch": "Mata-Mata",
+                "ggteam": "Escalação",
+                "onefa": "Replicação",
+                "custom": "Jogo Personalizado",
+                "snowball": "Batalha Nevada",
+                "": "Jogo Personalizado",
+            },
+            "pregame": {
+                "selecting": "Selecionando",
+                "locked": "Confirmado",
+            },
+            "leveling":{
+                "level": "Nível",  
+            },
+            "startup": {
+                "loading": "Carregando",
+                "view_github": "Ver no GitHub",
+            }
         },
     },
     "ru-RU": {},
