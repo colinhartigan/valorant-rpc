@@ -11,6 +11,8 @@ from .utilities.version_checker import Checker
 from .utilities.logging import Logger
 from .utilities.program_data import Program_Data
 
+from .localization.localization import Localizer
+
 from .presence.presence import Presence
 
 from .webserver import server
@@ -32,21 +34,30 @@ class Startup:
 
             self.config = Config.fetch_config()
             self.installs = Program_Data.fetch_installs()
+            Localizer.set_locale(self.config)
+            Localizer.config = self.config
 
             Logger.debug(self.config)
             self.client = None
-            if self.config["region"][0] == "": # try to autodetect region on first launch
-                self.check_region() 
-            ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {self.config['version']}") 
 
-            color_print([("Red", "waiting for rpc client")])
+            if Localizer.get_config_value("region",0) == "": # try to autodetect region on first launch
+                self.check_region() 
+
+            if Localizer.get_config_value("locale",0) == "": # ask for locale
+                config = Localizer.prompt_locale(self.config)
+                Config.modify_config(config)
+                Systray.restart()
+
+            ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {Localizer.get_config_value('version')}") 
+
+            color_print([("Red", Localizer.get_localized_text("startup","wait_for_rpc"))])
             try:
                 self.presence = Presence()
                 Startup.clear_line()
             except Exception as e:
-                color_print([("Cyan",f"discord not detected! starting game without presence... ({e})")])
+                color_print([("Cyan",f"{Localizer.get_localized_text('startup','discord_not_detected')} ({e})")])
                 if not Processes.are_processes_running():
-                    color_print([("Red", "starting VALORANT")])
+                    color_print([("Red", Localizer.get_localized_text("startup","starting_valorant"))])
                     self.start_game()
                     os._exit(1)
 
@@ -58,7 +69,7 @@ class Startup:
         self.presence.update_presence("startup")
         Checker.check_version(self.config)
         if not Processes.are_processes_running():
-            color_print([("Red", "starting VALORANT")])
+            color_print([("Red", Localizer.get_localized_text("startup","starting_valorant"))])
             self.start_game()
         
         self.setup_client()
@@ -72,13 +83,12 @@ class Startup:
         self.dispatch_presence()
         self.dispatch_webserver() 
         
-        color_print([("LimeGreen","program startup successful, hiding window in 5 seconds\n")])
+        color_print([("LimeGreen",f"{Localizer.get_localized_text('startup','startup_successful')}\n")])
         time.sleep(5)
         user32.ShowWindow(hWnd, 0) #hide window
 
         self.systray_thread.join()
         self.presence_thread.stop()
-        color_print([("Red","presence closed")])
         
 
     def dispatch_webserver(self):
@@ -96,17 +106,17 @@ class Startup:
         self.systray_thread.start()
 
     def setup_client(self):
-        self.client = valclient.Client(region=self.config["region"][0])
+        self.client = valclient.Client(region=Localizer.get_config_value("region",0))
         self.client.activate()
         self.presence.client = self.client
 
     def wait_for_presence(self):
-        presence_timeout = self.config["startup"]["presence_timeout"]
+        presence_timeout = Localizer.get_config_value("startup","presence_timeout")
         presence_timer = 0 
         print()
         while self.client.fetch_presence() is None:
             Startup.clear_line()
-            color_print([("Cyan", "["),("White",f"{presence_timer}"),("Cyan", "] waiting for presence... ")])
+            color_print([("Cyan", "["),("White",f"{presence_timer}"),("Cyan", f"] {Localizer.get_localized_text('startup','waiting_for_presence')}")])
             presence_timer += 1
             if presence_timer >= presence_timeout:
                 self.systray.exit()
@@ -117,14 +127,14 @@ class Startup:
 
     def start_game(self):
         path = Riot_Client_Services.get_rcs_path()
-        launch_timeout = self.config["startup"]["game_launch_timeout"]
+        launch_timeout = Localizer.get_config_value("startup","game_launch_timeout")
         launch_timer = 0
 
         psutil.subprocess.Popen([path, "--launch-product=valorant", "--launch-patchline=live"])
         print()
         while not Processes.are_processes_running():
             Startup.clear_line()
-            color_print([("Cyan", "["),("White",f"{launch_timer}"),("Cyan", "] waiting for valorant... ")])
+            color_print([("Cyan", "["),("White",f"{launch_timer}"),("Cyan", f"] {Localizer.get_localized_text('startup','waiting_for_valorant')}")])
             launch_timer += 1
             if launch_timer >= launch_timeout:
                 self.systray.exit()
@@ -133,12 +143,13 @@ class Startup:
         Startup.clear_line()
 
     def check_run_cli(self):
-        skincli_path = self.installs.get("valorant-skin-cli")
-        if skincli_path is not None:
-            subprocess.Popen(f"start {skincli_path}", shell=True)
+        if Localizer.get_config_value("startup","auto_launch_skincli"):
+            skincli_path = self.installs.get("valorant-skin-cli")
+            if skincli_path is not None:
+                subprocess.Popen(f"start {skincli_path}", shell=True)
 
     def check_region(self):
-        color_print([("Red bold",f"attempting to autodetect region")])
+        color_print([("Red bold",Localizer.get_localized_text("startup","autodetect_region"))])
         client = valclient.Client(region="na")
         client.activate()
         sessions = client.riotclient_session_fetch_sessions()
@@ -148,9 +159,9 @@ class Startup:
                 for arg in launch_args:
                     if "-ares-deployment" in arg:
                         region = arg.replace("-ares-deployment=","")
-                        self.config["region"][0] = region
+                        self.config[Localizer.get_config_key("region")][0] = region
                         Config.modify_config(self.config)
-                        color_print([("LimeGreen",f"autodetected region: {self.config['region'][0]}")])
+                        color_print([("LimeGreen",f"{Localizer.get_localized_text('startup','starting_valorant')}: {Localizer.get_config_value('region',0)}")])
                         time.sleep(5)
                         Systray.restart()
 

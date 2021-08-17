@@ -13,6 +13,9 @@ class Utilities:
             party_state = "Open Party"
 
         party_size = [data["partySize"],data["maxPartySize"]] if data["partySize"] > 1 or data["partyAccessibility"] == "OPEN" else None
+        if party_size is not None:
+            if party_size[0] == 0: 
+                party_size[0] = 1
         return party_state, party_size 
 
     @staticmethod 

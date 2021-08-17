@@ -2,7 +2,8 @@ from InquirerPy.utils import color_print
 from InquirerPy import inquirer
 from valclient.client import Client
 
-from .app_config import Config, default_config
+from .app_config import Config
+from ...localization.localization import Localizer
 
 
 class Config_Editor:
@@ -25,7 +26,7 @@ class Config_Editor:
         prompt_choices.insert(0, {"name": "back" if section != "main" else "done", "value": "back"} )
 
         choice = inquirer.select(
-            message=f"[{section}] select a configuration option",
+            message=f"[{section}] {Localizer.get_localized_text('config_modification','select_option')}",
             choices=prompt_choices,
             pointer=">"
         )
@@ -36,8 +37,7 @@ class Config_Editor:
                 callback(*callback_args)
             elif callback is None:
                 Config.modify_config(self.config)
-                color_print(
-                    [("LimeGreen", "config saved! restart the program for changes to take effect.")])
+                color_print([("LimeGreen", Localizer.get_localized_text("config_modification","config_saved"))])
                 return
         else:
             if isinstance(choices[choice], dict):
@@ -50,7 +50,7 @@ class Config_Editor:
     def config_set(name, option):
         if type(option) is str:
             choice = inquirer.text(
-                message=f"set value for {name} (expecting str)",
+                message=f"{Localizer.get_localized_text('config_modification','set_prompt')} {name} (expecting str)",
                 default=str(option),
                 validate=lambda result: not result.isdigit(),
                 filter=lambda result: str(result)
@@ -60,7 +60,7 @@ class Config_Editor:
 
         if type(option) is int:
             choice = inquirer.text(
-                message=f"set value for {name} (expecting int)",
+                message=f"{Localizer.get_localized_text('config_modification','set_prompt')} {name} (expecting int)",
                 default=str(option),
                 validate=lambda result: result.isdigit(),
                 filter=lambda result: int(result)
@@ -70,7 +70,7 @@ class Config_Editor:
 
         if type(option) is bool:
             choice = inquirer.select(
-                message=f"set value for {name}",
+                message=f"{Localizer.get_localized_text('config_modification','set_prompt')} {name}",
                 default=option,
                 choices=[{"name": "true", "value": True},
                          {"name": "false", "value": False}],
@@ -83,7 +83,7 @@ class Config_Editor:
             current = option[0]
             options = option[1]
             choice = inquirer.select(
-                message=f"set value for {name}",
+                message=f"{Localizer.get_localized_text('config_modification','set_prompt')} {name}",
                 default=current,
                 choices={option:option for option in options},
                 pointer=">"
