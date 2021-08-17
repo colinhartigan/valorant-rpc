@@ -225,7 +225,7 @@ Locales = {
             "team_names": {
                 "TeamOne": "Defensor",
                 "TeamTwo": "Atacante",
-                "TeamSpectate": "",
+                "TeamSpectate": "Observador",
                 "TeamOneCoaches": "Treinador dos Defensores",
                 "TeamTwoCoaches": "Treinador dos Atacantes",
             },
