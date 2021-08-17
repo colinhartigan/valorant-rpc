@@ -28,13 +28,13 @@ class Startup:
     def __init__(self):
         if not Processes.is_program_already_running():
             cursor.hide()
-            Config.check_config()
             Logger.create_logger()
             Program_Data.update_file_location()
 
             self.config = Config.fetch_config()
             self.installs = Program_Data.fetch_installs()
             Localizer.set_locale(self.config)
+            self.config = Config.check_config()
             Localizer.config = self.config
 
             Logger.debug(self.config)

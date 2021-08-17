@@ -61,7 +61,6 @@ class Config:
         # i bet theres a way better way to write this but im just braindead
         config = Config.fetch_config()
         unlocalized_config = Config.localize_config(config,True)
-        print(unlocalized_config)
         
         def check_for_new_vars(blank,current):
             for key,value in blank.items():
@@ -98,44 +97,41 @@ class Config:
         unlocalized_config = check_for_new_vars(default_config,unlocalized_config)
         unlocalized_config = remove_unused_vars(default_config,unlocalized_config)
         config = Config.localize_config(unlocalized_config)
-
         Config.modify_config(config)
+        return config
 
 
 
     @staticmethod
     def localize_config(config,unlocalize=False):
         def check(blank,current):
-            for key,value in list(blank.items()):
+            for key,value in list(blank.items() if not unlocalize else current.items()):
                 new_key = Localizer.get_config_key(key) if not unlocalize else Localizer.unlocalize_key(key)
                 if new_key != key:
                     if unlocalize:
-                        blank[new_key] = blank[key]
-                        del blank[key]
+                        current[new_key] = current[key]
+                        del current[key]
                     else:
+                        #print(current[key])
                         current[new_key] = current[key]
                         del current[key]
 
                 if isinstance(value,list):
                     if not unlocalize:
                         new_options = [Localizer.get_config_key(x) for x in value[1]]
-                        if new_options != current[new_key][1]:
-                            current[new_key][0] = Localizer.get_config_key(current[key][0])
-                        else:
-                            current[new_key][0] = Localizer.get_config_key(current[new_key][0])
+                        current[new_key][0] = Localizer.get_config_key(current[new_key][0])
                         current[new_key][1] = new_options
 
                     else:
                         new_options = [Localizer.unlocalize_key(x) for x in value[1]]
                         unlocalized = Localizer.unlocalize_key(current[new_key][0])
-                        current[new_key][0] = unlocalized
-                        blank[new_key][1] = new_options
+                        value[0] = unlocalized
+                        value[1] = new_options
                 
                 if isinstance(value,dict):
                     check(value,current[new_key])
 
         check(default_config,config)
-
         return config
 
     @staticmethod

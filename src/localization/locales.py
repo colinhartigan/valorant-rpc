@@ -126,21 +126,24 @@ Locales = {
             "rank": "Rang",
             "map": "Karte",
         },
-        "config_modification": {
-            "select_option": "Wähle eine Konfigurationsoption aus",
-            "config_saved": "Konfiguration gespeichert! Starte das Programm neu um die Änderungen zu sehen",
-            "set_prompt": "Setze den Wert für"
+        "prints": {
+            "config_modification": {
+                "select_option": "Wähle eine Konfigurationsoption aus",
+                "config_saved": "Konfiguration gespeichert! Starte das Programm neu um die Änderungen zu sehen",
+                "set_prompt": "Setze den Wert für"
+            },
+            "startup": {
+                "wait_for_rpc": "Warte auf rpc Client",
+                "discord_not_detected": "Discord nicht erkannt! Das Spiel wird ohne Präsenz gestartet...",
+                "starting_valorant": "VALORANT wird gestartet...",
+                "startup_successful": "Programmstart Erfolgreich, Fenster wird in 5 Sekunden versteckt",
+                "waiting_for_presence": "Warte auf Präsenz...",
+                "waiting_for_valorant": "Warte auf VALORANT...",
+                "autodetect_region": "Es wird versucht, die Region automatisch zu ermitteln...",
+                "autodetected_region": "Automatisch ermittelte Region:",
+            },
         },
-        "startup": {
-            "wait_for_rpc": "Warte auf rpc Client",
-            "discord_not_detected": "Discord nicht erkannt! Das Spiel wird ohne Präsenz gestartet...",
-            "starting_valorant": "VALORANT wird gestartet...",
-            "startup_successful": "Programmstart Erfolgreich, Fenster wird in 5 Sekunden versteckt",
-            "waiting_for_presence": "Warte auf Präsenz...",
-            "waiting_for_valorant": "Warte auf VALORANT...",
-            "autodetect_region": "Es wird versucht, die Region automatisch zu ermitteln...",
-            "autodetected_region": "Automatisch ermittelte Region:",
-        },
+        
     },
     "es-ES": {},
     "es-MX": {},
@@ -175,20 +178,22 @@ Locales = {
             "rank": "ranque",
             "map": "mapa",
         },
-        "config_modification": {
-            "select_option": "selecione uma opção de configuração",
-            "config_saved": "configuração salva! reinicie o programa para as mudanças fazerem efeito.",
-            "set_prompt": "selecione o valor para"
-        },
-        "startup": {
-            "wait_for_rpc": "esperando cliente rpc",
-            "discord_not_detected": "discord não detectado! iniciando jogo sem presença...",
-            "starting_valorant": "iniciando o VALORANT",
-            "startup_successful": "programa iniciado com sucesso, escondendo janela em 5 segundos",
-            "waiting_for_presence": "esperando por presença...",
-            "waiting_for_valorant": "esperando pelo VALORANT...",
-            "autodetect_region": "tentando autodetectar região",
-            "autodetected_region": "região detectada automaticamente:",
+        "prints": {
+            "config_modification": {
+                "select_option": "selecione uma opção de configuração",
+                "config_saved": "configuração salva! reinicie o programa para as mudanças fazerem efeito.",
+                "set_prompt": "selecione o valor para"
+            },
+            "startup": {
+                "wait_for_rpc": "esperando cliente rpc",
+                "discord_not_detected": "discord não detectado! iniciando jogo sem presença...",
+                "starting_valorant": "iniciando o VALORANT",
+                "startup_successful": "programa iniciado com sucesso, escondendo janela em 5 segundos",
+                "waiting_for_presence": "esperando por presença...",
+                "waiting_for_valorant": "esperando pelo VALORANT...",
+                "autodetect_region": "tentando autodetectar região",
+                "autodetected_region": "região detectada automaticamente:",
+            },
         },
     },
     "ru-RU": {},
