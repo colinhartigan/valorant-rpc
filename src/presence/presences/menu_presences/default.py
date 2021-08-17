@@ -14,7 +14,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         small_text = None
         buttons = Utilities.get_join_state(client,config,data)
 
-        if data["queueId"] == "competitive" and config["presences"]["menu"]["show_rank_in_comp_lobby"]: 
+        if data["queueId"] == "competitive" and Localizer.get_config_value("presences","menu","show_rank_in_comp_lobby"): 
             small_image, small_text = Utilities.fetch_rank_data(client,content_data)
 
         rpc.update(

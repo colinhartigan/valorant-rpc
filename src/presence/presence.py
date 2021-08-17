@@ -18,7 +18,7 @@ class Presence:
         self.config = Config.fetch_config()
         self.client = None
         try:
-            self.rpc = PyPresence(client_id=str(self.config["client_id"]))
+            self.rpc = PyPresence(client_id=str(Localizer.get_config_value("client_id")))
             self.rpc.connect()
         except InvalidPipe as e:
             raise Exception(e)
@@ -33,7 +33,7 @@ class Presence:
                 if presence_data is not None:
                     self.update_presence(presence_data["sessionLoopState"],presence_data)
                     #print(presence_data)
-                    time.sleep(self.config["presence_refresh_interval"])
+                    time.sleep(Localizer.get_config_value("presence_refresh_interval"))
                 else:
                     os._exit(1)
 

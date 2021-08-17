@@ -7,7 +7,7 @@ class Checker:
     @staticmethod 
     def check_version(config):
         try:
-            current_version = config["version"]
+            current_version = Localizer.get_config_value("version")
             data = requests.get("https://api.github.com/repos/colinhartigan/valorant-rpc/releases/latest")
             latest = data.json()["tag_name"]
             if latest != current_version:

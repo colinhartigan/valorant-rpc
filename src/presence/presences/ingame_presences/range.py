@@ -2,6 +2,7 @@ import time
 
 from ..menu_presences.away import presence as away
 from ...presence_utilities import Utilities
+from ....localization.localization import Localizer
 
 class Range_Session:
 
@@ -20,7 +21,7 @@ class Range_Session:
         self.small_image = "mode_unrated"
         self.small_text = None 
 
-        if self.config["presences"]["modes"]["range"]["show_rank_in_range"]:
+        if Localizer.get_config_value("presences","modes","range","show_rank_in_range"):
             self.small_image, self.small_text = Utilities.fetch_rank_data(self.client,self.content_data)
 
     def main_loop(self):
@@ -45,4 +46,4 @@ class Range_Session:
                     party_id=presence["partyId"],
                 )
 
-            time.sleep(self.config["presence_refresh_interval"])
+            time.sleep(Localizer.get_config_value("presence_refresh_interval"))

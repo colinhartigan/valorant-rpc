@@ -2,6 +2,7 @@ import time
 
 from ...presence_utilities import Utilities
 from ..menu_presences.away import presence as away
+from ....localization.localization import Localizer
 
 class Game_Session:
 
@@ -20,8 +21,8 @@ class Game_Session:
         self.small_image = ""
         self.mode_name = ""
 
-        self.large_pref = self.config["presences"]["modes"]["all"]["large_image"][0]
-        self.small_pref = self.config["presences"]["modes"]["all"]["small_image"][0]
+        self.large_pref = Localizer.get_config_value("presences","modes","all","large_image",0)
+        self.small_pref = Localizer.get_config_value("presences","modes","all","small_image",0)
 
         self.build_static_states()
 
@@ -62,4 +63,4 @@ class Game_Session:
                     instance=True,
                 )
 
-            time.sleep(self.config["presence_refresh_interval"])
+            time.sleep(Localizer.get_config_value("presence_refresh_interval"))
