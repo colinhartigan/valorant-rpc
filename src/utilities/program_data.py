@@ -1,12 +1,15 @@
 import os, sys, json
 from InquirerPy.utils import color_print
 
+from .filepath import Filepath
+
 class Program_Data:
 
     installs_path = os.path.expandvars("%PROGRAMDATA%\\valorant-tools\\installs.json")
 
     @staticmethod
     def update_file_location():
+        Program_Data.check_for_folder()
         if getattr(sys, 'frozen', False):
             path = sys.executable
         else:
@@ -37,7 +40,6 @@ class Program_Data:
 
     @staticmethod
     def create_installs_file():
-        Program_Data.check_for_folder()
         with open(Program_Data.installs_path, "w") as f:
             payload = {}
             json.dump(payload, f)
@@ -46,5 +48,6 @@ class Program_Data:
 
     @staticmethod
     def check_for_folder():
-        if not os.path.isdir(Program_Data.installs_path):
-            os.makedirs(Program_Data.installs_path)
+        programdata_folder = Filepath.get_programdata_folder()
+        if not os.path.isdir(programdata_folder):
+            os.makedirs(programdata_folder)
