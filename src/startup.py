@@ -61,7 +61,6 @@ class Startup:
                     self.start_game()
                     os._exit(1)
 
-            self.check_run_cli()
             self.run()
 
 
@@ -80,6 +79,7 @@ class Startup:
         if self.client.fetch_presence() is None:
             self.wait_for_presence()
 
+        self.check_run_cli()
         self.dispatch_presence()
         self.dispatch_webserver() 
         

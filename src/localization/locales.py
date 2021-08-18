@@ -92,7 +92,8 @@ Locales = {
                 "locked": "Locked",
             },
             "leveling":{
-                "level": "Level",  
+                "level": "Level",
+                "ranked_rating": "RR",  
             },
             "startup": {
                 "loading": "Loading",
@@ -247,6 +248,7 @@ Locales = {
             },
             "leveling":{
                 "level": "Nível",  
+                "ranked_rating": "CR",
             },
             "startup": {
                 "loading": "Carregando",
