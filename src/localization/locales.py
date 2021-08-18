@@ -1,5 +1,6 @@
 Locales = {
     "en-US": {
+        "author": "@cm_an#2434",
         "config": {
             "version": "version",
             "region": "region",
@@ -148,6 +149,7 @@ Locales = {
     },
     "es-ES": {},
     "es-MX": {
+        "author": "@janinha#6244",
         "config": { ##fix any grammar mistakes you can find
             "version": "versión",
             "region": "región",
@@ -256,6 +258,7 @@ Locales = {
     "ko-KR": {},
     "pl-PL": {},
     "pt-BR": {
+        "author": "@janinha#6244",
         "config": {
             "version": "versão",
             "region": "região",

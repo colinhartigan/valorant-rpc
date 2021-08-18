@@ -37,8 +37,14 @@ class Program_Data:
 
     @staticmethod
     def create_installs_file():
+        Program_Data.check_for_folder()
         with open(Program_Data.installs_path, "w") as f:
             payload = {}
             json.dump(payload, f)
 
         return Program_Data.fetch_installs()
+
+    @staticmethod
+    def check_for_folder():
+        if not os.path.isdir(Program_Data.installs_path):
+            os.makedirs(Program_Data.installs_path)

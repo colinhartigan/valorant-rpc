@@ -43,7 +43,18 @@ class Config_Editor:
             if isinstance(choices[choice], dict):
                 self.config_menu(choice, choices[choice], callback=self.config_menu,callback_args=(section, choices, callback, callback_args))
             else:
-                choices[choice] = self.config_set(choice, choices[choice])
+                if choice == Localizer.get_config_key("locale"): 
+                    #translate config
+                    old_locale = choices[choice]
+                    new_locale = self.config_set(choice, choices[choice])[0]
+                    self.config = Config.localize_config(self.config,True)
+                    self.config["locale"][0] = new_locale
+                    Localizer.locale = new_locale
+                    self.config = Config.localize_config(self.config,False)
+                    Localizer.config = self.config
+                else:
+                    choices[choice] = self.config_set(choice, choices[choice])
+
                 self.config_menu(section, choices, callback, callback_args)
 
     @staticmethod

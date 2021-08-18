@@ -11,7 +11,7 @@ default_config = {
     "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
-    "locale": ["",list(Locales.keys())],
+    "locale": ["",[locale for locale,data in Locales.items() if data != {}]],
     "presences": {
         "menu": {
             "show_rank_in_comp_lobby": True,

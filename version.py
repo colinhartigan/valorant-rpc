@@ -18,5 +18,5 @@ VSVersionInfo(
              StringStruct(u'LegalCopyright', u'Colin Hartigan'),
              StringStruct(u'OriginalFilename', u'valorant-rpc.exe'),
              StringStruct(u'ProductName', u'VALORANT-rpc'),
-             StringStruct(u'ProductVersion', u'3.0')])]),
+             StringStruct(u'ProductVersion', u'3.1.0')])]),
         VarFileInfo([VarStruct(u'Translation', [1033, 1200])])])

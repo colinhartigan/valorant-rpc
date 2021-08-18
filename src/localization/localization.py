@@ -55,7 +55,11 @@ class Localizer:
 
     @staticmethod
     def set_locale(config):
-        Localizer.locale = config["locale"][0]
+        for locale,data in Locales.items():
+            if data != {}:
+                for key,value in data["config"].items():
+                    if key == "locale" and value in config.keys():
+                        Localizer.locale = config[value][0]
 
     @staticmethod
     def prompt_locale(config):
