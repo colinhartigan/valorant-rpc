@@ -93,7 +93,7 @@ Locales = {
             },
             "leveling":{
                 "level": "Level",
-                "ranked_rating": "RR",  
+                "ranked_rating": "RR",
             },
             "startup": {
                 "loading": "Loading",
@@ -147,14 +147,115 @@ Locales = {
         
     },
     "es-ES": {},
-    "es-MX": {},
+    "es-MX": {
+        "config": { ##fix any grammar mistakes you can find
+            "version": "versión",
+            "region": "región",
+            "client_id": "client_id",
+            "presence_refresh_interval": "intervalo_actualizar_presencia",
+            "locale": "localidad",
+            "presences": "presencias",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "mostrar_rango_en_grupo_competitivo",
+            "modes": "modos",
+            "all": "todos",
+            "small_image": "imagen_pequeña",
+            "large_image": "imagen_grande",
+            "range": "range",
+            "show_rank_in_range": "mostrar_rango_en_range",
+            "startup": "arranque",
+            "game_launch_timeout": "tiempo_espera_juego",
+            "presence_timeout": "tiempo_espera_presencia",
+            "show_github_link": "mostrar_link_github",
+            "auto_launch_skincli": "auto_lanzar_skincli",
+            "agent": "agente",
+            "rank": "rango",
+            "map": "mapa",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "seleccione una opción de configuración",
+                "config_saved": "¡configuración guardada! reiniciar el programa para que los cambios surtan efecto.",
+                "set_prompt": "establecer el valor de"
+            },
+            "startup": {
+                "wait_for_rpc": "esperando al cliente rpc",
+                "discord_not_detected": "¡discord no detectada! empezando el juego sin presencia...",
+                "starting_valorant": "empezando el VALORANT",
+                "startup_successful": "inicio del programa con éxito, ocultando la ventana en 5 segundos",
+                "waiting_for_presence": "esperando la presencia...",
+                "waiting_for_valorant": "esperando lo VALORANT...",
+                "autodetect_region": "intento de autodetección de la región",
+                "autodetected_region": "región autodetectada:",
+            },
+            "presence": {
+                "presence_running": "¡presencia rodando!",
+            },
+            "systray": {
+                "hiding_window": "ocultando la ventana",
+            },
+            "errors": {
+                "error_message": "el programa ha encontrado un error: por favor, cree una issue con el rastreo de abajo si este problema persiste",
+                "exit": "pulse enter para salir...",
+            },
+            "version_checker": {
+                "update_available": "¡hay una actualización disponible! descárguela en",
+                "checker_error": "no se puede comprobar si hay actualizaciones..",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Grupo Abierto",
+                "solo": "Grupo Cerrado (Solo)",
+                "in_party": "En un Grupo",
+            },
+            "client_states": {
+                "away": "Fuera",
+                "menu": "Menu",
+                "custom_setup": "Setup Personalizado",
+                "queue": "En Cola",
+                "pregame": "Pre-Juego",
+            },
+            "team_names": {
+                "TeamOne": "Defensor",
+                "TeamTwo": "Atacante",
+                "TeamSpectate": "Espectador",
+                "TeamOneCoaches": "Entrenador de los Defensores",
+                "TeamTwoCoaches": "Entrenador de los Atacantes",
+            },
+            "modes": {
+                "newmap": "Nuevo Mapa",
+                "competitive": "Competitivo",
+                "unrated": "Normal",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Escalada",
+                "onefa": "Replicación",
+                "custom": "Personalizada",
+                "snowball": "Pelea de Bolas de Nieve",
+                "": "Personalizada",
+            },
+            "pregame": {
+                "selecting": "Seleccionando",
+                "locked": "Fijado",
+            },
+            "leveling":{
+                "level": "Nivel",
+                "ranked_rating": "CC",  ##i set my game in spanish for most of these...
+            },
+            "startup": {
+                "loading": "Cargando",
+                "view_github": "Ver en GitHub",
+            }
+        },
+    },
     "fr-FR": {},
     "id-ID": {},
     "it-IT": {},
     "ja-JP": {},
     "ko-KR": {},
     "pl-PL": {},
-    "pt-BR": { ##portuguese by janinha#6244
+    "pt-BR": {
         "config": {
             "version": "versão",
             "region": "região",
@@ -163,7 +264,7 @@ Locales = {
             "locale": "localidade",
             "presences": "presenças",
             "menu": "menu",
-            "show_rank_in_comp_lobby": "mostrar_ranque_no_lobby_comp",
+            "show_rank_in_comp_lobby": "mostrar_ranque_no_lobby_competitivo",
             "modes": "modos",
             "all": "todos",
             "small_image": "imagem_pequena",
@@ -213,7 +314,7 @@ Locales = {
         "presences": {
             "party_states": {
                 "open": "Grupo Aberto",
-                "solo": "Grupo Fechado (Solo)", ##this is longer so it doesn't look off because of mode name lengths (aka consistency), keep only solo if needed
+                "solo": "Grupo Fechado (Solo)", ##this is longer so it doesn't look off because of mode name lengths (aka consistency)
                 "in_party": "Em um Grupo",
             },
             "client_states": {
@@ -247,7 +348,7 @@ Locales = {
                 "locked": "Confirmado",
             },
             "leveling":{
-                "level": "Nível",  
+                "level": "Nível",
                 "ranked_rating": "CR",
             },
             "startup": {
