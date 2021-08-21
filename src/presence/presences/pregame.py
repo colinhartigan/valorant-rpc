@@ -29,7 +29,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
             large_image=agent_image,
             large_text=f"{select_state} - {agent_name}",
             small_image=small_image,
-            small_text=content_data['queue_aliases'][data['queueId']],
+            small_text=mode_name,
             party_size=party_size,
             party_id=data["partyId"],
         )
