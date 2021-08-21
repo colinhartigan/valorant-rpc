@@ -88,6 +88,9 @@ Locales = {
                 "snowball": "Snowball Fight",
                 "": "Custom",
             },
+            "maps": {
+                "range": "Range"
+            },
             "pregame": {
                 "selecting": "Selecting",
                 "locked": "Locked",
@@ -218,6 +221,9 @@ Locales = {
                 "queue": "En Cola",
                 "pregame": "Pre-Juego",
             },
+            "maps": {
+                "range": "Range"
+            },  
             "team_names": {
                 "TeamOne": "Defensor",
                 "TeamTwo": "Atacante",
@@ -345,6 +351,9 @@ Locales = {
                 "custom": "Jogo Personalizado",
                 "snowball": "Batalha Nevada",
                 "": "Jogo Personalizado",
+            },
+            "maps": {
+                "range": "Range"
             },
             "pregame": {
                 "selecting": "Selecionando",

@@ -70,12 +70,12 @@ class Utilities:
 
     @staticmethod 
     def get_content_preferences(client,pref,presence,player_data,content_data):
-        if pref == "rank":
+        if pref == Localizer.get_localized_text("config", "rank"):
             return Utilities.fetch_rank_data(client,content_data)
-        if pref == "map": 
+        if pref == Localizer.get_localized_text("config", "map"): 
             gmap = Utilities.fetch_map_data(presence,content_data)
-            return f"splash_{gmap[0].lower()}",gmap[1]
-        if pref == "agent": 
+            return f"splash_{gmap[0].lower()}", gmap[1]
+        if pref == Localizer.get_localized_text("config", "agent"): 
             return Utilities.fetch_agent_data(player_data["CharacterID"],content_data)
 
     @staticmethod
