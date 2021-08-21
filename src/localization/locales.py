@@ -104,6 +104,7 @@ Locales = {
     },
     "ar-AE": {},
     "de-DE": {
+        "author": "@zay#6353",
         "config": {
             "version": "Version",
             "region": "Region",
