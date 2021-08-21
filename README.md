@@ -69,14 +69,14 @@ Riot Games does not endorse or sponsor this project. Riot Games, and all associa
 <!-- MARKDOWN LINKS & IMAGES -->
 [discord-shield]: https://img.shields.io/discord/860288779558715402?color=7289da&label=Support&logo=discord&logoColor=7289da&style=for-the-badge
 [discord-url]: https://discord.gg/uGuswsZwAT
-[license-shield]: https://img.shields.io/github/license/colinhartigan/valorant-skin-cli?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/colinhartigan/valorant-rpc?style=for-the-badge
 [license-url]: https://github.com/colinhartigan/valorant-rpc/blob/v3/LICENSE.txt
-[stars-shield]: https://img.shields.io/github/stars/colinhartigan/valorant-skin-cli?logo=github&style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/colinhartigan/valorant-rpc?logo=github&style=for-the-badge
 [stars-url]: https://github.com/colinhartigan/valorant-rpc/stargazers
-[forks-shield]: https://img.shields.io/github/forks/colinhartigan/valorant-skin-cli?logo=github&style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/colinhartigan/valorant-rpc?logo=github&style=for-the-badge
 [forks-url]: https://github.com/colinhartigan/valorant-rpc/network/members
-[releases-shield]: https://img.shields.io/github/downloads/colinhartigan/valorant-skin-cli/total?style=for-the-badge
+[releases-shield]: https://img.shields.io/github/downloads/colinhartigan/valorant-rpc/total?style=for-the-badge
 [releases-url]: https://github.com/colinhartigan/valorant-rpc/releases
-[language-shield]: https://img.shields.io/github/languages/top/colinhartigan/valorant-skin-cli?logo=python&logoColor=yellow&style=for-the-badge
+[language-shield]: https://img.shields.io/github/languages/top/colinhartigan/valorant-rpc?logo=python&logoColor=yellow&style=for-the-badge
 [language-url]: https://www.python.org/
 
