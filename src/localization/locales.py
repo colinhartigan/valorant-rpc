@@ -88,9 +88,6 @@ Locales = {
                 "snowball": "Snowball Fight",
                 "": "Custom",
             },
-            "maps": {
-                "range": "Range"
-            },
             "pregame": {
                 "selecting": "Selecting",
                 "locked": "Locked",
@@ -107,6 +104,7 @@ Locales = {
     },
     "ar-AE": {},
     "de-DE": {
+        "author": "@zay#6353",
         "config": {
             "version": "Version",
             "region": "Region",
@@ -211,19 +209,16 @@ Locales = {
         "presences": {
             "party_states": {
                 "open": "Grupo Abierto",
-                "solo": "Grupo Cerrado (Solo)",
+                "solo": "Solo",
                 "in_party": "En un Grupo",
             },
             "client_states": {
                 "away": "Fuera",
                 "menu": "Menu",
-                "custom_setup": "Setup Personalizado",
+                "custom_setup": "Personalizada",
                 "queue": "En Cola",
                 "pregame": "Pre-Juego",
             },
-            "maps": {
-                "range": "Range"
-            },  
             "team_names": {
                 "TeamOne": "Defensor",
                 "TeamTwo": "Atacante",
@@ -269,7 +264,7 @@ Locales = {
             "version": "versão",
             "region": "região",
             "client_id": "client_id",
-            "presence_refresh_interval": "intervalo_att_presença",
+            "presence_refresh_interval": "intervalo_atualização_presença",
             "locale": "localidade",
             "presences": "presenças",
             "menu": "menu",
@@ -284,7 +279,7 @@ Locales = {
             "game_launch_timeout": "atraso_execução_jogo",
             "presence_timeout": "atraso_presença",
             "show_github_link": "mostrar_link_github",
-            "auto_launch_skincli": "abrir_skincli_auto",
+            "auto_launch_skincli": "abrir_skincli_automaticamente",
             "agent": "agente",
             "rank": "ranque",
             "map": "mapa",
@@ -300,7 +295,7 @@ Locales = {
                 "discord_not_detected": "discord não detectado! iniciando jogo sem presença...",
                 "starting_valorant": "iniciado VALORANT..",
                 "startup_successful": "programa iniciado com sucesso, minimizando em 5 segundos...",
-                "waiting_for_presence": "esperando a presença...",
+                "waiting_for_presence": "esperando pela presença...",
                 "waiting_for_valorant": "esperando o VALORANT...",
                 "autodetect_region": "tentando detectar região..",
                 "autodetected_region": "região detectada:",
@@ -323,14 +318,14 @@ Locales = {
         "presences": {
             "party_states": {
                 "open": "Grupo Aberto",
-                "solo": "Grupo Fechado (Solo)", ##this is longer so it doesn't look off because of mode name lengths (aka consistency)
+                "solo": "Solo",
                 "in_party": "Em um Grupo",
             },
             "client_states": {
                 "away": "Ausente",
-                "menu": "Nos Menus", ##translated from "in menus" for consistency
-                "custom_setup": "Setup Personalizado",
-                "queue": "Na Fila", ##translated from "in queue" for consistency
+                "menu": "Menu",
+                "custom_setup": "Jogo Personalizado",
+                "queue": "Na Fila",
                 "pregame": "Pré-Jogo",
             },
             "team_names": {
@@ -351,9 +346,6 @@ Locales = {
                 "custom": "Jogo Personalizado",
                 "snowball": "Batalha Nevada",
                 "": "Jogo Personalizado",
-            },
-            "maps": {
-                "range": "Range"
             },
             "pregame": {
                 "selecting": "Selecionando",
