@@ -313,7 +313,7 @@ Locales = {
     "fr-FR": {},
     "id-ID": {},
     "it-IT": {
-        "author": { "zay#6353",
+        "author": "zay#6353",
         "config": {
             "version": "version",
             "region": "region",
