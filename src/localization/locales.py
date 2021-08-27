@@ -1,4 +1,9 @@
 Locales = {
+    "default": {
+        "config": {
+            "locale": "locale",
+        }
+    },
     "en-US": {
         "author": "@cm_an#2434",
         "config": {
