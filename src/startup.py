@@ -40,13 +40,13 @@ class Startup:
             Logger.debug(self.config)
             self.client = None
 
-            if Localizer.get_config_value("region",0) == "": # try to autodetect region on first launch
-                self.check_region() 
-
-            if Localizer.get_config_value("locale",0) == "": # ask for locale
+            if Localizer.get_config_value("locale",0) == "default": # ask for locale
                 config = Localizer.prompt_locale(self.config)
                 Config.modify_config(config)
                 Systray.restart()
+            
+            if Localizer.get_config_value("region",0) == "": # try to autodetect region on first launch
+                self.check_region() 
 
             ctypes.windll.kernel32.SetConsoleTitleW(f"valorant-rpc {Localizer.get_config_value('version')}") 
 
