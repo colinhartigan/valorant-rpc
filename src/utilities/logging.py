@@ -7,6 +7,7 @@ class Logger:
     @staticmethod
     def create_logger():
         # create logger
+        os.makedirs(os.path.dirname(Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'rpc.log'))), exist_ok=True)
         logging.basicConfig(filename=Filepath.get_path(os.path.join(Filepath.get_appdata_folder(), 'rpc.log')),
                             filemode='w',
                             format='%(asctime)s.%(msecs)d %(name)s %(levelname)s %(message)s',

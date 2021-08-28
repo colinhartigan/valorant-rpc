@@ -7,11 +7,11 @@ from ...localization.locales import Locales
 from ...localization.localization import Localizer
 
 default_config = {
-    "version": "v3.1.0b2",
+    "version": "v3.1.0b4",
     "region": ["",Client.fetch_regions()],
     "client_id": 811469787657928704,
     "presence_refresh_interval": 3,
-    "locale": ["",[locale for locale,data in Locales.items() if data != {}]],
+    "locale": ["default",[locale for locale,data in Locales.items() if data != {}]],
     "presences": {
         "menu": {
             "show_rank_in_comp_lobby": True,
