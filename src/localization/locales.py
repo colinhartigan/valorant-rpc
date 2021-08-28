@@ -145,8 +145,66 @@ Locales = {
                 "autodetect_region": "Es wird versucht, die Region automatisch zu ermitteln...",
                 "autodetected_region": "Automatisch ermittelte Region:",
             },
+            "presence": {
+                    "presence_running": "Präsenz läuft",
+            },
+            "systray": {
+                "hiding_window": "verstecke_Fenster",
+            },
+            "errors": {
+                "error_message": "Es ist ein Fehler aufgetreten: Bitte erstellen Sie einen Fehler auf github mit dem traceback unter dieser Nachricht, sollte das Problem bestehen.",
+                "exit": "Drücken Sie enter zum Schließen",
+            },
+            "version_checker": {
+                "update_available": "Es ist eine Aktualisierung verfügbar! Lade sie hier herunter:",
+                "checker_error": "Es konnte keine Aktualisierung gefunden werden",
+            }
         },
-        
+        "presences": {
+            "party_states": {
+                "open": "offen",
+                "solo": "solo",
+                "in_party": "in_party",
+            },
+            "client_states": {
+                "away": "abwesend",
+                "menu": "Menü",
+                "custom_setup": "custom_setup",
+                "queue": "Schlange",
+                "pregame": "vor_dem_Spiel",
+            },
+            "team_names": {
+                "TeamOne": "TeamEins",
+                "TeamTwo": "TeamZwei",
+                "TeamSpectate": "TeamZuschauer",
+                "TeamOneCoaches": "TeamEinsCoaches",
+                "TeamTwoCoaches": "TeamZweiCoaches",
+            },
+            "modes": {
+                "newmap": "neue_Karte",
+                "competitive": "Wettkampf",
+                "unrated": "Ungewertet",
+                "spikerush": "spikerush",
+                "deathmatch": "deathmatch",
+                "ggteam": "ggteam",
+                "onefa": "replication", 
+                "custom": "custom",
+                "snowball": "Schneeball",
+                "": "custom", 
+            },
+            "pregame": {
+                "selecting": "auswählen",
+                "locked": "verschlossen",
+            },
+            "leveling":{
+                "level": "level",
+                "ranked_rating": "RR", 
+            },
+            "startup": {
+                "loading": "lädt",
+                "view_github": "zeige_github",
+            }
+        },
     },
     "es-ES": {},
     "es-MX": {
@@ -254,7 +312,109 @@ Locales = {
     },
     "fr-FR": {},
     "id-ID": {},
-    "it-IT": {},
+    "it-IT": {
+        "author": "zay#6353",
+        "config": {
+            "version": "version",
+            "region": "region",
+            "client_id": "client_id",
+            "presence_refresh_interval": "intervallo_refresh_presence",
+            "locale": "locale",
+            "presences": "presences",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "mostra_rank_in_comp_lobby",
+            "modes": "modalità",
+            "all": "tutto",
+            "small_image": "immagine_piccola",
+            "large_image": "immagine_grande",
+            "range": "range",
+            "show_rank_in_range": "mostra_rank_nel_range",
+            "startup": "avvio",
+            "game_launch_timeout": "timeout_di_avvio",
+            "presence_timeout": "presence_timeout",
+            "show_github_link": "mostra_link_github",
+            "auto_launch_skincli": "avvio_automatico_skincli",
+            "agent": "agente",
+            "rank": "rank",
+            "map": "mappa",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "seleziona una opzione di configurazione",
+                "config_saved": "configurazione salvata! Riavvia il programma per rendere effettive le modifiche.",
+                "set_prompt": "imposta valore a"
+            },
+            "startup": {
+                "wait_for_rpc": "aspettando il client rpc",
+                "discord_not_detected": "discord non rilevato! avviando il gioco senza presence...",
+                "starting_valorant": "avviando VALORANT",
+                "startup_successful": "avvio del programma avvenuto con successo, nascondendo la finestra in 5 secondi...",
+                "waiting_for_presence": "aspettando presence...",
+                "waiting_for_valorant": "aspettando VALORANT...",
+                "autodetect_region": "tentando di rilevare automaticamente la regione",
+                "autodetected_region": "regione rilevata:",
+            },
+            "presence": {
+                "presence_running": "presence in funzione!",
+            },
+            "systray": {
+                "hiding_window": "nascondendo la finestra..",
+            },
+            "errors": {
+                "error_message": "il programma ha incontrato un errore: per favore facci sapere il traceback qua sotto.",
+                "exit": "premi invio per uscire...",
+            },
+            "version_checker": {
+                "update_available": "un aggiornamento è disponibile! Scaricalo qui:",
+                "checker_error": "impossibile verificare la disponibilità di aggiornamenti!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Party Aperto",
+                "solo": "Singolo",
+                "in_party": "In un party",
+            },
+            "client_states": {
+                "away": "AFK",
+                "menu": "Menu",
+                "custom_setup": "Custom Setup",
+                "queue": "Coda",
+                "pregame": "Pregame",
+            },
+            "team_names": {
+                "TeamOne": "Difensori",
+                "TeamTwo": "Attaccanti",
+                "TeamSpectate": "Osservatore",
+                "TeamOneCoaches": "Coach Difensori",
+                "TeamTwoCoaches": "Coach Attaccanti",
+            },
+            "modes": {
+                "newmap": "Nuova Mappa",
+                "competitive": "Competitive",
+                "unrated": "Unrated",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Escalation",
+                "onefa": "Replication",
+                "custom": "Custom",
+                "snowball": "Snowball Fight",
+                "": "Custom",
+            },
+            "pregame": {
+                "selecting": "Selezionando",
+                "locked": "Selezionato",
+            },
+            "leveling":{
+                "level": "Livello",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Caricamento",
+                "view_github": "Vedi su GitHub",
+            }
+        },
+    },
     "ja-JP": {},
     "ko-KR": {},
     "pl-PL": {},
