@@ -16,8 +16,8 @@
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>  
-    <li><a href="demo">Demo</a></li>
-    <li><a href="installation">Installation</a></li>
+    <li><a href="explanation">Explanation</a></li>
+    <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#support">Support</a></li>
@@ -27,8 +27,10 @@
  
  
 <!-- DEMO --> 
-## Demo
-<a>
+## Explanation?
+RPC (Rich Presence) is what allows discord to show others what you are currently doing within supported applications!
+
+ <a>
     <img src="assets/Demo1.png" alt="Demo" width="205" height="112">
     <img src="assets/Demo2.png" alt="Demo" width="205" height="112">
 </a>
@@ -37,7 +39,7 @@
  
 <!-- INSTALLATION --> 
 ## Installation
-- Download the latest [release](https://github.com/colinhartigan/valorant-rpc/releases/) and run it.
+- Download the latest [release](https://github.com/colinhartigan/valorant-rpc/releases/latest/download/valorant-rpc.exe) and run it.
 
  
  
@@ -48,11 +50,13 @@
 - If VALORANT is already running, launch the program and the presence will start
 
 
+ 
 <!-- LICENSE -->
 ## License
 Click [here](license-url) for the license.
  
-
+ 
+ 
 <!-- SUPPORT -->
 ## Support
 Either make an issue or:
@@ -65,6 +69,8 @@ Either make an issue or:
 This project is not affiliated with Riot Games or any of its employees and therefore does not reflect the views of said parties. This is purely a fan-made project to enhance VALORANT's skin inventory management.
 
 Riot Games does not endorse or sponsor this project. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
+ 
+ 
  
 <!-- MARKDOWN LINKS & IMAGES -->
 [discord-shield]: https://img.shields.io/discord/860288779558715402?color=7289da&label=Support&logo=discord&logoColor=7289da&style=for-the-badge
