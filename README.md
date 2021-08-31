@@ -27,8 +27,8 @@
  
  
 <!-- DEMO --> 
-## Explanation?
-RPC (Rich Presence) is what allows discord to show others what you are currently doing within supported applications!
+## About
+Valorant RPC (Rich Presence) allows you to show in-game details such as the current score in your Discord Profile! Additional features include showing current map, agent, idle status, etc.
 
  <a>
     <img src="assets/Demo1.png" alt="Demo" width="205" height="112">
