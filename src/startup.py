@@ -32,18 +32,19 @@ class Startup:
             Program_Data.update_file_location()
 
             self.config = Config.fetch_config()
+            if "locale" in self.config.keys():
+                if self.config["locale"][0] == "":
+                    config = Localizer.prompt_locale(self.config)
+                    Config.modify_config(config)
+                    Systray.restart()
+
             self.installs = Program_Data.fetch_installs()
             Localizer.set_locale(self.config)
             self.config = Config.check_config()
             Localizer.config = self.config
 
             Logger.debug(self.config)
-            self.client = None
-
-            if Localizer.get_config_value("locale",0) == "": # ask for locale
-                config = Localizer.prompt_locale(self.config)
-                Config.modify_config(config)
-                Systray.restart()
+            self.client = None                
 
             if Localizer.get_config_value("region",0) == "": # try to autodetect region on first launch
                 self.check_region() 
@@ -52,9 +53,10 @@ class Startup:
 
             color_print([("Red", Localizer.get_localized_text("prints","startup","wait_for_rpc"))])
             try:
-                self.presence = Presence()
+                self.presence = Presence(self.config)
                 Startup.clear_line()
             except Exception as e:
+                traceback.print_exc()
                 color_print([("Cyan",f"{Localizer.get_localized_text('prints','startup','discord_not_detected')} ({e})")])
                 if not Processes.are_processes_running():
                     color_print([("Red", Localizer.get_localized_text("prints","startup","starting_valorant"))])
@@ -161,7 +163,7 @@ class Startup:
                         region = arg.replace("-ares-deployment=","")
                         self.config[Localizer.get_config_key("region")][0] = region
                         Config.modify_config(self.config)
-                        color_print([("LimeGreen",f"{Localizer.get_localized_text('prints','startup','autodetected_region')}: {Localizer.get_config_value('region',0)}")])
+                        color_print([("LimeGreen",f"{Localizer.get_localized_text('prints','startup','autodetected_region')} {Localizer.get_config_value('region',0)}")])
                         time.sleep(5)
                         Systray.restart()
 

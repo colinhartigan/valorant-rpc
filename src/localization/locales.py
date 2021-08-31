@@ -167,9 +167,9 @@ Locales = {
                 "in_party": "in_party",
             },
             "client_states": {
-                "away": "abwesend",
+                "away": "Abwesend",
                 "menu": "Menü",
-                "custom_setup": "custom_setup",
+                "custom_setup": "Custom",
                 "queue": "Schlange",
                 "pregame": "vor_dem_Spiel",
             },

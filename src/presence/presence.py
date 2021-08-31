@@ -14,9 +14,10 @@ hWnd = kernel32.GetConsoleWindow()
 
 class Presence:
 
-    def __init__(self):
-        self.config = Config.fetch_config()
+    def __init__(self,config):
+        self.config = config
         self.client = None
+        self.saved_locale = None
         try:
             self.rpc = PyPresence(client_id=str(Localizer.get_config_value("client_id")))
             self.rpc.connect()
@@ -33,9 +34,16 @@ class Presence:
                 if presence_data is not None:
                     self.update_presence(presence_data["sessionLoopState"],presence_data)
                     #print(presence_data)
-                    time.sleep(Localizer.get_config_value("presence_refresh_interval"))
                 else:
                     os._exit(1)
+
+                if Localizer.locale != self.saved_locale:
+                    self.saved_locale = Localizer.locale
+                    self.content_data = Loader.load_all_content(self.client)
+
+                time.sleep(Localizer.get_config_value("presence_refresh_interval"))
+
+                
 
                     
         except Exception as e:
