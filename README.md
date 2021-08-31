@@ -17,7 +17,7 @@
   <summary>Table of Contents</summary>
   <ol>  
     <li><a href="explanation">Explanation</a></li>
-    <li><a href="#installation">Installation</a></li>
+    <li><a href="#About">About</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#support">Support</a></li>
