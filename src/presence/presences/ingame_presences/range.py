@@ -26,23 +26,26 @@ class Range_Session:
     def main_loop(self):
         presence = self.client.fetch_presence()
         while presence is not None and presence["sessionLoopState"] == "INGAME":
-            presence = self.client.fetch_presence()
-            is_afk = presence["isIdle"]
-            if is_afk:
-                away(self.rpc,self.client,presence,self.content_data,self.config)  
-            else:
-                party_state,party_size = Utilities.build_party_state(presence)
+            try:
+                presence = self.client.fetch_presence()
+                is_afk = presence["isIdle"]
+                if is_afk:
+                    away(self.rpc,self.client,presence,self.content_data,self.config)  
+                else:
+                    party_state,party_size = Utilities.build_party_state(presence)
 
-                self.rpc.update(
-                    state=party_state,
-                    details=self.mode_name,
-                    start=self.start_time,
-                    large_image=self.map_image,
-                    large_text=self.map_name,
-                    small_image=self.small_image,
-                    small_text=self.small_text,
-                    party_size=party_size,
-                    party_id=presence["partyId"],
-                )
+                    self.rpc.update(
+                        state=party_state,
+                        details=self.mode_name,
+                        start=self.start_time,
+                        large_image=self.map_image,
+                        large_text=self.map_name,
+                        small_image=self.small_image,
+                        small_text=self.small_text,
+                        party_size=party_size,
+                        party_id=presence["partyId"],
+                    )
 
-            time.sleep(Localizer.get_config_value("presence_refresh_interval"))
+                time.sleep(Localizer.get_config_value("presence_refresh_interval"))
+            except:
+                return

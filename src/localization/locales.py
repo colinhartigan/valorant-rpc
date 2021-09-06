@@ -92,7 +92,7 @@ Locales = {
                 "selecting": "Selecting",
                 "locked": "Locked",
             },
-            "leveling":{
+            "leveling": {
                 "level": "Level",
                 "ranked_rating": "RR",
             },
@@ -104,7 +104,7 @@ Locales = {
     },
     "ar-AE": {},
     "de-DE": {
-        "author": "@zay#6353, ",
+        "author": "@zay#6353, @craftpiwurzel#8368",
         "config": {
             "version": "version",
             "region": "region",
@@ -146,7 +146,7 @@ Locales = {
                 "autodetected_region": "Automatisch ermittelte Region:",
             },
             "presence": {
-                    "presence_running": "Status läuft",
+                "presence_running": "Status läuft",
             },
             "systray": {
                 "hiding_window": "versteckt Fenster",
@@ -187,29 +187,29 @@ Locales = {
                 "spikerush": "Spike-Ansturm",
                 "deathmatch": "Deathmatch",
                 "ggteam": "Eskalation",
-                "onefa": "Klonprogramm", 
+                "onefa": "Klonprogramm",
                 "custom": "Eigenes Spiel",
                 "snowball": "Schneeballschlacht",
-                "": "Custom", 
+                "": "Custom",
             },
             "pregame": {
                 "selecting": "Wählt",
                 "locked": "Ausgewählt",
             },
-            "leveling":{
+            "leveling": {
                 "level": "Level",
-                "ranked_rating": "RW", 
+                "ranked_rating": "RW",
             },
             "startup": {
                 "loading": "Lädt",
                 "view_github": "Auf GitHub ansehen",
             }
         },
-   },
+    },
     "es-ES": {},
     "es-MX": {
         "author": "@janinha#6244",
-        "config": { ##fix any grammar mistakes you can find
+        "config": {  # fix any grammar mistakes you can find
             "version": "versión",
             "region": "región",
             "client_id": "client_id",
@@ -300,9 +300,10 @@ Locales = {
                 "selecting": "Seleccionando",
                 "locked": "Fijado",
             },
-            "leveling":{
+            "leveling": {
                 "level": "Nivel",
-                "ranked_rating": "CC",  ##i set my game in spanish for most of these...
+                # i set my game in spanish for most of these...
+                "ranked_rating": "CC",
             },
             "startup": {
                 "loading": "Cargando",
@@ -405,7 +406,7 @@ Locales = {
                 "selecting": "Selezionando",
                 "locked": "Selezionato",
             },
-            "leveling":{
+            "leveling": {
                 "level": "Livello",
                 "ranked_rating": "RR",
             },
@@ -511,7 +512,7 @@ Locales = {
                 "selecting": "Selecionando",
                 "locked": "Confirmado",
             },
-            "leveling":{
+            "leveling": {
                 "level": "Nível",
                 "ranked_rating": "CR",
             },

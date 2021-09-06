@@ -1,12 +1,13 @@
 from ..presence_utilities import Utilities
 from ...localization.localization import Localizer
+from valclient.exceptions import PhaseError
 import time
 
 def presence(rpc,client=None,data=None,content_data=None,config=None):
     party_state,party_size = Utilities.build_party_state(data)
     
     pregame = client.pregame_fetch_player()
-    if pregame is not None:
+    try:
         match_id = pregame["MatchID"]
         pregame_data = client.pregame_fetch_match(match_id)
         puuid = client.puuid
@@ -33,3 +34,5 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
             party_size=party_size,
             party_id=data["partyId"],
         )
+    except PhaseError:
+        return
