@@ -35,4 +35,4 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
             party_id=data["partyId"],
         )
     except PhaseError:
-        return
+        pass
