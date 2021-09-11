@@ -108,9 +108,12 @@ class Startup:
         self.systray_thread.start()
 
     def setup_client(self):
-        self.client = valclient.Client(region=Localizer.get_config_value("region",0))
-        self.client.activate()
-        self.presence.client = self.client
+        try:
+            self.client = valclient.Client(region=Localizer.get_config_value("region",0))
+            self.client.activate()
+            self.presence.client = self.client
+        except:
+            self.check_region()
 
     def wait_for_presence(self):
         presence_timeout = Localizer.get_config_value("startup","presence_timeout")
