@@ -6,8 +6,8 @@ import time
 def presence(rpc,client=None,data=None,content_data=None,config=None):
     party_state,party_size = Utilities.build_party_state(data)
     
-    pregame = client.pregame_fetch_player()
     try:
+        pregame = client.pregame_fetch_player()
         match_id = pregame["MatchID"]
         pregame_data = client.pregame_fetch_match(match_id)
         puuid = client.puuid

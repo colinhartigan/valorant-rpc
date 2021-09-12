@@ -17,8 +17,8 @@ class Utilities:
         if party_size is not None:
             if party_size[0] == 0: 
                 party_size[0] = 1
-        if party_size[1] < 1:
-            party_size[1] = 1
+            if party_size[1] < 1:
+                party_size[1] = 1
         return party_state, party_size 
 
     @staticmethod 

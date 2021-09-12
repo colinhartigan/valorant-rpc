@@ -7,8 +7,11 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
     if coregame is not None:
         match_id = coregame["MatchID"]
         if data["provisioningFlow"] != "ShootingRange":
-            session = Game_Session(rpc,client,data,match_id,content_data,config)
-            session.main_loop()
+            try:
+                session = Game_Session(rpc,client,data,match_id,content_data,config)
+                session.main_loop()
+            except:
+                pass
         else:
             session = Range_Session(rpc,client,data,match_id,content_data,config)
             session.main_loop()

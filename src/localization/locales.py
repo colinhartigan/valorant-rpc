@@ -522,7 +522,109 @@ Locales = {
             }
         },
     },
-    "ru-RU": {},
+     "ru-RU": {
+        "author": "@teddn#6036",
+        "config": {
+            "version": "Версия",
+            "region": "Регион",
+            "client_id": "client_id",
+            "presence_refresh_interval": "Интервал_проверки_статуса_дискорда",
+            "locale": "язык",
+            "presences": "статус_дискорда",
+            "menu": "меню",
+            "show_rank_in_comp_lobby": "показывать_ранг_в_лобби",
+            "modes": "режимы",
+            "all": "все",
+            "small_image": "маленькое_изображение",
+            "large_image": "большое_изображение",
+            "range": "стрельбище",
+            "show_rank_in_range": "показывать_ранг_на_стрельбище",
+            "startup": "запуск",
+            "game_launch_timeout": "таймер_запуска_игры",
+            "presence_timeout": "таймер_проверки_статуса_дискорда",
+            "show_github_link": "ссылка_на_github",
+            "auto_launch_skincli": "авто_запуск_skincli",
+            "agent": "агент",
+            "rank": "ранг",
+            "map": "карта",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "выберите опцию",
+                "config_saved": "конфиг сохранён! чтобы изменения вступили в силу перезапустите программу",
+                "set_prompt": "установите значение для"
+            },
+            "startup": {
+                "wait_for_rpc": "ожидание RPC",
+                "discord_not_detected": "дискорд не запущен! запуск игры без RPC",
+                "starting_valorant": "запуск VALORANT",
+                "startup_successful": "программа успешно запущена, скрытие окна через 5 секунд",
+                "waiting_for_presence": "получаю статус дискорда",
+                "waiting_for_valorant": "ожидание VALORANT...",
+                "autodetect_region": "автоопределяю регион",
+                "autodetected_region": "регион:",
+            },
+            "presence": {
+                "presence_running": "Дискорд запущен",
+            },
+            "systray": {
+                "hiding_window": "скрытие окна",
+            },
+            "errors": {
+                "error_message": "возникла ошибка: если проблема повториться, пожалуйста создайте отчёт по ссылке ниже",
+                "exit": "Нажмите ENTER для выхода",
+            },
+            "version_checker": {
+                "update_available": "доступно обновление! Скачать - ",
+                "checker_error": "невозможно проверить наличие обновления",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Открытая группа",
+                "solo": "Соло",
+                "in_party": "В группе",
+            },
+            "client_states": {
+                "away": "Отошёл",
+                "menu": "Меню",
+                "custom_setup": "Настройка своей игры",
+                "queue": "Очередь",
+                "pregame": "Выбор агента...",
+            },
+            "team_names": {
+                "TeamOne": "Защита",
+                "TeamTwo": "Атака",
+                "TeamSpectate": "Наблюдатель",
+                "TeamOneCoaches": "Тренер защитников",
+                "TeamTwoCoaches": "Тренер атакующих",
+            },
+            "modes": {
+                "newmap": "Новая карта",
+                "competitive": "Соревновательный",
+                "unrated": "Без ранга",
+                "spikerush": "Спайк раш",
+                "deathmatch": "Бой насмерть",
+                "ggteam": "Эскалация",
+                "onefa": "Репликация",
+                "custom": "Своя игра",
+                "snowball": "Снежки",
+                "": "Своя игра",
+            },
+            "pregame": {
+                "selecting": "Выбор...",
+                "locked": "Выбран",
+            },
+            "leveling":{
+                "level": "Уровень",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Загрука",
+                "view_github": "GitHub",
+            }
+        }
+    },
     "th-TH": {},
     "tr-TR": {},
     "vi-VN": {},

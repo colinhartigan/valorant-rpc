@@ -3,6 +3,7 @@ import time
 from ...presence_utilities import Utilities
 from ..menu_presences.away import presence as away
 from ....localization.localization import Localizer
+from valclient.exceptions import PhaseError
 
 class Game_Session:
 
@@ -29,7 +30,10 @@ class Game_Session:
     def build_static_states(self):
         # generate agent, map etc.
         presence = self.client.fetch_presence()
-        coregame_data = self.client.coregame_fetch_match(self.match_id)
+        try:
+            coregame_data = self.client.coregame_fetch_match(self.match_id)
+        except PhaseError:
+            raise Exception
         coregame_player_data = {}
         for player in coregame_data["Players"]:
             if player["Subject"] == self.puuid:
