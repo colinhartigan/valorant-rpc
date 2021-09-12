@@ -627,7 +627,109 @@ Locales = {
     },
     "th-TH": {},
     "tr-TR": {},
-    "vi-VN": {},
+    "vi-VN": {
+        "author": "Mistral#9699",
+        "config": {
+            "version": "phiên_bản",
+            "region": "khu_vực",
+            "client_id": "id_client",
+            "presence_refresh_interval": "thời_gian_làm_mới_presence",
+            "locale": "ngôn_ngữ",
+            "presences": "presences",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "hiện_rank_trong_sảnh",
+            "modes": "chế_độ",
+            "all": "tất_cả",
+            "small_image": "ảnh_bé",
+            "large_image": "ảnh_to",
+            "range": "phạm_vi",
+            "show_rank_in_range": "hiện_rank_trong_phòng_tập",
+            "startup": "khởi_động",
+            "game_launch_timeout": "thời_gian_cho_khởi_động_game",
+            "presence_timeout": "thời_gian_cho_presence",
+            "show_github_link": "hiện_link_github",
+            "auto_launch_skincli": "tự_bật_skincli",
+            "agent": "đặc_vụ",
+            "rank": "rank",
+            "map": "bản_đồ",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "chọn một tuỳ chọn cấu hình",
+                "config_saved": "cấu hình đã được lưu! restart phần mềm để các thay đổi có hiệu lực.",
+                "set_prompt": "chọn một giá trị"
+            },
+            "startup": {
+                "wait_for_rpc": "đang đợi rpc client.",
+                "discord_not_detected": "không tìm thấy discord! đang bắt đầu game mà không có presence...",
+                "starting_valorant": "đang khởi động VALORANT",
+                "startup_successful": "khởi động thành công, sẽ ẩn cửa sổ sau 5 giây",
+                "waiting_for_presence": "đang đợi presence...",
+                "waiting_for_valorant": "đang đợi VALORANT...",
+                "autodetect_region": "đang thử tự tìm kiếm khu vực game của bạn.",
+                "autodetected_region": "đã tìm thấy khu vực:",
+            },
+            "presence": {
+                "presence_running": "presence đang chạy!",
+            },
+            "systray": {
+                "hiding_window": "ẩn cửa sổ",
+            },
+            "errors": {
+                "error_message": "phần mềm đã gặp một lỗi: hãy tạo một issues với traceback bên dưới!",
+                "exit": "bấm enter để thoát...",
+            },
+            "version_checker": {
+                "update_available": "đã có bản cập nhật mới! tải nó về tại",
+                "checker_error": "không thể kiểm tra bản cập nhật mới!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Tổ đội mở",
+                "solo": "Solo",
+                "in_party": "Trong một tổ đội",
+            },
+            "client_states": {
+                "away": "AFK",
+                "menu": "Menu",
+                "custom_setup": "Custom",
+                "queue": "Trong hàng chờ",
+                "pregame": "Chuẩn bị vào game",
+            },
+            "team_names": {
+                "TeamOne": "Thủ",
+                "TeamTwo": "Công",
+                "TeamSpectate": "Khán giả",
+                "TeamOneCoaches": "Huấn luyện viên bên Thủ",
+                "TeamTwoCoaches": "Huấn luyện viên bên Công",
+            },
+            "modes": {
+                "newmap": "Map mới",
+                "competitive": "Đấu hạng",
+                "unrated": "Đấu thường",
+                "spikerush": "Đặt spike nhanh",
+                "deathmatch": "Tử chiến",
+                "ggteam": "Leo thang",
+                "onefa": "Nhân bản",
+                "custom": "Custom",
+                "snowball": "Snowball Fight",
+                "": "Tuỳ chỉnh",
+            },
+            "pregame": {
+                "selecting": "Đang chọn",
+                "locked": "Locked",
+            },
+            "leveling": {
+                "level": "Level",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Đang tải",
+                "view_github": "Xem trên GitHub",
+            }
+        },
+    },
     "zh-CN": {},
     "zh-TW": {},
 }
