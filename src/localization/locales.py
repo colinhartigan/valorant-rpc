@@ -518,7 +518,109 @@ Locales = {
             }
         },
     },
-    "ja-JP": {},
+    "ja-JP": {
+        "author": "@Yossi#1114",
+        "config": {
+            "version": "バージョン",
+            "region": "地域",
+            "client_id": "client_id",
+            "presence_refresh_interval": "ステータス_更新_間隔",
+            "locale": "locale",
+            "presences": "ステータス",
+            "menu": "メニュー",
+            "show_rank_in_comp_lobby": "ランク戦中に_ランクを_表示",
+            "modes": "モード",
+            "all": "全て",
+            "small_image": "画像_小",
+            "large_image": "画像_大",
+            "range": "射撃場",
+            "show_rank_in_range": "射撃場で_ランクを_表示",
+            "startup": "スタートアップ",
+            "game_launch_timeout": "ゲーム_起動_タイムアウト",
+            "presence_timeout": "ステータス_タイムアウト",
+            "show_github_link": "GitHubの_リンクを_表示",
+            "auto_launch_skincli": "skincliを_自動で_起動",
+            "agent": "エージェント",
+            "rank": "ランク",
+            "map": "マップ",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "設定を選択する",
+                "config_saved": "設定を保存しました！ プログラムを再起動して設定を有効化してください。",
+                "set_prompt": "値を設定:"
+            },
+            "startup": {
+                "wait_for_rpc": "rpcクライアントを待機中",
+                "discord_not_detected": "Discordの起動が確認できませんでした。ステータスの表示なしでゲームを起動します。",
+                "starting_valorant": "VALORANTを起動中",
+                "startup_successful": "プログラムの起動が完了、 ウィンドウを5秒以内に閉じます...",
+                "waiting_for_presence": "ステータスを待機中...",
+                "waiting_for_valorant": "VALORANTを待機中...",
+                "autodetect_region": "地域の自動検出を試みています...",
+                "autodetected_region": "自動検出された地域:",
+            },
+            "presence": {
+                "presence_running": "ステータス表示中！",
+            },
+            "systray": {
+                "hiding_window": "ウィンドウを閉じる",
+            },
+            "errors": {
+                "error_message": "プログラムがエラーを検出: 問題が続く場合は以下の記録とともにissueを作成してください。",
+                "exit": "Enterを押して閉じる...",
+            },
+            "version_checker": {
+                "update_available": "アップデートが利用可能です！ こちらでダウンロードしてください:",
+                "checker_error": "アップデートを確認できませんでした。",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "オープンパーティー",
+                "solo": "ソロ",
+                "in_party": "パーティーに参加中",
+            },
+            "client_states": {
+                "away": "離席中",
+                "menu": "メニュー",
+                "custom_setup": "カスタム設定",
+                "queue": "マッチを検索中",
+                "pregame": "試合開始前",
+            },
+            "team_names": {
+                "TeamOne": "ディフェンダー",
+                "TeamTwo": "アタッカー",
+                "TeamSpectate": "観戦者",
+                "TeamOneCoaches": "ディフェンダー側コーチ",
+                "TeamTwoCoaches": "アタッカー側コーチ",
+            },
+            "modes": {
+                "newmap": "新マップ",
+                "competitive": "コンペティティブ",
+                "unrated": "アンレート",
+                "spikerush": "スパイクラッシュ",
+                "deathmatch": "デスマッチ",
+                "ggteam": "エスカレーション",
+                "onefa": "レプリケーション",
+                "custom": "カスタムゲーム",
+                "snowball": "スノーボールファイト",
+                "": "カスタム",
+            },
+            "pregame": {
+                "selecting": "選択中",
+                "locked": "ロック済み",
+            },
+            "leveling": {
+                "level": "レベル",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "ロード中",
+                "view_github": "GitHubで確認",
+            }
+        },
+    },
     "ko-KR": {},
     "pl-PL": {},
     "pt-BR": {
