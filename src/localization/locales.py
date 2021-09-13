@@ -239,7 +239,7 @@ Locales = {
                 "set_prompt": "cambiar valor a"
             },
             "startup": {
-                "wait_for_rpc": "Esperando al cliente rpc"
+                "wait_for_rpc": "Esperando al cliente rpc",
                 "discord_not_detected": "Discord no detectado! iniciando el juego sin la presencia...",
                 "starting_valorant": "Iniciando VALORANT",
                 "startup_successful": "El programa se ha iniciado correctamente, ocultando la ventanta en 5 segundos",
