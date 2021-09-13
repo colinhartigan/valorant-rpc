@@ -206,7 +206,109 @@ Locales = {
             }
         },
     },
-    "es-ES": {},
+    "es-ES": {
+        "author": "@Rubiz#0822",
+        "config": {
+            "version": "versión",
+            "region": "región",
+            "client_id": "client_id",
+            "presence_refresh_interval": "intervalo_de_refresco_de_presencia",
+            "locale": "idioma",
+            "presences": "presencias",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "mostrar_rango_en_lobby_competitivo",
+            "modes": "modos",
+            "all": "todo",
+            "small_image": "imagen_pequeña",
+            "large_image": "imagen_grande",
+            "range": "range",
+            "show_rank_in_range": "mostrar_rango_en_range",
+            "startup": "inicio",
+            "game_launch_timeout": "tiempo_de_espera_para_inicio_del_juego",
+            "presence_timeout": "tiempo_de_espera_para_la_presencia",
+            "show_github_link": "mostrar_link_de_github",
+            "auto_launch_skincli": "iniciar_skincli_automaticamente",
+            "agent": "agente",
+            "rank": "rango",
+            "map": "mapa",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "selecciona una opción de configuración",
+                "config_saved": "configuración guardada! reinicia el programa para que los cambios tengan efecto.",
+                "set_prompt": "cambiar valor a"
+            },
+            "startup": {
+                "wait_for_rpc": "Esperando al cliente rpc"
+                "discord_not_detected": "Discord no detectado! iniciando el juego sin la presencia...",
+                "starting_valorant": "Iniciando VALORANT",
+                "startup_successful": "El programa se ha iniciado correctamente, ocultando la ventanta en 5 segundos",
+                "waiting_for_presence": "Esperando a la presencia...",
+                "waiting_for_valorant": "Esperando a VALORANT...",
+                "autodetect_region": "Intentando autodetectar la región",
+                "autodetected_region": "Región autodetectada:",
+            },
+            "presence": {
+                "presence_running": "Presencia funcionando!",
+            },
+            "systray": {
+                "hiding_window": "Ocultando ventana",
+            },
+            "errors": {
+                "error_message": "El programa ha encontrado un error: Por favor crea un issue en GitHub con el traceback de abajo si el problema persiste",
+                "exit": "Pulsa Enter para salir...",
+            },
+            "version_checker": {
+                "update_available": "Hay una actualización disponible! Descargala en",
+                "checker_error": "No se pudo comprobar si hay actualizaciones!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Grupo Abierto",
+                "solo": "Solo",
+                "in_party": "En un Grupo",
+            },
+            "client_states": {
+                "away": "Fuera del juego",
+                "menu": "Menu",
+                "custom_setup": "Custom Setup",
+                "queue": "Cola",
+                "pregame": "Prepartida",
+            },
+            "team_names": {
+                "TeamOne": "Defensor",
+                "TeamTwo": "Atacante",
+                "TeamSpectate": "Observador",
+                "TeamOneCoaches": "Entrenador Defensor",
+                "TeamTwoCoaches": "Entrenador Atacante",
+            },
+            "modes": {
+                "newmap": "Nuevo Mapa",
+                "competitive": "Competitivo",
+                "unrated": "No Competitivo",
+                "spikerush": "Fiebre de la Spike",
+                "deathmatch": "Combate a Muerte",
+                "ggteam": "Carrera Armamentística",
+                "onefa": "Copia",
+                "custom": "Custom",
+                "snowball": "Pelea de Bolas de Nieve",
+                "": "Personalizada",
+            },
+            "pregame": {
+                "selecting": "Seleccionando",
+                "locked": "Lockeado",
+            },
+            "leveling": {
+                "level": "Nivel",
+                "ranked_rating": "PR",
+            },
+            "startup": {
+                "loading": "Cargando",
+                "view_github": "Ver en GitHub",
+            }
+        },
+    },
     "es-MX": {
         "author": "@janinha#6244",
         "config": {  # fix any grammar mistakes you can find
