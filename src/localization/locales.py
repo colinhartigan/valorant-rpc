@@ -314,7 +314,7 @@ Locales = {
     "fr-FR": {},
     "id-ID": {},
     "it-IT": {
-        "author": "zay#6353",
+        "author": "@zay#6353",
         "config": {
             "version": "version",
             "region": "region",
@@ -628,7 +628,7 @@ Locales = {
     "th-TH": {},
     "tr-TR": {},
     "vi-VN": {
-        "author": "Mistral#9699",
+        "author": "@Mistral#9699",
         "config": {
             "version": "phiên_bản",
             "region": "khu_vực",
