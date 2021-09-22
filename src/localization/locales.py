@@ -831,7 +831,109 @@ Locales = {
             }
         }
     },
-    "th-TH": {},
+    "th-TH": {
+        "author": "@Nack#2336",
+        "config": {
+            "version": "เวอร์ชั่น",
+            "region": "ภูมิภาค",
+            "client_id": "ไอดี",
+            "presence_refresh_interval": "ระยะเวลาในการรีเฟรช Presence",
+            "locale": "ภาษา",
+            "presences": "presences",
+            "menu": "เมนู",
+            "show_rank_in_comp_lobby": "โชว์แร้งค์ในโหมดแร้งค์",
+            "modes": "โหมด",
+            "all": "ทั้งหมด",
+            "small_image": "รูปเล็ก",
+            "large_image": "รูปใหญ่",
+            "range": "โหมดฝึกฝน",
+            "show_rank_in_range": "โชว์แร้งค์ในโหมดฝึกฝน",
+            "startup": "เริ่มอัตโนมัติ",
+            "game_launch_timeout": "ระยะเวลาสูงสุดในการเปิดเกม",
+            "presence_timeout": "ระยะเวลาสูงสุดของ Presence",
+            "show_github_link": "โชว์ลิ้งค์ Github",
+            "auto_launch_skincli": "เปิด skincli อัตโนมัติ",
+            "agent": "เอเจ้นท์",
+            "rank": "แร้งค์",
+            "map": "แมพ",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "เลือกการตั้งค่า",
+                "config_saved": "ตั้งค่าสำเร็จ! โปรดเปิดโปรแกรมใหม่เพื่อใช้งาน.",
+                "set_prompt": "ตั้งค่าเป็น"
+            },
+            "startup": {
+                "wait_for_rpc": "กำลังรอ RPC",
+                "discord_not_detected": "ไม่พบ Discord! กำลังเปิดเกมโดยไม่มี Presence...",
+                "starting_valorant": "กำลังเปิด VALORANT",
+                "startup_successful": "กำลังเริ่มทำงาน, ปิดหน้าต่างในอีก 5 วินาที",
+                "waiting_for_presence": "กำลังรอ Presence...",
+                "waiting_for_valorant": "กำลังรอ VALORANT...",
+                "autodetect_region": "กำลังตรวจหาภูมิภาค",
+                "autodetected_region": "ภูมิภาค:",
+            },
+            "presence": {
+                "presence_running": "Presence กำลังทำงานอยู่!",
+            },
+            "systray": {
+                "hiding_window": "ซ่อนหน้าต่าง",
+            },
+            "errors": {
+                "error_message": "มีข้อผิดพลาด: หากยังมีปัญหาอยู่, โปรดเปิด Issue บน Github.",
+                "exit": "กด Enter เพื่อออก...",
+            },
+            "version_checker": {
+                "update_available": "พบเวอร์ชั่นที่ใหม่กว่า! ดาวน์โหลดได้ที่",
+                "checker_error": "ไม่สามารถตรวจหาอัพเดทได้!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "ปาร์ตี้เปิด",
+                "solo": "เดี่ยว",
+                "in_party": "อยู่ในปาร์ตี้",
+            },
+            "client_states": {
+                "away": "ไม่อยู่",
+                "menu": "เมนู",
+                "custom_setup": "สร้างห้อง",
+                "queue": "อยู่ในคิว",
+                "pregame": "กำลังเลือกเอเจ้นท์",
+            },
+            "team_names": {
+                "TeamOne": "ฝั่งป้องกัน",
+                "TeamTwo": "ฝั่งบุก",
+                "TeamSpectate": "ผู้ชม",
+                "TeamOneCoaches": "โค้ชของฝั่งป้องกัน",
+                "TeamTwoCoaches": "โค้ชของฝั่งบุก",
+            },
+            "modes": {
+                "newmap": "แมพใหม่",
+                "competitive": "แร้งค์",
+                "unrated": "ธรรมดา",
+                "spikerush": "Spike Rush",
+                "deathmatch": "เดธแมตช์",
+                "ggteam": "Escalation",
+                "onefa": "โหมดตัวซ้ำ",
+                "custom": "สร้างห้อง",
+                "snowball": "สงครามหิมะ",
+                "": "สร้างห้อง",
+            },
+            "pregame": {
+                "selecting": "กำลังเลือกเอเจ้นท์",
+                "locked": "เลือกเอเจ้นท์แล้ว",
+            },
+            "leveling": {
+                "level": "เลเวล",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "กำลังโหลด",
+                "view_github": "ดูใน GitHub",
+            }
+        },
+    },
     "tr-TR": {},
     "vi-VN": {
         "author": "@Mistral#9699",
