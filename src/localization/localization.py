@@ -46,6 +46,7 @@ class Localizer:
                 return k
         return key
 
+    @staticmethod
     def get_config_value(*keys):
         localized_keys = [Localizer.get_config_key(key) for key in keys]
         result = Localizer.config

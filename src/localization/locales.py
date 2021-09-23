@@ -519,7 +519,7 @@ Locales = {
         },
     },
     "ja-JP": {
-        "author": "@Yossi#1114",
+        # "author": "@Yossi#1114",
 
         # cmd doesnt support kanji :(
         # "config": {
@@ -577,51 +577,51 @@ Locales = {
         #         "checker_error": "アップデートを確認できませんでした。",
         #     }
         # },
-        "presences": {
-            "party_states": {
-                "open": "オープンパーティー",
-                "solo": "ソロ",
-                "in_party": "パーティーに参加中",
-            },
-            "client_states": {
-                "away": "離席中",
-                "menu": "メニュー",
-                "custom_setup": "カスタム設定",
-                "queue": "マッチを検索中",
-                "pregame": "試合開始前",
-            },
-            "team_names": {
-                "TeamOne": "ディフェンダー",
-                "TeamTwo": "アタッカー",
-                "TeamSpectate": "観戦者",
-                "TeamOneCoaches": "ディフェンダー側コーチ",
-                "TeamTwoCoaches": "アタッカー側コーチ",
-            },
-            "modes": {
-                "newmap": "新マップ",
-                "competitive": "コンペティティブ",
-                "unrated": "アンレート",
-                "spikerush": "スパイクラッシュ",
-                "deathmatch": "デスマッチ",
-                "ggteam": "エスカレーション",
-                "onefa": "レプリケーション",
-                "custom": "カスタムゲーム",
-                "snowball": "スノーボールファイト",
-                "": "カスタム",
-            },
-            "pregame": {
-                "selecting": "選択中",
-                "locked": "ロック済み",
-            },
-            "leveling": {
-                "level": "レベル",
-                "ranked_rating": "RR",
-            },
-            "startup": {
-                "loading": "ロード中",
-                "view_github": "GitHubで確認",
-            }
-        },
+        # "presences": {
+        #     "party_states": {
+        #         "open": "オープンパーティー",
+        #         "solo": "ソロ",
+        #         "in_party": "パーティーに参加中",
+        #     },
+        #     "client_states": {
+        #         "away": "離席中",
+        #         "menu": "メニュー",
+        #         "custom_setup": "カスタム設定",
+        #         "queue": "マッチを検索中",
+        #         "pregame": "試合開始前",
+        #     },
+        #     "team_names": {
+        #         "TeamOne": "ディフェンダー",
+        #         "TeamTwo": "アタッカー",
+        #         "TeamSpectate": "観戦者",
+        #         "TeamOneCoaches": "ディフェンダー側コーチ",
+        #         "TeamTwoCoaches": "アタッカー側コーチ",
+        #     },
+        #     "modes": {
+        #         "newmap": "新マップ",
+        #         "competitive": "コンペティティブ",
+        #         "unrated": "アンレート",
+        #         "spikerush": "スパイクラッシュ",
+        #         "deathmatch": "デスマッチ",
+        #         "ggteam": "エスカレーション",
+        #         "onefa": "レプリケーション",
+        #         "custom": "カスタムゲーム",
+        #         "snowball": "スノーボールファイト",
+        #         "": "カスタム",
+        #     },
+        #     "pregame": {
+        #         "selecting": "選択中",
+        #         "locked": "ロック済み",
+        #     },
+        #     "leveling": {
+        #         "level": "レベル",
+        #         "ranked_rating": "RR",
+        #     },
+        #     "startup": {
+        #         "loading": "ロード中",
+        #         "view_github": "GitHubで確認",
+        #     }
+        # },
     },
     "ko-KR": {},
     "pl-PL": {},
