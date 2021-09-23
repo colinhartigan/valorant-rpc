@@ -52,7 +52,7 @@ class Utilities:
         for gmap in content_data["maps"]:
             if gmap["path"] == data["matchMap"]:
                 return gmap["display_name"], gmap["display_name_localized"]
-        return ""
+        return "", ""
  
     @staticmethod 
     def fetch_agent_data(uuid,content_data):
