@@ -14,7 +14,7 @@ class Range_Session:
         self.match_id = match_id  
         self.puuid = self.client.puuid
 
-        data["matchMap"] = "/Game/Maps/Poveglia/Range" # hotfix :)
+        data["MapID"] = "/Game/Maps/Poveglia/Range" # hotfix :)
         self.start_time = time.time()
         self.map_name, self.mode_name = Utilities.fetch_map_data(data, content_data)
         self.map_image = "splash_range"

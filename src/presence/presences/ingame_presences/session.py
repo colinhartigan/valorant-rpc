@@ -39,8 +39,8 @@ class Game_Session:
             if player["Subject"] == self.puuid:
                 coregame_player_data = player
 
-        self.large_image, self.large_text = Utilities.get_content_preferences(self.client,self.large_pref,presence,coregame_player_data,self.content_data)
-        self.small_image, self.small_text = Utilities.get_content_preferences(self.client,self.small_pref,presence,coregame_player_data,self.content_data)
+        self.large_image, self.large_text = Utilities.get_content_preferences(self.client,self.large_pref,presence,coregame_player_data,coregame_data,self.content_data)
+        self.small_image, self.small_text = Utilities.get_content_preferences(self.client,self.small_pref,presence,coregame_player_data,coregame_data,self.content_data)
         _, self.mode_name = Utilities.fetch_mode_data(presence,self.content_data)
 
     def main_loop(self):
