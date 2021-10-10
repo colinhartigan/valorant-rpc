@@ -119,7 +119,7 @@ Locales = {
             "large_image": "صورة_عريضة",
             "range": "تدريب",
             "show_rank_in_range": "عرض_الرانك_في_التدريب",
-            "startup": "anfang",
+            "startup": "startup",
             "game_launch_timeout": "إنتهت_مهلة_بدأ_اللعبة",
             "presence_timeout": "إنتهت_مهلة_الحالة",
             "show_github_link": "عرض_رابط_GitHub",
