@@ -102,7 +102,109 @@ Locales = {
             }
         },
     },
-    "ar-AE": {},
+    "ar-AE": {
+        "author": "@Ozama#8188",
+        "config": {
+            "version": "الإصدار",
+            "region": "المنطقة",
+            "client_id": "client_ID",
+            "presence_refresh_interval": "الفاصل_الزمني_لتحديث_الحالة",
+            "locale": "locale",
+            "presences": "الحالات",
+            "menu": "القائمة",
+            "show_rank_in_comp_lobby": "عرض_الرانك",
+            "modes": "الأنماط",
+            "all": "الكل",
+            "small_image": "صورة_صغيرة",
+            "large_image": "صورة_عريضة",
+            "range": "تدريب",
+            "show_rank_in_range": "عرض_الرانك_في_التدريب",
+            "startup": "anfang",
+            "game_launch_timeout": "إنتهت_مهلة_بدأ_اللعبة",
+            "presence_timeout": "إنتهت_مهلة_الحالة",
+            "show_github_link": "عرض_رابط_GitHub",
+            "auto_launch_skincli": "auto_launch_skincli",
+            "agent": "العميل",
+            "rank": "الرانك",
+            "map": "الخريطة",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "حدد خيار اللإعداد",
+                "config_saved": "تم حفظ الإعدادات! أعد تشغيل البرنامج لمشاهدة التغيرات",
+                "set_prompt": "عيّن قيمة"
+            },
+            "startup": {
+                "wait_for_rpc": "يرجى إنتظار الحالة المخصصة ...",
+                "discord_not_detected": "لم يتم التعرف على ديسكورد, يجري تشغيل اللعبة دون الحالة المخصصة",
+                "starting_valorant": "جاري تشغيل فالورانت ...",
+                "startup_successful": "تم تشغيل البرنامج, يجري إخفاء النافذة بعد 5 ثوان ...",
+                "waiting_for_presence": "في إنتظار الحالة ...",
+                "waiting_for_valorant": "في إنتظار فالورانت ...",
+                "autodetect_region": "محاولة الكشف التلقائي عن المنطقة",
+                "autodetected_region": "تم الكشف عن المنطقة :",
+            },
+            "presence": {
+                "presence_running": "الحالة قيد التشغيل",
+            },
+            "systray": {
+                "hiding_window": "إخفاء النافذة",
+            },
+            "errors": {
+                "error_message": "حدث خطأ: الرجاء إنشاء خطأ على github مع التتبع الموجود أسفل هذه الرسالة إذا استمرت المشكلة.",
+                "exit": "إضغط على Enter للإغلاق",
+            },
+            "version_checker": {
+                "update_available": "تحديث متاح! قم بتنزيله من هنا:",
+                "checker_error": "لا يمكن العثور على تحديث",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "مفتوح",
+                "solo": "فردي",
+                "in_party": "في بارتي",
+            },
+            "client_states": {
+                "away": "بعيد",
+                "menu": "القائمة",
+                "custom_setup": "مخصص",
+                "queue": "طابور",
+                "pregame": "البحث عن مباراة",
+            },
+            "team_names": {
+                "TeamOne": "مدافع",
+                "TeamTwo": "مهاجم",
+                "TeamSpectate": "مشاهد",
+                "TeamOneCoaches": "مدرب المدافعين",
+                "TeamTwoCoaches": "مدرب المهاجمين",
+            },
+            "modes": {
+                "newmap": "خريطة جديدة",
+                "competitive": "تنافسي",
+                "unrated": "غير مصنف",
+                "spikerush": "سبايك راش",
+                "deathmatch": "مبارات الموت",
+                "ggteam": "تصعيد",
+                "onefa": "إستنساخ",
+                "custom": "مخصص",
+                "snowball": "كرات الثلج",
+                "": "خاص",
+            },
+            "pregame": {
+                "selecting": "إختيار عميل",
+                "locked": "مغلق",
+            },
+            "leveling": {
+                "level": "المستوى",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "تحميل",
+                "view_github": "إنتقل إلى GitHub",
+            }
+        },
+    },
     "de-DE": {
         "author": "@zay#6353, @craftpiwurzel#8368",
         "config": {
