@@ -830,7 +830,109 @@ Locales = {
         }
     },
     "th-TH": {},
-    "tr-TR": {},
+    "tr-TR": {
+        "author": "@MKerem#2078",
+        "config": {
+            "version": "Versiyon",
+            "region": "Bölge",
+            "client_id": "İstemci ID",
+            "presence_refresh_interval": "Durum Yenileme Aralığı",
+            "locale": "Dil",
+            "presences": "Durumlar",
+            "menu": "Menü",
+            "show_rank_in_comp_lobby": "Rekabetçi Lobide Rank Göster",
+            "modes": "Modlar",
+            "all": "Hepsi",
+            "small_image": "Küçük Resim",
+            "large_image": "Büyük Resim",
+            "range": "Aralık",
+            "show_rank_in_range": "Aralıktaki Sıralamayı Göster",
+            "startup": "Başlangıç",
+            "game_launch_timeout": "Oyun Başlama Zaman Aşımı",
+            "presence_timeout": "Durum Zaman Aşımı",
+            "show_github_link": "GitHub Linkini Göster",
+            "auto_launch_skincli": "Skincli Otomatik Başlat",
+            "agent": "Ajan",
+            "rank": "Rank",
+            "map": "Harita",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "Bir yapılandırma seçeneği seçin.",
+                "config_saved": "Config kaydedildi! Değişikliklerin uygulanması için programı yeniden başlat.",
+                "set_prompt": "için değer ayarla"
+            },
+            "startup": {
+                "wait_for_rpc": "rpc istemcisi bekleniyor.",
+                "discord_not_detected": "Discord algılanmadı! Oyun Discord durumu olmadan başlatılıyor...",
+                "starting_valorant": "VALORANT başlatılıyor.",
+                "startup_successful": "Programın çalıştırılması başarılı, pencere beş saniye içinde kapatılıyor.",
+                "waiting_for_presence": "Discord durumu için bekleniyor...",
+                "waiting_for_valorant": "VALORANT bekleniyor...",
+                "autodetect_region": "Bölge otomatik algılanmaya çalışılıyor.",
+                "autodetected_region": "Otomatik algılanan bölge:",
+            },
+            "presence": {
+                "presence_running": "Discord durumu çalışıyor!",
+            },
+            "systray": {
+                "hiding_window": "Pencere kapatılıyor",
+            },
+            "errors": {
+                "error_message": "Program bir hata ile karşılaştı: Bu sorun devam ederse lütfen aşağıdaki hata mesajı ile beraber bir issue oluşturun.",
+                "exit": "Çıkmak için enter tuşuna basın...",
+            },
+            "version_checker": {
+                "update_available": "Güncelleme mevcut! Buradan indir: ",
+                "checker_error": "Güncellemeler kontrol edilemedi!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Takım kur",
+                "solo": "Solo",
+                "in_party": "Takımda",
+            },
+            "client_states": {
+                "away": "Boşta",
+                "menu": "Menü",
+                "custom_setup": "Custom Setup",
+                "queue": "Sırada",
+                "pregame": "Oyun öncesi",
+            },
+            "team_names": {
+                "TeamOne": "Savunma",
+                "TeamTwo": "Saldırı",
+                "TeamSpectate": "İzleyici",
+                "TeamOneCoaches": "Savunma Antrenmanı",
+                "TeamTwoCoaches": "Saldırı Antrenmanı",
+            },
+            "modes": {
+                "newmap": "Yeni Harita",
+                "competitive": "Rekabetçi",
+                "unrated": "Derecesiz",
+                "spikerush": "Spike Yarışı",
+                "deathmatch": "Ölüm Kalım Savaşı",
+                "ggteam": "Tırmanış",
+                "onefa": "Kopya",
+                "custom": "Özel",
+                "snowball": "Kartopu Savaşı",
+                "": "özel",
+            },
+            "pregame": {
+                "selecting": "Seçiyor",
+                "locked": "Kilitli",
+            },
+            "leveling": {
+                "level": "Seviye",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Yükleniyor",
+                "view_github": "GitHub'da bak.",
+            }
+        },
+    },
     "vi-VN": {
         "author": "@Mistral#9699",
         "config": {
