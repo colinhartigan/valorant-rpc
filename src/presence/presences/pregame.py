@@ -22,18 +22,31 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         agent_image, agent_name = Utilities.fetch_agent_data(pregame_player_data["CharacterID"],content_data)
         select_state = Localizer.get_localized_text("presences","pregame","locked") if pregame_player_data["CharacterSelectionState"] == "locked" else Localizer.get_localized_text("presences","pregame","selecting")
         small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
+        small_text = mode_name
 
         if data["queueId"] == "competitive" and Localizer.get_config_value("presences","menu","show_rank_in_comp_lobby"): 
             small_image, small_text = Utilities.fetch_rank_data(client,content_data)
-    
-        rpc.update(
+
+            rpc.update(
             state=party_state,
             details=f"{Localizer.get_localized_text('presences','client_states','pregame')} - {mode_name}",
             end=pregame_end_time,
             large_image=agent_image,
             large_text=f"{select_state} - {agent_name}",
             small_image=small_image,
-            small_text=mode_name,
+            small_text=small_text,
+            party_size=party_size,
+            party_id=data["partyId"],
+        )
+        else:
+            rpc.update(
+            state=party_state,
+            details=f"{Localizer.get_localized_text('presences','client_states','pregame')} - {mode_name}",
+            end=pregame_end_time,
+            large_image=agent_image,
+            large_text=f"{select_state} - {agent_name}",
+            small_image=small_image,
+            small_text=small_text,
             party_size=party_size,
             party_id=data["partyId"],
         )
