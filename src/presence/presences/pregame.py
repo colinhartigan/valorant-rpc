@@ -23,6 +23,9 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         select_state = Localizer.get_localized_text("presences","pregame","locked") if pregame_player_data["CharacterSelectionState"] == "locked" else Localizer.get_localized_text("presences","pregame","selecting")
         small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
 
+        if data["queueId"] == "competitive" and Localizer.get_config_value("presences","menu","show_rank_in_comp_lobby"): 
+            small_image, small_text = Utilities.fetch_rank_data(client,content_data)
+    
         rpc.update(
             state=party_state,
             details=f"{Localizer.get_localized_text('presences','client_states','pregame')} - {mode_name}",
