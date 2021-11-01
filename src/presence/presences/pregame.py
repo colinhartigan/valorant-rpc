@@ -38,17 +38,5 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
             party_size=party_size,
             party_id=data["partyId"],
         )
-        else:
-            rpc.update(
-            state=party_state,
-            details=f"{Localizer.get_localized_text('presences','client_states','pregame')} - {mode_name}",
-            end=pregame_end_time,
-            large_image=agent_image,
-            large_text=f"{select_state} - {agent_name}",
-            small_image=small_image,
-            small_text=small_text,
-            party_size=party_size,
-            party_id=data["partyId"],
-        )
     except PhaseError:
         pass
