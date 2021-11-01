@@ -22,15 +22,3 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         party_size=party_size,
         party_id=data["partyId"],
     )
-    else:
-        rpc.update(
-        state=party_state,
-        details=f"{Localizer.get_localized_text('presences','client_states','queue')} - {mode_name}",
-        start=start_time,
-        large_image="game_icon_white",
-        large_text=f"{Localizer.get_localized_text('presences','leveling','level')} {data['accountLevel']}",
-        small_image=small_image,
-        small_text=small_text,
-        party_size=party_size,
-        party_id=data["partyId"],
-    )
