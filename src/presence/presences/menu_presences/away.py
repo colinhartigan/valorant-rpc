@@ -18,13 +18,4 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
         small_image=small_image,
         small_text=small_text,
     )
-    else:
-        rpc.update(
-        details=f"{Localizer.get_localized_text('presences','client_states','menu')} - {mode_name}",
-        state=f"{Localizer.get_localized_text('presences','client_states','away')} (" + party_state + ")",
-        large_image="game_icon_yellow",
-        large_text=f"{Localizer.get_localized_text('presences','leveling','level')} {data['accountLevel']}",
-        small_image=small_image,
-        small_text=small_text,
-    )
     
