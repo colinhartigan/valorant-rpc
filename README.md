@@ -66,7 +66,7 @@
  
 [discord-shield]: https://img.shields.io/discord/860288779558715402?color=7289da&label=Support&logo=discord&logoColor=7289da&style=for-the-badge
 [discord-url]: https://discord.gg/uGuswsZwAT
-
+[discord-banner]: https://discordapp.com/api/guilds/860288779558715402/widget.png?style=banner2
 [license-shield]: https://img.shields.io/github/license/colinhartigan/valorant-rpc?style=for-the-badge
 [license-url]: https://github.com/colinhartigan/valorant-rpc/blob/v3/LICENSE.txt
 
