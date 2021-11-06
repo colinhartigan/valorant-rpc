@@ -50,7 +50,7 @@
  
 ## Support
 
- Either make an issue or:
+ Either make an issue or:  
 
  [![Discord][discord-shield]][discord-url]
  
