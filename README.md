@@ -52,7 +52,7 @@
 
  Either make an issue or:  
 
- [![Discord][discord-shield]][discord-url]
+[![Discord Banner 2][discord-banner]][discord-url]
  
  
  
