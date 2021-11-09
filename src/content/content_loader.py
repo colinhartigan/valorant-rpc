@@ -9,14 +9,6 @@ class Loader:
         data = requests.get(f"https://valorant-api.com/v1{endpoint}?language=all")
         return data.json()
 
-    @staticmethod
-    def fetch_public_content():
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36',
-        }
-        data = requests.get(f"https://api.henrikdev.xyz/valorant/v1/content",headers=headers) #thanks henrik
-        return data.json()
-
     @staticmethod 
     def load_all_content(client):
         content_data = {
@@ -52,19 +44,19 @@ class Loader:
             },
             "modes_with_icons": ["ggteam","onefa","snowball","spikerush","unrated","deathmatch"]
         }
-        public_content = Loader.fetch_public_content()
+        all_content = client.fetch_content()
         agents = Loader.fetch("/agents")["data"]
         maps = Loader.fetch("/maps")["data"]
         modes = Loader.fetch("/gamemodes")["data"]
         comp_tiers = Loader.fetch("/competitivetiers")["data"][-1]["tiers"]
         
 
-        for season in public_content["acts"]:
-            if season["isActive"] and season["type"] == "act":
+        for season in all_content["Seasons"]:
+            if season["IsActive"] and season["Type"] == "act":
                 content_data["season"] = {
-                    "competitive_uuid": season["id"],
-                    "season_uuid": season["id"],
-                    "display_name": season["name"]
+                    "competitive_uuid": season["ID"],
+                    "season_uuid": season["ID"],
+                    "display_name": season["Name"]
                 }
 
         for agent in agents:
