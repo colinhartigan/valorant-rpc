@@ -909,12 +909,12 @@ Locales = {
                 "newmap": "Новая карта",
                 "competitive": "Соревновательный",
                 "unrated": "Без ранга",
-                "spikerush": "Спайк раш",
+                "spikerush": "Быстр. установка Spike",
                 "deathmatch": "Бой насмерть",
                 "ggteam": "Эскалация",
                 "onefa": "Репликация",
                 "custom": "Своя игра",
-                "snowball": "Снежки",
+                "snowball": "Игра в снежки",
                 "": "Своя игра",
             },
             "pregame": {
@@ -926,7 +926,7 @@ Locales = {
                 "ranked_rating": "RR",
             },
             "startup": {
-                "loading": "Загрука",
+                "loading": "Загрузка",
                 "view_github": "GitHub",
             }
         }
