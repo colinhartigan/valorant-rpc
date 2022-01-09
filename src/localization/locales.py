@@ -829,7 +829,7 @@ Locales = {
         },
     },
      "ru-RU": {
-        "author": "@teddn#6036",
+        "author": "@teddn#6036, @kizn#1234",
         "config": {
             "version": "Версия",
             "region": "Регион",
