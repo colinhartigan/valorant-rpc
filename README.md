@@ -15,6 +15,9 @@
 # Installation
 - Download the latest [release](https://github.com/colinhartigan/valorant-rpc/releases/) and run it.
 
+# First time start
+- Start Valorant to create the lockfile and then start the ``valorant-rpc.exe`` after that you can just use ``valorant-rpc.exe``
+
 # Usage
 - Run the program instead of launching VALORANT
      - If VALORANT is not running, the program will launch it for you
