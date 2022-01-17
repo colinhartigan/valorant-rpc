@@ -744,7 +744,7 @@ Locales = {
             "game_launch_timeout": "게임 시작 시간초과",
             "presence_timeout": "활동 상태 시간초과",
             "show_github_link": "github 링크 표시",
-            "auto_launch_skincli": "auto_launch_skincli",
+            "auto_launch_skincli": "스킨 클라이언트 자동 실행",
             "agent": "요원",
             "rank": "랭크",
             "map": "맵",
