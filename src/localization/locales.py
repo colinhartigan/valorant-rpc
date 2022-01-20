@@ -829,7 +829,7 @@ Locales = {
         },
     },
      "ru-RU": {
-        "author": "@teddn#6036",
+        "author": "@teddn#6036, @kizn#1234",
         "config": {
             "version": "Версия",
             "region": "Регион",
@@ -877,7 +877,7 @@ Locales = {
                 "hiding_window": "скрытие окна",
             },
             "errors": {
-                "error_message": "возникла ошибка: если проблема повториться, пожалуйста создайте отчёт по ссылке ниже",
+                "error_message": "возникла ошибка: если проблема повторится, пожалуйста, создайте отчёт по ссылке ниже",
                 "exit": "Нажмите ENTER для выхода",
             },
             "version_checker": {
@@ -909,12 +909,12 @@ Locales = {
                 "newmap": "Новая карта",
                 "competitive": "Соревновательный",
                 "unrated": "Без ранга",
-                "spikerush": "Спайк раш",
+                "spikerush": "Быстр. установка Spike",
                 "deathmatch": "Бой насмерть",
                 "ggteam": "Эскалация",
                 "onefa": "Репликация",
                 "custom": "Своя игра",
-                "snowball": "Снежки",
+                "snowball": "Игра в снежки",
                 "": "Своя игра",
             },
             "pregame": {
@@ -926,7 +926,7 @@ Locales = {
                 "ranked_rating": "RR",
             },
             "startup": {
-                "loading": "Загрука",
+                "loading": "Загрузка",
                 "view_github": "GitHub",
             }
         }
