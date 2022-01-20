@@ -723,7 +723,108 @@ Locales = {
             }
         },
     },
-    "ko-KR": {},
+    "ko-KR": {
+        "author": "@페이즈#5384, @인간#6609",
+        "config": {
+            "version": "버전",
+            "region": "지역",
+            "client_id": "클라이언트 아이디",
+            "presence_refresh_interval": "활동 상태 재표시 간격 타이밍",
+            "locale": "장소",
+            "presences": "활동 상태",
+            "menu": "메뉴",
+            "show_rank_in_comp_lobby": "경쟁 로비에 티어 표시",
+            "modes": "모드",
+            "all": "전체",
+            "small_image": "작은 사진",
+            "large_image": "큰 사진",
+            "range": "훈련장",
+            "show_rank_in_range": "훈련장에서 티어 표시",
+            "startup": "시작",
+            "game_launch_timeout": "게임 시작 시간초과",
+            "presence_timeout": "활동 상태 시간초과",
+            "show_github_link": "github 링크 표시",
+            "auto_launch_skincli": "스킨 클라이언트 자동 실행",
+            "agent": "요원",
+            "rank": "랭크",
+            "map": "맵",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "설정 선택",
+                "config_saved": "설정이 저장되었습니다! 변경 사항을 적용하기위해 프로그램을 다시 시작하세요.",
+                "set_prompt": "에 대한 값을 설정"
+        },
+            "startup": {
+                "wait_for_rpc": "rpc 클라이언트 기다리는중",
+                "discord_not_detected": "디스코드가 감지되지 않았습니다! 활동 상태 없이 게임을 시작합니다...",
+                "starting_valorant": "VALORANT를 시작하는중",
+                "startup_successful": "프로그램을 실행에 성공했습니다, 5초뒤에 창을 숨깁니다.",
+                "waiting_for_presence": "활동 상태 기다리는중...",
+                "waiting_for_valorant": "VALORANT 기다리는중...",
+                "autodetect_region": "지역 자동 감지를 시도하는중",
+                "autodetected_region": "자동 감지된 지역:",
+            },
+            "presence": {
+                "presence_running": "활동 상태를 표시중입니다!",
+            },
+            "systray": {
+                "hiding_window": "창 숨기기",
+            },
+            "errors": {
+                "error_message": "프로그램에 오류가 발생했습니다: 문제가 계속되면 아래 기록과 함께 issue를 만들어주세요.",
+                "exit": "종료하려면 Enter를 누르십시오...",
+            },
+            "version_checker": {
+                "update_available": "업데이트가 있습니다! 여기에서 다운로드 하세요",
+                "checker_error": "업데이트를 확인할 수 없습니다!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "공개 파티",
+                "solo": "솔로",
+                "in_party": "파티 참가중",
+        },
+        "client_states": {
+            "away": "자리 비움",
+            "menu": "메뉴",
+            "custom_setup": "사용자 정의 설정",
+            "queue": "매칭중",
+            "pregame": "요원 선택",
+        },
+        "team_names": {
+            "TeamOne": "수비팀",
+            "TeamTwo": "공격팀",
+            "TeamSpectate": "관전자",
+            "TeamOneCoaches": "수비팀 코치",
+            "TeamTwoCoaches": "공격팀 코치",
+        },
+        "modes": {
+            "newmap": "신규맵",
+            "competitive": "경쟁전",
+            "unrated": "일반전",
+            "spikerush": "스파이크 돌격",
+            "deathmatch": "데스매치",
+            "ggteam": "에스컬레이션",
+            "onefa": "복제",
+            "custom": "사용자 설정 게임",
+            "snowball": "눈싸움",
+            "": "커스텀",
+        },
+        "pregame": {
+            "selecting": "선택중",
+            "locked": "선택됨",
+        },
+        "leveling": {
+            "level": "레벨",
+            "ranked_rating": "RR",
+        },
+        "startup": {
+            "loading": "로딩중",
+            "view_github": "GitHub 보기",
+        }
+    },
     "pl-PL": {},
     "pt-BR": {
         "author": "@víctor#0001",
