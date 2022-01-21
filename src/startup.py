@@ -100,7 +100,7 @@ class Startup:
         self.webserver_thread.start()
         
     def dispatch_presence(self):
-        self.presence_thread = Thread(target=self.presence.main_loop,daemon=True)
+        self.presence_thread = Thread(target=self.presence.init_loop,daemon=True)
         self.presence_thread.start()
 
     def dispatch_systray(self):

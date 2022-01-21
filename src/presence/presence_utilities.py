@@ -43,7 +43,7 @@ class Utilities:
             if tier["id"] == mmr["CompetitiveTier"]:
                 rank_data = tier
         rank_image = f"rank_{rank_data['id']}"
-        rank_text = f"{rank_data['display_name_localized']} - {mmr['RankedRating']}{Localizer.get_localized_text('presences','leveling','ranked_rating')}"
+        rank_text = f"{rank_data['display_name_localized']} - {mmr['RankedRating']}{Localizer.get_localized_text('presences','leveling','ranked_rating')}" + (f" // #{mmr['LeaderboardRank']}" if mmr['LeaderboardRank'] != 0 else "") 
 
         return rank_image, rank_text
         

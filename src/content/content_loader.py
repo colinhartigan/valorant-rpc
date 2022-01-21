@@ -50,7 +50,6 @@ class Loader:
         modes = Loader.fetch("/gamemodes")["data"]
         comp_tiers = Loader.fetch("/competitivetiers")["data"][-1]["tiers"]
         
-
         for season in all_content["Seasons"]:
             if season["IsActive"] and season["Type"] == "act":
                 content_data["season"] = {
