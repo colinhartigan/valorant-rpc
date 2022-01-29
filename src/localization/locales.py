@@ -1447,4 +1447,210 @@ Locales = {
             }
         },
     },
+    "ru-RU": {
+        "author": "@higherror",
+        "config": {
+            "version": "версия",
+            "region": "регион",
+            "client_id": "client_id",
+            "presence_refresh_interval": "presence_refresh_interval",
+            "locale": "локализация",
+            "presences": "presences",
+            "menu": "меню",
+            "show_rank_in_comp_lobby": "show_rank_in_comp_lobby",
+            "modes": "режимы",
+            "all": "все",
+            "small_image": "small_image",
+            "large_image": "large_image",
+            "range": "диапазон",
+            "show_rank_in_range": "show_rank_in_range",
+            "startup": "startup",
+            "game_launch_timeout": "game_launch_timeout",
+            "presence_timeout": "presence_timeout",
+            "show_github_link": "show_github_link",
+            "auto_launch_skincli": "auto_launch_skincli",
+            "agent": "агент",
+            "rank": "ранг",
+            "map": "карта",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "выберите вариант конфигурации",
+                "config_saved": "конфиг сохранен! перезапустите программу, чтобы изменения вступили в силу.",
+                "set_prompt": "установить значение для"
+            },
+            "startup": {
+                "wait_for_rpc": "жду rpc-клиент",
+                "discord_not_detected": "discord не обнаружены! запуск игры без presence...",
+                "starting_valorant": "запуск VALORANT",
+                "startup_successful": "запуск программы успешен, окно скроеться через 5 секунд",
+                "waiting_for_presence": "жду presence...",
+                "waiting_for_valorant": "жду VALORANT...",
+                "autodetect_region": "попытка автоопределения региона",
+                "autodetected_region": "автоматически определяемый регион:",
+            },
+            "presence": {
+                "presence_running": "presence запущен!",
+            },
+            "systray": {
+                "hiding_window": "скрытие окна",
+            },
+            "errors": {
+                "error_message": "программа обнаружила ошибку: пожалуйста, создайте проблему с трассировкой ниже, если эта проблема не устранена",
+                "exit": "нажмите Enter, чтобы выйти...",
+            },
+            "version_checker": {
+                "update_available": "доступно обновление! скачать его - ",
+                "checker_error": "не могу проверить обновления!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Открытое лобби",
+                "solo": "Соло",
+                "in_party": "В лобби",
+            },
+            "client_states": {
+                "away": "Ожидание",
+                "menu": "Меню",
+                "custom_setup": "Пользовательские настройки",
+                "queue": "Очередь",
+                "pregame": "Выбор агента",
+            },
+            "team_names": {
+                "TeamOne": "Защитник",
+                "TeamTwo": "Атакующий",
+                "TeamSpectate": "Наблюдатель",
+                "TeamOneCoaches": "Тренер защитников",
+                "TeamTwoCoaches": "Тренер атакующих",
+            },
+            "modes": {
+                "newmap": "Новая карта",
+                "competitive": "ММ",
+                "unrated": "Без рейтинга",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Эскалация",
+                "onefa": "Репликация",
+                "custom": "Своя игра",
+                "snowball": "Битва снежками",
+                "": "Своя игра",
+            },
+            "pregame": {
+                "selecting": "Выбор",
+                "locked": "Выбрано",
+            },
+            "leveling": {
+                "level": "Уровень",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Загрузка",
+                "view_github": "Смотреть на GitHub",
+            }
+        },
+    },
+    "uk-UA": {
+        "author": "@higherror",
+        "config": {
+            "version": "версія",
+            "region": "регіон",
+            "client_id": "client_id",
+            "presence_refresh_interval": "presence_refresh_interval",
+            "locale": "локалізація",
+            "presences": "presences",
+            "menu": "меню",
+            "show_rank_in_comp_lobby": "show_rank_in_comp_lobby",
+            "modes": "режими",
+            "all": "всі",
+            "small_image": "small_image",
+            "large_image": "large_image",
+            "range": "діапазон",
+            "show_rank_in_range": "show_rank_in_range",
+            "startup": "startup",
+            "game_launch_timeout": "game_launch_timeout",
+            "presence_timeout": "presence_timeout",
+            "show_github_link": "show_github_link",
+            "auto_launch_skincli": "auto_launch_skincli",
+            "agent": "агент",
+            "rank": "ранг",
+            "map": "карта",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "виберіть варіант конфігурації",
+                "config_saved": "конфіг збережено! Перезапустіть програму, щоб зміни набули чинності.",
+                "set_prompt": "встановити значення для"
+            },
+            "startup": {
+                "wait_for_rpc": "чекаю rpc-клієнт",
+                "discord_not_detected": "discord не виявлено! запуск гри без presence...",
+                "starting_valorant": "запуск VALORANT",
+                "startup_successful": "запуск програми успішний, вікно сховається через 5 секунд",
+                "waiting_for_presence": "чекаю presence...",
+                "waiting_for_valorant": "чекаю VALORANT...",
+                "autodetect_region": "спроба автовизначення регіону",
+                "autodetected_region": "авто визначений регіон:",
+            },
+            "presence": {
+                "presence_running": "presence запущений!",
+            },
+            "systray": {
+                "hiding_window": "приховування вікна",
+            },
+            "errors": {
+                "error_message": "програма виявила помилку: будь ласка, створіть проблему з трасуванням нижче, якщо ця проблема не вирішена",
+                "exit": "натисніть Enter, щоб вийти...",
+            },
+            "version_checker": {
+                "update_available": "доступне оновлення! скачати його -",
+                "checker_error": "не можу перевірити оновлення!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Відкрите лобі",
+                "solo": "Соло",
+                "in_party": "У лобі",
+            },
+            "client_states": {
+                "away": "Очікування",
+                "menu": "Меню",
+                "custom_setup": "Налаштування користувача",
+                "queue": "Черга",
+                "pregame": "Вибір агента",
+            },
+            "team_names": {
+                "TeamOne": "Захисник",
+                "TeamTwo": "Атакуючий",
+                "TeamSpectate": "Спостерігач",
+                "TeamOneCoaches": "Тренер захисників",
+                "TeamTwoCoaches": "Тренер атакуючих",
+            },
+            "modes": {
+                "newmap": "Нова карта",
+                "competitive": "ММ",
+                "unrated": "Без рейтингу",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Ескалація",
+                "onefa": "Реплікація",
+                "custom": "Своя гра",
+                "snowball": "Битва сніжками",
+                "": "Своя гра",
+            },
+            "pregame": {
+                "selecting": "Вибір",
+                "locked": "Вибрано",
+            },
+            "leveling": {
+                "level": "Рівень",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Завантаження",
+                "view_github": "Дивитися на GitHub",
+            }
+        },
+    },
 }
