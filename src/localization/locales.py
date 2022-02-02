@@ -772,7 +772,7 @@ Locales = {
                 "hiding_window": "창 숨기기",
             },
             "errors": {
-                "error_message": "프로그램에 오류가 발생했습니다: 문제가 계속되면 아래 기록과 함께 issue를 만들어주세요.",
+                "error_message": "프로그램에 오류가 발생했습니다! 문제가 계속되면 아래 기록과 함께 issue를 만들어주세요.",
                 "exit": "종료하려면 Enter를 누르십시오...",
             },
             "version_checker": {
