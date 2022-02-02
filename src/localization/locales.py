@@ -515,7 +515,109 @@ Locales = {
             }
         },
     },
-    "fr-FR": {},
+    "fr-FR": {
+        "author": "@Hurdenn#2777",
+        "config": {
+            "version": "version",
+            "region": "region",
+            "client_id": "ID_client",
+            "presence_refresh_interval": "interval_rafraichissement_présence",
+            "locale": "localisation",
+            "presences": "status",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "montrer_rang_en_partie_compétitive",
+            "modes": "modes",
+            "all": "tous",
+            "small_image": "petite_image",
+            "large_image": "grande_image",
+            "range": "camp_d'entrainement",
+            "show_rank_in_range": "montrer_rang_dans_le_camp_d'entrainement",
+            "startup": "lancement",
+            "game_launch_timeout": "délai_d'expiration_lancement_jeu",
+            "presence_timeout": "délai_d'expiration_présence",
+            "show_github_link": "montrer_lien_github",
+            "auto_launch_skincli": "lancement_automatique_skincli",
+            "agent": "agent",
+            "rank": "rang",
+            "map": "carte",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "sélectinnez une option de configuration",
+                "config_saved": "configuration sauvée! Relancez le programme pour que les changements prennent effets.",
+                "set_prompt": "set value for"
+            },
+            "startup": {
+                "wait_for_rpc": "en attente du client rpc",
+                "discord_not_detected": "discord non détecté! lancement du jeu sans présence...",
+                "starting_valorant": "lancement de VALORANT",
+                "startup_successful": "lancement du programme réussi, la fenêtre sera cachée dans 5 secondes",
+                "waiting_for_presence": "en attente de la présence...",
+                "waiting_for_valorant": "en attente de VALORANT...",
+                "autodetect_region": "tentative de détection automatique de la région",
+                "autodetected_region": "région détectée automatiquement:",
+            },
+            "presence": {
+                "presence_running": "la présence est en cours!",
+            },
+            "systray": {
+                "hiding_window": "dissimulation de la fenêtre",
+            },
+            "errors": {
+                "error_message": "le programme a rencontré une erreur: veuillez créer une erreur avec le retour ci-dessous si ce problème persiste",
+                "exit": "appuyez sur entrer pour quitter...",
+            },
+            "version_checker": {
+                "update_available": "une mise à jour est disponible! téléchargez-la via",
+                "checker_error": "impossible de vérifier les mises à jour!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Partie ouverte",
+                "solo": "Seul",
+                "in_party": "Dans une Partie",
+            },
+            "client_states": {
+                "away": "Absent",
+                "menu": "Menu",
+                "custom_setup": "Préparation de Personalisée",
+                "queue": "En recherche de partie",
+                "pregame": "Pré-partie",
+            },
+            "team_names": {
+                "TeamOne": "Défense",
+                "TeamTwo": "Attaque",
+                "TeamSpectate": "Observateur",
+                "TeamOneCoaches": "Coach de la défense",
+                "TeamTwoCoaches": "Coach de l'attaque",
+            },
+            "modes": {
+                "newmap": "Nouvelle carte",
+                "competitive": "Compétitive",
+                "unrated": "Non classée",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Match à mort",
+                "ggteam": "Intensification",
+                "onefa": "Réplication",
+                "custom": "Partie personalisée",
+                "snowball": "Bataille de boule de neige",
+                "": "Pesonalisée",
+            },
+            "pregame": {
+                "selecting": "En sélection",
+                "locked": "Verrouillé",
+            },
+            "leveling": {
+                "level": "Niveau",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Chargement",
+                "view_github": "Voir sur GitHhb",
+            }
+        },
+    },
     "id-ID": {},
     "it-IT": {
         "author": "@zay#6353",
@@ -1344,107 +1446,5 @@ Locales = {
     },
     "zh-CN": {},
     "zh-TW": {},
-    "fr-FR": {
-        "author": "@Hurdenn#2777",
-        "config": {
-            "version": "version",
-            "region": "region",
-            "client_id": "ID_client",
-            "presence_refresh_interval": "interval_rafraichissement_présence",
-            "locale": "localisation",
-            "presences": "status",
-            "menu": "menu",
-            "show_rank_in_comp_lobby": "montrer_rang_en_partie_compétitive",
-            "modes": "modes",
-            "all": "tous",
-            "small_image": "petite_image",
-            "large_image": "grande_image",
-            "range": "camp_d'entrainement",
-            "show_rank_in_range": "montrer_rang_dans_le_camp_d'entrainement",
-            "startup": "lancement",
-            "game_launch_timeout": "délai_d'expiration_lancement_jeu",
-            "presence_timeout": "délai_d'expiration_présence",
-            "show_github_link": "montrer_lien_github",
-            "auto_launch_skincli": "lancement_automatique_skincli",
-            "agent": "agent",
-            "rank": "rang",
-            "map": "carte",
-        },
-        "prints": {
-            "config_modification": {
-                "select_option": "sélectinnez une option de configuration",
-                "config_saved": "configuration sauvée! Relancez le programme pour que les changements prennent effets.",
-                "set_prompt": "set value for"
-            },
-            "startup": {
-                "wait_for_rpc": "en attente du client rpc",
-                "discord_not_detected": "discord non détecté! lancement du jeu sans présence...",
-                "starting_valorant": "lancement de VALORANT",
-                "startup_successful": "lancement du programme réussi, la fenêtre sera cachée dans 5 secondes",
-                "waiting_for_presence": "en attente de la présence...",
-                "waiting_for_valorant": "en attente de VALORANT...",
-                "autodetect_region": "tentative de détection automatique de la région",
-                "autodetected_region": "région détectée automatiquement:",
-            },
-            "presence": {
-                "presence_running": "la présence est en cours!",
-            },
-            "systray": {
-                "hiding_window": "dissimulation de la fenêtre",
-            },
-            "errors": {
-                "error_message": "le programme a rencontré une erreur: veuillez créer une erreur avec le retour ci-dessous si ce problème persiste",
-                "exit": "appuyez sur entrer pour quitter...",
-            },
-            "version_checker": {
-                "update_available": "une mise à jour est disponible! téléchargez-la via",
-                "checker_error": "impossible de vérifier les mises à jour!",
-            }
-        },
-        "presences": {
-            "party_states": {
-                "open": "Partie ouverte",
-                "solo": "Seul",
-                "in_party": "Dans une Partie",
-            },
-            "client_states": {
-                "away": "Absent",
-                "menu": "Menu",
-                "custom_setup": "Préparation de Personalisée",
-                "queue": "En recherche de partie",
-                "pregame": "Pré-partie",
-            },
-            "team_names": {
-                "TeamOne": "Défense",
-                "TeamTwo": "Attaque",
-                "TeamSpectate": "Observateur",
-                "TeamOneCoaches": "Coach de la défense",
-                "TeamTwoCoaches": "Coach de l'attaque",
-            },
-            "modes": {
-                "newmap": "Nouvelle carte",
-                "competitive": "Compétitive",
-                "unrated": "Non classée",
-                "spikerush": "Spike Rush",
-                "deathmatch": "Match à mort",
-                "ggteam": "Intensification",
-                "onefa": "Réplication",
-                "custom": "Partie personalisée",
-                "snowball": "Bataille de boule de neige",
-                "": "Pesonalisée",
-            },
-            "pregame": {
-                "selecting": "En sélection",
-                "locked": "Verrouillé",
-            },
-            "leveling": {
-                "level": "Niveau",
-                "ranked_rating": "RR",
-            },
-            "startup": {
-                "loading": "Chargement",
-                "view_github": "Voir sur GitHhb",
-            }
-        },
-    },
+    
 }
