@@ -12,3 +12,4 @@ Flask
 InquirerPy
 Pillow
 PyInstaller
+websockets
