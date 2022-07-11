@@ -11,3 +11,5 @@ psutil
 Flask
 InquirerPy
 Pillow
+PyInstaller
+websockets
