@@ -1445,6 +1445,108 @@ Locales = {
         },
     },
     "zh-CN": {},
-    "zh-TW": {},
-    
+    "zh-TW": {
+        "author": "@ScarZ", #https://github.com/scarrrr316
+        "config": {
+            "version": "版本",
+            "region": "地區",
+            "client_id": "客戶端ID",
+            "presence_refresh_interval": "狀態刷新時間",
+            "locale": "語言",
+            "presences": "狀態顯示",
+            "menu": "主選單",
+            "show_rank_in_comp_lobby": "在競技模式時顯示牌階",
+            "modes": "模式",
+            "all": "全部",
+            "small_image": "小圖片",
+            "large_image": "大圖片",
+            "range": "訓練場",
+            "show_rank_in_range": "在訓練場時顯示牌階",
+            "startup": "啟動",
+            "game_launch_timeout": "遊戲啟動超時",
+            "presence_timeout": "狀態顯示超時",
+            "show_github_link": "顯示Github鏈接",
+            "auto_launch_skincli": "自動啟動皮膚CLI",
+            "agent": "特務",
+            "rank": "牌階",
+            "map": "地圖",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "選擇一個設置選項",
+                "config_saved": "設置已保存! 重啟以生效.",
+                "set_prompt": "設置值:"
+            },
+            "startup": {
+                "wait_for_rpc": "正在等待rpc客戶端",
+                "discord_not_detected": "沒有檢測到Discord! 正在沒狀態顯示的情況下啟動遊戲...",
+                "starting_valorant": "正在啟動 VALORANT",
+                "startup_successful": "程式啟動成功,將會在5秒內隱藏視窗",
+                "waiting_for_presence": "正在等待狀態顯示...",
+                "waiting_for_valorant": "正在等待VALORANT...",
+                "autodetect_region": "嘗試自動檢測區域",
+                "autodetected_region": "已自動檢測區域:",
+            },
+            "presence": {
+                "presence_running": "正在顯示狀態!",
+            },
+            "systray": {
+                "hiding_window": "正在隱藏視窗",
+            },
+            "errors": {
+                "error_message": "程式遇到錯誤: 如果問題仍然存在, 請使用下面的跟蹤記錄在Github上創建一個Issue ",
+                "exit": "按Enter退出...",
+            },
+            "version_checker": {
+                "update_available": "有新版本可供下載! 下載地址:",
+                "checker_error": "無法檢查更新!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "公開房間",
+                "solo": "單人",
+                "in_party": "在房間中",
+            },
+            "client_states": {
+                "away": "暫離",
+                "menu": "主選單",
+                "custom_setup": "自定對戰準備中",
+                "queue": "列隊等待中",
+                "pregame": "特務選擇中",
+            },
+            "team_names": {
+                "TeamOne": "守備方",
+                "TeamTwo": "攻擊方",
+                "TeamSpectate": "觀戰者",
+                "TeamOneCoaches": "守備方教練",
+                "TeamTwoCoaches": "攻擊方教練",
+            },
+            "modes": {
+                "newmap": "新地圖",
+                "competitive": "競技模式",
+                "unrated": "一般模式",
+                "spikerush": "輻能搶攻戰",
+                "deathmatch": "死鬥模式",
+                "ggteam": "超激進戰",
+                "onefa": "複製亂戰",
+                "custom": "自定對戰",
+                "snowball": "打雪仗",
+                "": "自定對戰",
+            },
+            "pregame": {
+                "selecting": "選擇中",
+                "locked": "已鎖定",
+            },
+            "leveling": {
+                "level": "等級",
+                "ranked_rating": "競技評分",
+            },
+            "startup": {
+                "loading": "正在加載",
+                "view_github": "在Github上查看",
+            }
+        },
+    },
+
 }
