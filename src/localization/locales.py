@@ -206,7 +206,7 @@ Locales = {
         },
     },
     "de-DE": {
-        "author": "@zay#6353, @craftpiwurzel#8368",
+        "author": "@zay#6353, @craftpiwurzel#8368", "@Aethese#1337",
         "config": {
             "version": "version",
             "region": "region",
@@ -220,15 +220,15 @@ Locales = {
             "all": "alle",
             "small_image": "kleines_Bild",
             "large_image": "großes_Bild",
-            "range": "trainigslager",
-            "show_rank_in_range": "zeige_Rang_im_Trainigslager",
+            "range": "trainingslager",
+            "show_rank_in_range": "zeige_Rang_im_Trainingslager",
             "startup": "anfang",
             "game_launch_timeout": "spiel_start_Auszeit",
             "presence_timeout": "status_Auszeit",
             "show_github_link": "zeige_Github_Link",
             "auto_launch_skincli": "starte_skincli_automatisch",
             "agent": "agent",
-            "rank": "aang",
+            "rank": "rang",
             "map": "karte",
         },
         "prints": {
