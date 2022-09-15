@@ -618,7 +618,109 @@ Locales = {
             }
         },
     },
-    "id-ID": {},
+    "id-ID": {
+        "author": "@sryo#9955",
+        "config": {
+            "version": "versi",
+            "region": "wilayah",
+            "client_id": "client_id",
+            "presence_refresh_interval": "presence_refresh_interval",
+            "locale": "lokal",
+            "presences": "presences",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "perlihatkan_pangkat_di_lobi_kompetitif",
+            "modes": "modes",
+            "all": "semua",
+            "small_image": "gambar_kecil",
+            "large_image": "gambar_besar",
+            "range": "jangkauan",
+            "show_rank_in_range": "perlihatkan_pangkat_dalam_jangkauan",
+            "startup": "memulai",
+            "game_launch_timeout": "waktu_habis_peluncuran_game",
+            "presence_timeout": "waktu_habis_presence",
+            "show_github_link": "tunjukkan_link_github",
+            "auto_launch_skincli": "otomatis_membuka_skincli",
+            "agent": "agen",
+            "rank": "pangkat",
+            "map": "peta",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "pilih opsi konfigurasi",
+                "config_saved": "konfig tersimpan! buka ulang program agar perubahan diterapkan.",
+                "set_prompt": "atur nilai untuk"
+            },
+            "startup": {
+                "wait_for_rpc": "menunggu rpc client",
+                "discord_not_detected": "discord tidak terdeteksi! membuka game tanpa presence...",
+                "starting_valorant": "membuka VALORANT",
+                "startup_successful": "program startup berhasil, menyembunyikan jendela dalam 5 detik",
+                "waiting_for_presence": "menunggu presence...",
+                "waiting_for_valorant": "menunggu VALORANT...",
+                "autodetect_region": "mencoba untuk otomatis mendeteksi wilayah",
+                "autodetected_region": "wilayah terdeteksi:",
+            },
+            "presence": {
+                "presence_running": "presence berjalan!",
+            },
+            "systray": {
+                "hiding_window": "menyembunyikan jendela",
+            },
+            "errors": {
+                "error_message": "program mengalami kesalahan: mohon membuat issue dengan traceback dibawah jika masalah ini berlanjut",
+                "exit": "tekan enter untuk keluar...",
+            },
+            "version_checker": {
+                "update_available": "pembaruan tersedia! unduh di",
+                "checker_error": "tidak dapat memeriksa pembaruan!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Party Terbuka",
+                "solo": "Solo",
+                "in_party": "Dalam Party",
+            },
+            "client_states": {
+                "away": "Pergi",
+                "menu": "Menu",
+                "custom_setup": "Custom Setup",
+                "queue": "Antre",
+                "pregame": "Pregame",
+            },
+            "team_names": {
+                "TeamOne": "Bertahan",
+                "TeamTwo": "Penyerang",
+                "TeamSpectate": "Pengamat",
+                "TeamOneCoaches": "Pelatih Bertahan",
+                "TeamTwoCoaches": "Pelatih Penyerang",
+            },
+            "modes": {
+                "newmap": "Peta Baru",
+                "competitive": "Kompetitif",
+                "unrated": "Unrated",
+                "spikerush": "Spike Rush",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Eskalasi",
+                "onefa": "Replikasi",
+                "custom": "Custom",
+                "snowball": "Perang Bola Salju",
+                "": "Custom",
+            },
+            "pregame": {
+                "selecting": "Memilih",
+                "locked": "Terkunci",
+            },
+            "leveling": {
+                "level": "Level",
+                "ranked_rating": "RR",
+            },
+            "startup": {
+                "loading": "Memuat",
+                "view_github": "Lihat di GitHub",
+            }
+        },
+    },
     "it-IT": {
         "author": "@zay#6353",
         "config": {
