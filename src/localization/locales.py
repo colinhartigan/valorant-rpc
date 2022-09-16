@@ -206,7 +206,7 @@ Locales = {
         },
     },
     "de-DE": {
-        "author": "@zay#6353, @craftpiwurzel#8368", "@Aethese#1337",
+        "author": "@zay#6353, @craftpiwurzel#8368, @Aethese#1337",
         "config": {
             "version": "version",
             "region": "region",
