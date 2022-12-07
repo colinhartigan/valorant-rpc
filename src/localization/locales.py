@@ -86,7 +86,7 @@ Locales = {
                 "onefa": "Replication",
                 "custom": "Custom",
                 "snowball": "Snowball Fight",
-                "swift": "Swiftplay",
+                "swiftplay": "Swiftplay",
                 "": "Custom",
             },
             "pregame": {
@@ -1017,7 +1017,7 @@ Locales = {
                 "onefa": "Replicação",
                 "custom": "Jogo Personalizado",
                 "snowball": "Batalha Nevada",
-                "swift": "Frenético",
+                "swiftplay": "Frenético",
                 "": "Jogo Personalizado",
             },
             "pregame": {
