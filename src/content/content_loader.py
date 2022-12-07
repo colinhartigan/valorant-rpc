@@ -27,6 +27,7 @@ class Loader:
                 "onefa": "Replication",
                 "custom": "Custom",
                 "snowball": "Snowball Fight",
+                "swift": "Swiftplay",
                 "": "Custom",
             },
             "team_aliases": {
@@ -42,7 +43,7 @@ class Loader:
                 "Red": "team_defender",
                 "Blue": "team_attacker",
             },
-            "modes_with_icons": ["ggteam","onefa","snowball","spikerush","unrated","deathmatch"]
+            "modes_with_icons": ["ggteam","onefa","snowball","spikerush","unrated","deathmatch","swift"]
         }
         all_content = client.fetch_content()
         agents = Loader.fetch("/agents")["data"]
