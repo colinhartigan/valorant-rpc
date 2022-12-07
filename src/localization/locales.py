@@ -1446,6 +1446,109 @@ Locales = {
             }
         },
     },
+    "pl-PL": {
+        "author": "@kyanbasu",  #https://github.com/kyanbasu
+        "config": {
+            "version": "wersja",
+            "region": "region",
+            "client_id": "id_klienta",
+            "presence_refresh_interval": "interwał_odświeżania_klienta",
+            "locale": "język",
+            "presences": "presences",
+            "menu": "menu",
+            "show_rank_in_comp_lobby": "pokazuj_range_w_rankingowym_lobby",
+            "modes": "tryby",
+            "all": "wszystkie",
+            "small_image": "small_image",
+            "large_image": "large_image",
+            "range": "strzelnica",
+            "show_rank_in_range": "pokazuj_range_w_strzelnicy",
+            "startup": "startup",
+            "game_launch_timeout": "game_launch_timeout",
+            "presence_timeout": "presence_timeout",
+            "show_github_link": "show_github_link",
+            "auto_launch_skincli": "auto_launch_skincli",
+            "agent": "agent",
+            "rank": "ranga",
+            "map": "mapa",
+        },
+        "prints": {
+            "config_modification": {
+                "select_option": "wybierz opcję konfiguracyjną",
+                "config_saved": "konfiguracja zapisana! uruchom ponownie program, aby zatwierdzić zmiany.",
+                "set_prompt": "ustaw wartość dla"
+            },
+            "startup": {
+                "wait_for_rpc": "czekanie na rpc client",
+                "discord_not_detected": "discord został nie wykryty! włączanie gry bez presence...",
+                "starting_valorant": "włączanie VALORANT",
+                "startup_successful": "pomyślne uruchomienie programu, ukrycie okna za 5 sekund",
+                "waiting_for_presence": "czekanie na presence...",
+                "waiting_for_valorant": "czekanie VALORANT...",
+                "autodetect_region": "próba automatycznego wykrycia regionu",
+                "autodetected_region": "automatycznie wykryty region:",
+            },
+            "presence": {
+                "presence_running": "presence running!",
+            },
+            "systray": {
+                "hiding_window": "ukrywanie okna",
+            },
+            "errors": {
+                "error_message": "program napotkał błąd: proszę utworzyć problem z poniższym śledzeniem, jeśli problem będzie się powtarzał",
+                "exit": "wciśnij enter aby wyjść...",
+            },
+            "version_checker": {
+                "update_available": "jest dostępna aktualizacja! pobierz ją na",
+                "checker_error": "nie można sprawdzić aktualizacji!",
+            }
+        },
+        "presences": {
+            "party_states": {
+                "open": "Otwarta Grupa",
+                "solo": "Solo",
+                "in_party": "W Grupie",
+            },
+            "client_states": {
+                "away": "AFK",
+                "menu": "Menu",
+                "custom_setup": "Własne Ustawienia",
+                "queue": "Kolejka",
+                "pregame": "Pregame",
+            },
+            "team_names": {
+                "TeamOne": "Broniący",
+                "TeamTwo": "Atakujący",
+                "TeamSpectate": "Obsererwujący",
+                "TeamOneCoaches": "Coach Broniących",
+                "TeamTwoCoaches": "Coach Atakujących",
+            },
+            "modes": {
+                "newmap": "Nowa Mapa",
+                "competitive": "Rankingowy",
+                "unrated": "Nierankingowy",
+                "spikerush": "Gorączka Spike",
+                "deathmatch": "Deathmatch",
+                "ggteam": "Eskalacja",
+                "onefa": "Replikacja",
+                "custom": "Niestandardowy",
+                "snowball": "Bitwa Na Śnieżki",
+                "": "Niestandardowy",
+            },
+            "pregame": {
+                "selecting": "Wybieranie",
+                "locked": "Zablokowano",
+            },
+            "leveling": {
+                "level": "Poziom",
+                "ranked_rating": "OR",
+            },
+            "startup": {
+                "loading": "Ładowanie",
+                "view_github": "Sprawdź na GitHub",
+            }
+        },
+    },
     "zh-CN": {},
     "zh-TW": {
         "author": "@ScarZ", #https://github.com/scarrrr316
