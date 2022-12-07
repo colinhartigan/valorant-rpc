@@ -86,6 +86,7 @@ Locales = {
                 "onefa": "Replication",
                 "custom": "Custom",
                 "snowball": "Snowball Fight",
+                "swift": "Swiftplay",
                 "": "Custom",
             },
             "pregame": {
@@ -206,7 +207,7 @@ Locales = {
         },
     },
     "de-DE": {
-        "author": "@zay#6353, @craftpiwurzel#8368", "@Aethese#1337",
+        "author": "@zay#6353, @craftpiwurzel#8368, @Aethese#1337",
         "config": {
             "version": "version",
             "region": "region",
@@ -412,7 +413,7 @@ Locales = {
         },
     },
     "es-MX": {
-        "author": "@víctor#0001",
+        "author": "@jana.#0001",
         "config": {  # fix any grammar mistakes you can find
             "version": "versión",
             "region": "región",
@@ -930,7 +931,7 @@ Locales = {
     },
     "pl-PL": {},
     "pt-BR": {
-        "author": "@víctor#0001",
+        "author": "@jana.#0001",
         "config": {
             "version": "versão",
             "region": "região",
@@ -994,7 +995,7 @@ Locales = {
             },
             "client_states": {
                 "away": "Ausente",
-                "menu": "Menu",
+                "menu": "Nos Menus",
                 "custom_setup": "Jogo Personalizado",
                 "queue": "Na Fila",
                 "pregame": "Pré-Jogo",
@@ -1016,6 +1017,7 @@ Locales = {
                 "onefa": "Replicação",
                 "custom": "Jogo Personalizado",
                 "snowball": "Batalha Nevada",
+                "swift": "Frenético",
                 "": "Jogo Personalizado",
             },
             "pregame": {
