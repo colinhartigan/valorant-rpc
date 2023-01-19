@@ -1425,10 +1425,11 @@ Locales = {
                 "unrated": "Derecesiz",
                 "spikerush": "Spike'a Hücum",
                 "deathmatch": "Ölüm Kalım Savaşı",
-                "ggteam": "Kopya",
-                "onefa": "Tırmanış",
+                "ggteam": "Tırmanış",
+                "onefa": "Kopya",
                 "custom": "Özel Oyun",
                 "snowball": "Kartopu Çatışması",
+                "swiftplay": "Tam Gaz",
                 "": "Özel Maç",
             },
             "pregame": {
