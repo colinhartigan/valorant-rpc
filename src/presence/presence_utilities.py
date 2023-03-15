@@ -57,7 +57,7 @@ class Utilities:
     @staticmethod 
     def fetch_agent_data(uuid,content_data):
         for agent in content_data["agents"]:
-            if agent["uuid"] == uuid:
+            if agent["uuid"].lower() == uuid.lower():
                 agent_image = f"agent_{agent['display_name'].lower().replace('/','')}"
                 agent_name = agent['display_name_localized']
                 return agent_image, agent_name
