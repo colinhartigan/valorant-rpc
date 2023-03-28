@@ -293,6 +293,7 @@ Locales = {
                 "onefa": "Klonprogramm",
                 "custom": "Eigenes Spiel",
                 "snowball": "Schneeballschlacht",
+                "swiftplay": "Schnelles Spiel",
                 "": "Custom",
             },
             "pregame": {
