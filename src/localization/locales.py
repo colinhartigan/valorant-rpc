@@ -1137,7 +1137,7 @@ Locales = {
         },
     },
     "ru-RU": {
-        "author": "@teddn#6036, @kizn#1234",
+        "author": "@teddn#6036, @kizn#6995",
         "config": {
             "version": "Версия",
             "region": "Регион",
@@ -1223,6 +1223,7 @@ Locales = {
                 "onefa": "Репликация",
                 "custom": "Своя игра",
                 "snowball": "Игра в снежки",
+                "swiftplay": "Быстрая игра",
                 "": "Своя игра",
             },
             "pregame": {
