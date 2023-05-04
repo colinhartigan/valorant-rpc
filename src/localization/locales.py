@@ -616,7 +616,7 @@ Locales = {
             },
             "startup": {
                 "loading": "Chargement",
-                "view_github": "Voir sur GitHhb",
+                "view_github": "Voir sur GitHub",
             }
         },
     },
