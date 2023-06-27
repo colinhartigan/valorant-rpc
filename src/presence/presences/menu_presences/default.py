@@ -11,7 +11,7 @@ def presence(rpc,client=None,data=None,content_data=None,config=None):
     else:
         party_state,party_size = Utilities.build_party_state(data)
         small_image, mode_name = Utilities.fetch_mode_data(data,content_data)
-        small_text = None
+        small_text = mode_name
         buttons = Utilities.get_join_state(client,config,data)
 
         if data["queueId"] == "competitive" and Localizer.get_config_value("presences","menu","show_rank_in_comp_lobby"): 

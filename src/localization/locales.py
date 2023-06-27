@@ -1,6 +1,6 @@
 Locales = {
     "en-US": {
-        "author": "@cm_an#2434",
+        "author": "@.semicolin",
         "config": {
             "version": "version",
             "region": "region",
@@ -87,6 +87,7 @@ Locales = {
                 "custom": "Custom",
                 "snowball": "Snowball Fight",
                 "swiftplay": "Swiftplay",
+                "hurm": "Team Deathmatch",
                 "": "Custom",
             },
             "pregame": {
@@ -207,7 +208,7 @@ Locales = {
         },
     },
     "de-DE": {
-        "author": "@zay#6353, @craftpiwurzel#8368, @Aethese#1337",
+        "author": "@zaykenyon, @craftpiwurzel#8368, @Aethese#1337",
         "config": {
             "version": "version",
             "region": "region",
@@ -414,7 +415,7 @@ Locales = {
         },
     },
     "es-MX": {
-        "author": "@jana.#0001",
+        "author": "@pessimismo",
         "config": {  # fix any grammar mistakes you can find
             "version": "versión",
             "region": "región",
@@ -724,7 +725,7 @@ Locales = {
         },
     },
     "it-IT": {
-        "author": "@zay#6353",
+        "author": "@zaykenyon",
         "config": {
             "version": "version",
             "region": "region",
@@ -1034,7 +1035,7 @@ Locales = {
     },
     "pl-PL": {},
     "pt-BR": {
-        "author": "@jana.#0001",
+        "author": "@pessimismo",
         "config": {
             "version": "versão",
             "region": "região",
@@ -1093,7 +1094,7 @@ Locales = {
         "presences": {
             "party_states": {
                 "open": "Grupo Aberto",
-                "solo": "Solo",
+                "solo": "Grupo Fechado (Solo)",
                 "in_party": "Em um Grupo",
             },
             "client_states": {
@@ -1121,6 +1122,7 @@ Locales = {
                 "custom": "Jogo Personalizado",
                 "snowball": "Batalha Nevada",
                 "swiftplay": "Frenético",
+                "hurm": "Mata-Mata em Equipe",
                 "": "Jogo Personalizado",
             },
             "pregame": {
