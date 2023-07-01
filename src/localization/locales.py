@@ -1434,6 +1434,7 @@ Locales = {
                 "custom": "Özel Oyun",
                 "snowball": "Kartopu Çatışması",
                 "swiftplay": "Tam Gaz",
+                "hurm": "Takımlı Ölüm Kalım Savaşı",
                 "": "Özel Maç",
             },
             "pregame": {
