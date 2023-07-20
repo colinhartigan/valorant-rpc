@@ -914,6 +914,8 @@ Locales = {
                 "onefa": "レプリケーション",
                 "custom": "カスタムゲーム",
                 "snowball": "スノーボールファイト",
+                "swiftplay": "スイフトプレイ",
+                "hurm": "チームデスマッチ",
                 "": "カスタム",
             },
             "pregame": {
@@ -1744,6 +1746,8 @@ Locales = {
                 "onefa": "複製亂戰",
                 "custom": "自定對戰",
                 "snowball": "打雪仗",
+                "swiftplay": "超速衝點",
+                "hurm": "團隊死鬥",
                 "": "自定對戰",
             },
             "pregame": {
