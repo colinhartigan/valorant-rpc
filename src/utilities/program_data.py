@@ -19,7 +19,7 @@ class Program_Data:
         if path is not None:
             installs = Program_Data.fetch_installs()
             installs["valorant-rpc"] = path
-            Program_Data.modify_isntalls(installs)
+            Program_Data.modify_installs(installs)
 
 
     @staticmethod
@@ -32,7 +32,7 @@ class Program_Data:
             return Program_Data.create_installs_file()
 
     @staticmethod
-    def modify_isntalls(payload):
+    def modify_installs(payload):
         with open(Program_Data.installs_path, "w") as f:
             json.dump(payload, f)
 
